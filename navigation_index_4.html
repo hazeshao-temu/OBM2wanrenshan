@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习资源导航 · LearnHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'system-ui', 'sans-serif'],
+                        display: ['"Noto Serif SC"', 'serif'],
+                    },
+                    colors: {
+                        ink: {
+                            50: '#f8f9fb',
+                            100: '#eef1f5',
+                            200: '#dfe3ea',
+                            300: '#c3cad6',
+                            400: '#8e97a8',
+                            500: '#5c6473',
+                            600: '#3d4452',
+                            700: '#2a2f3a',
+                            800: '#1c1f27',
+                            900: '#121419',
+                        },
+                        accent: {
+                            50: '#eefcf5',
+                            100: '#d6f7e8',
+                            200: '#aeefd3',
+                            300: '#76e0b6',
+                            400: '#3fc994',
+                            500: '#1bb077',
+                            600: '#128c5e',
+                            700: '#0f704c',
+                            800: '#0d593c',
+                            900: '#0a4530',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== 自定义滚动条 ===== */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c3cad6; border-radius: 3px; }
+        .dark ::-webkit-scrollbar-thumb { background: #3d4452; }
+
+        /* ===== 卡片悬停动效 ===== */
+        .nav-card {
+            transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s cubic-bezier(.22,1,.36,1), border-color .35s;
+        }
+        .nav-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* ===== 渐入动画 ===== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both; }
+
+        /* ===== 背景装饰 ===== */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, rgba(0,0,0,.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,.025) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+        .dark .grid-bg {
+            background-image:
+                linear-gradient(to right, rgba(255,255,255,.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,.03) 1px, transparent 1px);
+        }
+
+        /* ===== 搜索框聚焦光晕 ===== */
+        .search-glow:focus-within {
+            box-shadow: 0 0 0 4px rgba(27,176,119,.12);
+        }
+
+        /* ===== 分类按钮激活态 ===== */
+        .cat-active {
+            background: #1b1f27;
+            color: #fff;
+        }
+        .dark .cat-active {
+            background: #3fc994;
+            color: #121419;
+        }
+
+        /* ===== 标签渐变文字 ===== */
+        .gradient-text {
+            background: linear-gradient(135deg, #1bb077 0%, #0f704c 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== 锚点偏移 ===== */
+        .anchor-offset { scroll-margin-top: 140px; }
+
+        /* ===== 暗色切换过渡 ===== */
+        * { transition: background-color .3s, border-color .3s; }
+    </style>
+</head>
+
+<body class="bg-ink-50 dark:bg-ink-900 text-ink-700 dark:text-ink-200 font-sans min-h-screen">
+
+    <!-- ============ 背景装饰层 ============ -->
+    <div class="fixed inset-0 grid-bg pointer-events-none -z-10"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent-200/30 dark:bg-accent-800/20 blur-[100px] rounded-full pointer-events-none -z-10"></div>
+
+    <!-- ============ 顶部导航 ============ -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-ink-50/80 dark:bg-ink-900/80 border-b border-ink-200/60 dark:border-ink-700/60">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#top" class="flex items-center gap-2.5 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-lg shadow-accent-500/25 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-graduation-cap text-white text-base"></i>
+                    </div>
+                    <span class="font-display font-bold text-lg text-ink-800 dark:text-white tracking-tight">LearnHub</span>
+                </a>
+
+                <!-- 搜索框 -->
+                <div class="search-glow flex-1 max-w-md mx-4 sm:mx-8 flex items-center gap-2 bg-ink-100 dark:bg-ink-800 rounded-xl px-4 py-2 border border-ink-200/60 dark:border-ink-700/60 transition-shadow">
+                    <i class="fa-solid fa-magnifying-glass text-ink-400 text-sm"></i>
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="搜索资源名称或关键词…"
+                        class="flex-1 bg-transparent outline-none text-sm placeholder:text-ink-400 text-ink-700 dark:text-ink-100"
+                        oninput="filterCards()"
+                    >
+                    <kbd class="hidden sm:inline-block text-[10px] font-mono text-ink-400 bg-ink-200/60 dark:bg-ink-700/60 px-1.5 py-0.5 rounded">⌘K</kbd>
+                </div>
+
+                <!-- 暗色切换 -->
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-xl bg-ink-100 dark:bg-ink-800 hover:bg-ink-200 dark:hover:bg-ink-700 flex items-center justify-center transition-colors border border-ink-200/60 dark:border-ink-700/60">
+                    <i class="fa-solid fa-moon text-ink-500 dark:hidden text-sm"></i>
+                    <i class="fa-solid fa-sun text-amber-400 hidden dark:inline text-sm"></i>
+                </button>
+            </div>
+
+            <!-- ===== 分类标签栏 ===== -->
+            <nav id="categoryBar" class="flex items-center gap-2 py-3 overflow-x-auto whitespace-nowrap scrollbar-hide">
+                <button class="cat-active cat-btn px-4 py-1.5 rounded-full text-sm font-medium transition-colors hover:opacity-90" data-cat="all">
+                    <i class="fa-solid fa-border-all mr-1.5 text-xs"></i>全部
+                </button>
+                <button class="cat-btn bg-ink-100 dark:bg-ink-800 text-ink-500 dark:text-ink-300 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-ink-200 dark:hover:bg-ink-700 transition-colors" data-cat="course">
+                    <i class="fa-solid fa-chalkboard-user mr-1.5 text-xs"></i>商家教程
+                </button>
+                <button class="cat-btn bg-ink-100 dark:bg-ink-800 text-ink-500 dark:text-ink-300 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-ink-200 dark:hover:bg-ink-700 transition-colors" data-cat="doc">
+                    <i class="fa-solid fa-book mr-1.5 text-xs"></i>克劳德
+                </button>
+                <button class="cat-btn bg-ink-100 dark:bg-ink-800 text-ink-500 dark:text-ink-300 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-ink-200 dark:hover:bg-ink-700 transition-colors" data-cat="tool">
+                    <i class="fa-solid fa-screwdriver-wrench mr-1.5 text-xs"></i>万仞山
+                </button>
+                <button class="cat-btn bg-ink-100 dark:bg-ink-800 text-ink-500 dark:text-ink-300 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-ink-200 dark:hover:bg-ink-700 transition-colors" data-cat="book">
+                    <i class="fa-solid fa-bookmark mr-1.5 text-xs"></i>麦杞岐
+                </button>
+                <button class="cat-btn bg-ink-100 dark:bg-ink-800 text-ink-500 dark:text-ink-300 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-ink-200 dark:hover:bg-ink-700 transition-colors" data-cat="community">
+                    <i class="fa-solid fa-users mr-1.5 text-xs"></i>云岁月
+                </button>
+                <button class="cat-btn bg-ink-100 dark:bg-ink-800 text-ink-500 dark:text-ink-300 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-ink-200 dark:hover:bg-ink-700 transition-colors" data-cat="video">
+                    <i class="fa-solid fa-video mr-1.5 text-xs"></i>飒醒
+                </button>
+                <button class="cat-btn bg-ink-100 dark:bg-ink-800 text-ink-500 dark:text-ink-300 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-ink-200 dark:hover:bg-ink-700 transition-colors" data-cat="dujinglan">
+                    <i class="fa-solid fa-water mr-1.5 text-xs"></i>渡鲸澜
+                </button>
+                <button class="cat-btn bg-ink-100 dark:bg-ink-800 text-ink-500 dark:text-ink-300 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-ink-200 dark:hover:bg-ink-700 transition-colors" data-cat="chuguyue">
+                    <i class="fa-solid fa-mountain-sun mr-1.5 text-xs"></i>楚古月
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============ Hero 区域 ============ -->
+    <section id="top" class="max-w-7xl mx-auto px-5 sm:px-8 pt-12 pb-8">
+        <div class="flex flex-col items-start gap-3">
+            <div class="flex items-center gap-2 text-xs font-medium text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/30 px-3 py-1 rounded-full">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse"></span>
+                精选学习资源 · 持续更新
+            </div>
+            <h1 class="font-display text-4xl sm:text-5xl font-bold text-ink-800 dark:text-white tracking-tight leading-tight">
+                知识的 <span class="gradient-text">航标灯</span>
+            </h1>
+            <p class="text-ink-400 dark:text-ink-300 text-base max-w-2xl leading-relaxed">
+                汇集优质商家教程、克劳德、万仞山与学习社区，为你照亮求学之路。
+            </p>
+        </div>
+    </section>
+
+    <!-- ============ 卡片区主体 ============ -->
+    <main class="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
+
+        <!-- ====== 商家教程 ====== -->
+        <section class="mb-12 anchor-offset" id="sec-course" data-category="course">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-8 h-8 rounded-lg bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center">
+                    <i class="fa-solid fa-chalkboard-user text-accent-600 dark:text-accent-400 text-sm"></i>
+                </div>
+                <h2 class="font-display text-xl font-bold text-ink-800 dark:text-white">商家教程</h2>
+                <span class="text-xs text-ink-400 bg-ink-100 dark:bg-ink-800 px-2 py-0.5 rounded-full">6</span>
+                <div class="flex-1 h-px bg-ink-200 dark:bg-ink-700"></div>
+            </div>
+
+            <!-- ===== 后台操作 ===== -->
+            <div class="mb-6">
+                <h3 class="font-bold text-sm text-ink-500 dark:text-ink-300 mb-3 pl-1"><i class="fa-solid fa-gear mr-1.5 text-xs text-accent-500"></i>后台操作</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="商家教程 后台操作 商品发布" data-keywords="商家教程 后台操作 商品发布 上架">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-500 text-lg">
+                                <i class="fa-solid fa-box-archive"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">商品发布</h3>
+                        <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">后台商品发布操作教程，请替换为实际链接。</p>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="商家教程 后台操作 订单管理" data-keywords="商家教程 后台操作 订单管理">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-cyan-50 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 text-lg">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">订单管理</h3>
+                        <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">后台订单管理与处理教程，请替换为实际链接。</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ===== 备货履约 ===== -->
+            <div class="mb-6">
+                <h3 class="font-bold text-sm text-ink-500 dark:text-ink-300 mb-3 pl-1"><i class="fa-solid fa-truck-fast mr-1.5 text-xs text-accent-500"></i>备货履约</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="商家教程 备货履约 仓储管理" data-keywords="商家教程 备货履约 仓储管理 入库">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 text-lg">
+                                <i class="fa-solid fa-warehouse"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">仓储管理</h3>
+                        <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">备货入库与仓储管理教程，请替换为实际链接。</p>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="商家教程 备货履约 发货流程" data-keywords="商家教程 备货履约 发货流程 物流">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 text-lg">
+                                <i class="fa-solid fa-truck"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">发货流程</h3>
+                        <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">发货与物流履约操作教程，请替换为实际链接。</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ===== 常见问题处理 ===== -->
+            <div class="mb-2">
+                <h3 class="font-bold text-sm text-ink-500 dark:text-ink-300 mb-3 pl-1"><i class="fa-solid fa-circle-question mr-1.5 text-xs text-accent-500"></i>常见问题处理</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="商家教程 常见问题 退款售后" data-keywords="商家教程 常见问题 退款 售后 纠纷">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-900/30 flex items-center justify-center text-rose-500 text-lg">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">退款售后</h3>
+                        <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">退款与售后纠纷处理教程，请替换为实际链接。</p>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="商家教程 常见问题 违规申诉" data-keywords="商家教程 常见问题 违规 申诉 处罚">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-11 h-11 rounded-xl bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 text-lg">
+                                <i class="fa-solid fa-gavel"></i>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">违规申诉</h3>
+                        <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">违规处罚与申诉处理教程，请替换为实际链接。</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====== 克劳德 ====== -->
+        <section class="mb-12 anchor-offset" id="sec-doc" data-category="doc">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-8 h-8 rounded-lg bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center">
+                    <i class="fa-solid fa-book text-accent-600 dark:text-accent-400 text-sm"></i>
+                </div>
+                <h2 class="font-display text-xl font-bold text-ink-800 dark:text-white">克劳德</h2>
+                <span class="text-xs text-ink-400 bg-ink-100 dark:bg-ink-800 px-2 py-0.5 rounded-full">4</span>
+                <div class="flex-1 h-px bg-ink-200 dark:bg-ink-700"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <a href="https://developer.mozilla.org" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="MDN Web Docs 前端文档" data-keywords="mdn mozilla web docs html css javascript 前端 文档">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-gray-100 dark:bg-gray-700/40 flex items-center justify-center text-gray-600 dark:text-gray-300 text-lg">
+                            <i class="fa-brands fa-firefox"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">MDN Web Docs</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">Mozilla 出品的 Web 开发权威文档，涵盖 HTML、CSS、JavaScript。</p>
+                </a>
+
+                <a href="https://react.dev" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="React 官方文档" data-keywords="react reactjs hooks 前端 框架 文档">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-cyan-50 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 text-lg">
+                            <i class="fa-brands fa-react"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">React</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">React 官方文档，全新的交互式教程与 API 参考。</p>
+                </a>
+
+                <a href="https://vuejs.org" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="Vue.js 官方文档" data-keywords="vue vuejs 前端 框架 渐进式 文档">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-green-50 dark:bg-green-900/30 flex items-center justify-center text-green-500 text-lg">
+                            <i class="fa-brands fa-vuejs"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">Vue.js</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">Vue.js 渐进式 JavaScript 框架官方文档，中文支持优秀。</p>
+                </a>
+
+                <a href="https://www.python.org/doc/" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="Python 官方文档" data-keywords="python 文档 教程 api reference">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-yellow-50 dark:bg-yellow-900/30 flex items-center justify-center text-yellow-500 text-lg">
+                            <i class="fa-brands fa-python"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">Python Docs</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">Python 官方文档，包含教程、标准库和语言参考。</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ====== 万仞山 ====== -->
+        <section class="mb-12 anchor-offset" id="sec-tool" data-category="tool">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-8 h-8 rounded-lg bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center">
+                    <i class="fa-solid fa-screwdriver-wrench text-accent-600 dark:text-accent-400 text-sm"></i>
+                </div>
+                <h2 class="font-display text-xl font-bold text-ink-800 dark:text-white">万仞山</h2>
+                <span class="text-xs text-ink-400 bg-ink-100 dark:bg-ink-800 px-2 py-0.5 rounded-full">4</span>
+                <div class="flex-1 h-px bg-ink-200 dark:bg-ink-700"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <a href="https://www.notion.so" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="Notion 笔记知识管理" data-keywords="notion 笔记 知识管理 文档 协作">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-gray-100 dark:bg-gray-700/40 flex items-center justify-center text-gray-600 dark:text-gray-300 text-lg">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">Notion</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">一体化笔记与知识管理工具，支持协作、数据库和模板。</p>
+                </a>
+
+                <a href="https://chat.openai.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="ChatGPT AI对话助手" data-keywords="chatgpt openai ai 对话 助手 gpt">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 text-lg">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">ChatGPT</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">AI 对话助手，辅助学习、写作、编程与问题解答。</p>
+                </a>
+
+                <a href="https://www.figma.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="Figma 在线设计工具" data-keywords="figma 设计 ui ux 协作 原型">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 text-lg">
+                            <i class="fa-brands fa-figma"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">Figma</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">在线协作设计工具，用于 UI/UX 设计、原型制作和团队协作。</p>
+                </a>
+
+                <a href="https://github.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="GitHub 代码托管平台" data-keywords="github git 代码托管 开源 版本控制">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-gray-100 dark:bg-gray-700/40 flex items-center justify-center text-gray-700 dark:text-gray-300 text-lg">
+                            <i class="fa-brands fa-github"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">GitHub</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">全球最大代码托管平台，海量开源项目与学习资源。</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ====== 麦杞岐 ====== -->
+        <section class="mb-12 anchor-offset" id="sec-book" data-category="book">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-8 h-8 rounded-lg bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center">
+                    <i class="fa-solid fa-bookmark text-accent-600 dark:text-accent-400 text-sm"></i>
+                </div>
+                <h2 class="font-display text-xl font-bold text-ink-800 dark:text-white">麦杞岐</h2>
+                <span class="text-xs text-ink-400 bg-ink-100 dark:bg-ink-800 px-2 py-0.5 rounded-full">4</span>
+                <div class="flex-1 h-px bg-ink-200 dark:bg-ink-700"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <a href="https://zh.singlelogin.re" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="Z-Library 电子书库" data-keywords="z-library 电子书 书籍 下载 图书馆">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 text-lg">
+                            <i class="fa-solid fa-book-bookmark"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">Z-Library</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">全球最大的电子书库之一，海量中英文书籍资源。</p>
+                </a>
+
+                <a href="https://www.gutenberg.org" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="Project Gutenberg 古登堡计划" data-keywords="gutenberg 古登堡 免费 电子书 经典 文学">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-stone-100 dark:bg-stone-700/40 flex items-center justify-center text-stone-500 text-lg">
+                            <i class="fa-solid fa-feather-pointed"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">Project Gutenberg</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">古登堡计划，超过 7 万本免费电子书，以经典文学为主。</p>
+                </a>
+
+                <a href="https://book.douban.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="豆瓣读书 书籍评分推荐" data-keywords="豆瓣 读书 书评 评分 推荐">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-green-50 dark:bg-green-900/30 flex items-center justify-center text-green-600 text-lg">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">豆瓣读书</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">书评与推荐社区，发现好书、查看评分与读者评价。</p>
+                </a>
+
+                <a href="https://www.oreilly.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="O'Reilly 技术书籍平台" data-keywords="oreilly 技术 书籍 编程 计算机 it">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-red-500 text-lg">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">O'Reilly</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">全球知名 IT 技术出版社，提供高质量技术书籍与在线学习。</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ====== 云岁月 ====== -->
+        <section class="mb-12 anchor-offset" id="sec-community" data-category="community">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-8 h-8 rounded-lg bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center">
+                    <i class="fa-solid fa-users text-accent-600 dark:text-accent-400 text-sm"></i>
+                </div>
+                <h2 class="font-display text-xl font-bold text-ink-800 dark:text-white">云岁月</h2>
+                <span class="text-xs text-ink-400 bg-ink-100 dark:bg-ink-800 px-2 py-0.5 rounded-full">4</span>
+                <div class="flex-1 h-px bg-ink-200 dark:bg-ink-700"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <a href="https://stackoverflow.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="Stack Overflow 编程问答社区" data-keywords="stackoverflow stack overflow 编程 问答 社区">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 text-lg">
+                            <i class="fa-brands fa-stack-overflow"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">Stack Overflow</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">全球最大编程问答社区，几乎所有的技术问题都能找到答案。</p>
+                </a>
+
+                <a href="https://www.zhihu.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="知乎 问答社区" data-keywords="知乎 问答 社区 知识 分享">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-500 text-lg">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">知乎</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">中文问答社区，涵盖技术、学习、职业等多元话题讨论。</p>
+                </a>
+
+                <a href="https://www.v2ex.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="V2EX 创意工作者社区" data-keywords="v2ex 程序员 社区 论坛 技术">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-gray-100 dark:bg-gray-700/40 flex items-center justify-center text-gray-600 dark:text-gray-300 text-lg">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">V2EX</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">面向创意工作者与技术爱好者的社区，讨论氛围友好。</p>
+                </a>
+
+                <a href="https://discord.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="Discord 社区交流平台" data-keywords="discord 社区 交流 语音 群组">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 text-lg">
+                            <i class="fa-brands fa-discord"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">Discord</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">全球流行的社区交流平台，大量技术学习社区在此活跃。</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ====== 飒醒 ====== -->
+        <section class="mb-12 anchor-offset" id="sec-video" data-category="video">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-8 h-8 rounded-lg bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center">
+                    <i class="fa-solid fa-video text-accent-600 dark:text-accent-400 text-sm"></i>
+                </div>
+                <h2 class="font-display text-xl font-bold text-ink-800 dark:text-white">飒醒</h2>
+                <span class="text-xs text-ink-400 bg-ink-100 dark:bg-ink-800 px-2 py-0.5 rounded-full">4</span>
+                <div class="flex-1 h-px bg-ink-200 dark:bg-ink-700"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <a href="https://www.youtube.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="YouTube 视频学习平台" data-keywords="youtube 视频 学习 教程 youtube">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-red-500 text-lg">
+                            <i class="fa-brands fa-youtube"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">YouTube</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">全球最大视频平台，海量免费编程、设计等学习教程。</p>
+                </a>
+
+                <a href="https://www.imooc.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="慕课网 编程视频教程" data-keywords="慕课网 imooc 编程 视频 教程 课程">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-green-50 dark:bg-green-900/30 flex items-center justify-center text-green-500 text-lg">
+                            <i class="fa-solid fa-play-circle"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">慕课网</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">国内领先的 IT 技能学习平台，提供实战编程视频课程。</p>
+                </a>
+
+                <a href="https://egghead.io" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="egghead 前端短视频教程" data-keywords="egghead 前端 react javascript 短视频 教程">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-yellow-50 dark:bg-yellow-900/30 flex items-center justify-center text-yellow-500 text-lg">
+                            <i class="fa-solid fa-egg"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">egghead.io</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">专注前端开发的短视频教程平台，简洁高效地学习新技术。</p>
+                </a>
+
+                <a href="https://www.ted.com" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="TED 演讲 启发思考" data-keywords="ted 演讲 启发 思考 英语 综合">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-red-500 text-lg">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">TED Talks</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">各领域顶尖思想的精彩演讲，开拓视野、启发思考。</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ====== 渡鲸澜 ====== -->
+        <section class="mb-12 anchor-offset" id="sec-dujinglan" data-category="dujinglan">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-8 h-8 rounded-lg bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center">
+                    <i class="fa-solid fa-water text-accent-600 dark:text-accent-400 text-sm"></i>
+                </div>
+                <h2 class="font-display text-xl font-bold text-ink-800 dark:text-white">渡鲸澜</h2>
+                <span class="text-xs text-ink-400 bg-ink-100 dark:bg-ink-800 px-2 py-0.5 rounded-full">2</span>
+                <div class="flex-1 h-px bg-ink-200 dark:bg-ink-700"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="渡鲸澜示例链接1" data-keywords="渡鲸澜 示例 链接1">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-cyan-50 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 text-lg">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">示例链接 1</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">渡鲸澜分类示例链接，请替换为你的实际资源地址。</p>
+                </a>
+                <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="渡鲸澜示例链接2" data-keywords="渡鲸澜 示例 链接2">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 text-lg">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">示例链接 2</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">渡鲸澜分类示例链接，请替换为你的实际资源地址。</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ====== 楚古月 ====== -->
+        <section class="mb-12 anchor-offset" id="sec-chuguyue" data-category="chuguyue">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-8 h-8 rounded-lg bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center">
+                    <i class="fa-solid fa-mountain-sun text-accent-600 dark:text-accent-400 text-sm"></i>
+                </div>
+                <h2 class="font-display text-xl font-bold text-ink-800 dark:text-white">楚古月</h2>
+                <span class="text-xs text-ink-400 bg-ink-100 dark:bg-ink-800 px-2 py-0.5 rounded-full">2</span>
+                <div class="flex-1 h-px bg-ink-200 dark:bg-ink-700"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="楚古月示例链接1" data-keywords="楚古月 示例 链接1">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 text-lg">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">示例链接 1</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">楚古月分类示例链接，请替换为你的实际资源地址。</p>
+                </a>
+                <a href="#" target="_blank" rel="noopener" class="nav-card fade-up block bg-white dark:bg-ink-800 rounded-2xl p-5 border border-ink-100 dark:border-ink-700 hover:border-accent-300 dark:hover:border-accent-600 hover:shadow-xl hover:shadow-accent-500/5 group" data-name="楚古月示例链接2" data-keywords="楚古月 示例 链接2">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-11 h-11 rounded-xl bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 text-lg">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-ink-300 dark:text-ink-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                    </div>
+                    <h3 class="font-bold text-ink-800 dark:text-white text-sm mb-1.5">示例链接 2</h3>
+                    <p class="text-xs text-ink-400 dark:text-ink-400 leading-relaxed line-clamp-2">楚古月分类示例链接，请替换为你的实际资源地址。</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- ====== 空状态提示 ====== -->
+        <div id="emptyState" class="hidden text-center py-20">
+            <div class="w-16 h-16 rounded-2xl bg-ink-100 dark:bg-ink-800 flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-magnifying-glass text-ink-300 text-xl"></i>
+            </div>
+            <p class="text-ink-400 text-sm">没有找到匹配的资源，试试其他关键词？</p>
+        </div>
+
+    </main>
+
+    <!-- ============ 使用说明 ============ -->
+    <section class="max-w-7xl mx-auto px-5 sm:px-8 pb-16">
+        <div class="bg-gradient-to-br from-ink-100 to-ink-50 dark:from-ink-800 dark:to-ink-900 rounded-3xl p-8 sm:p-10 border border-ink-200/60 dark:border-ink-700/60">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-accent-500 flex items-center justify-center shadow-lg shadow-accent-500/25">
+                    <i class="fa-solid fa-lightbulb text-white text-sm"></i>
+                </div>
+                <h2 class="font-display text-2xl font-bold text-ink-800 dark:text-white">如何自定义你的导航页</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 添加新分类 -->
+                <div class="bg-white dark:bg-ink-800 rounded-2xl p-6 border border-ink-100 dark:border-ink-700">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-6 h-6 rounded-full bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center text-accent-600 dark:text-accent-400 text-xs font-bold">1</span>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm">添加新分类</h3>
+                    </div>
+                    <p class="text-xs text-ink-400 leading-relaxed mb-3">在 <code class="text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/30 px-1.5 py-0.5 rounded text-xs">id="categoryBar"</code> 的 nav 标签内添加新的分类按钮：</p>
+                    <pre class="bg-ink-800 dark:bg-ink-900 rounded-lg p-3 text-xs text-ink-200 overflow-x-auto"><code>&lt;button class="cat-btn bg-ink-100 dark:bg-ink-800 
+  text-ink-500 px-4 py-1.5 rounded-full text-sm"
+  data-cat="新分类ID"&gt;
+  分类名称
+&lt;/button&gt;</code></pre>
+                    <p class="text-xs text-ink-400 mt-2">然后添加对应的 <code class="text-accent-600 text-xs">&lt;section data-category="新分类ID"&gt;</code> 区域。</p>
+                </div>
+
+                <!-- 添加新卡片 -->
+                <div class="bg-white dark:bg-ink-800 rounded-2xl p-6 border border-ink-100 dark:border-ink-700">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-6 h-6 rounded-full bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center text-accent-600 dark:text-accent-400 text-xs font-bold">2</span>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm">添加新链接卡片</h3>
+                    </div>
+                    <p class="text-xs text-ink-400 leading-relaxed mb-3">在对应分类的 <code class="text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/30 px-1.5 py-0.5 rounded text-xs">grid</code> 容器内添加：</p>
+                    <pre class="bg-ink-800 dark:bg-ink-900 rounded-lg p-3 text-xs text-ink-200 overflow-x-auto"><code>&lt;a href="链接URL" target="_blank"
+  class="nav-card fade-up block bg-white 
+  dark:bg-ink-800 rounded-2xl p-5 border..."
+  data-name="资源名称"
+  data-keywords="搜索关键词"&gt;
+  &lt;!-- 图标 --&gt;
+  &lt;h3&gt;标题&lt;/h3&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+                    <p class="text-xs text-ink-400 mt-2"><code class="text-accent-600 text-xs">data-name</code> 和 <code class="text-accent-600 text-xs">data-keywords</code> 用于搜索功能。</p>
+                </div>
+
+                <!-- 修改主题色 -->
+                <div class="bg-white dark:bg-ink-800 rounded-2xl p-6 border border-ink-100 dark:border-ink-700">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-6 h-6 rounded-full bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center text-accent-600 dark:text-accent-400 text-xs font-bold">3</span>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm">修改主题配色</h3>
+                    </div>
+                    <p class="text-xs text-ink-400 leading-relaxed mb-3">在 <code class="text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/30 px-1.5 py-0.5 rounded text-xs">tailwind.config</code> 中修改 <code class="text-accent-600 text-xs">accent</code> 色板：</p>
+                    <pre class="bg-ink-800 dark:bg-ink-900 rounded-lg p-3 text-xs text-ink-200 overflow-x-auto"><code>accent: {
+  50:  '#eefcf5',  // 最浅
+  400: '#3fc994',  // 主色
+  500: '#1bb077',  // 强调
+  700: '#0f704c',  // 深色
+  900: '#0a4530',  // 最深
+}</code></pre>
+                    <p class="text-xs text-ink-400 mt-2">替换为你喜欢的颜色色板即可。</p>
+                </div>
+
+                <!-- 部署上线 -->
+                <div class="bg-white dark:bg-ink-800 rounded-2xl p-6 border border-ink-100 dark:border-ink-700">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-6 h-6 rounded-full bg-accent-100 dark:bg-accent-900/40 flex items-center justify-center text-accent-600 dark:text-accent-400 text-xs font-bold">4</span>
+                        <h3 class="font-bold text-ink-800 dark:text-white text-sm">部署上线</h3>
+                    </div>
+                    <p class="text-xs text-ink-400 leading-relaxed mb-3">将 HTML 文件部署到免费托管平台：</p>
+                    <ul class="text-xs text-ink-500 dark:text-ink-300 space-y-1.5">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-accent-500 text-[10px] mt-1"></i><span><strong>GitHub Pages</strong>：推送到仓库后在 Settings 中开启 Pages</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-accent-500 text-[10px] mt-1"></i><span><strong>Vercel</strong>：导入仓库后自动部署，秒级上线</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-accent-500 text-[10px] mt-1"></i><span><strong>Netlify</strong>：拖拽 HTML 文件即可发布</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-chevron-right text-accent-500 text-[10px] mt-1"></i><span><strong>本地使用</strong>：直接双击 HTML 文件用浏览器打开</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 页脚 ============ -->
+    <footer class="border-t border-ink-200/60 dark:border-ink-700/60">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 py-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2 text-sm text-ink-400">
+                    <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center">
+                        <i class="fa-solid fa-graduation-cap text-white text-xs"></i>
+                    </div>
+                    <span class="font-display font-bold text-ink-600 dark:text-ink-300">LearnHub</span>
+                    <span>· 知识航标灯</span>
+                </div>
+                <p class="text-xs text-ink-400">用 HTML 打造你的专属学习资源导航</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ JavaScript ============ -->
+    <script>
+        // ===== 暗色模式切换 =====
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        // 读取本地存储的主题
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else if (saved === 'light') {
+                document.documentElement.classList.remove('dark');
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        // ===== 分类筛选 =====
+        let currentCategory = 'all';
+
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 更新按钮状态
+                document.querySelectorAll('.cat-btn').forEach(b => {
+                    b.classList.remove('cat-active');
+                    b.classList.add('bg-ink-100', 'dark:bg-ink-800', 'text-ink-500', 'dark:text-ink-300');
+                    b.classList.remove('cat-active');
+                });
+                this.classList.add('cat-active');
+                this.classList.remove('bg-ink-100', 'dark:bg-ink-800', 'text-ink-500', 'dark:text-ink-300');
+
+                currentCategory = this.dataset.cat;
+                filterCards();
+            });
+        });
+
+        // ===== 搜索过滤 =====
+        function filterCards() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const sections = document.querySelectorAll('section[data-category]');
+            let totalVisible = 0;
+
+            sections.forEach(section => {
+                const cards = section.querySelectorAll('.nav-card');
+                let visibleInSection = 0;
+
+                cards.forEach(card => {
+                    const name = (card.dataset.name || '').toLowerCase();
+                    const keywords = (card.dataset.keywords || '').toLowerCase();
+                    const text = name + ' ' + keywords;
+
+                    const matchSearch = query === '' || text.includes(query);
+                    const matchCategory = currentCategory === 'all' || section.dataset.category === currentCategory;
+
+                    if (matchSearch && matchCategory) {
+                        card.style.display = '';
+                        visibleInSection++;
+                        totalVisible++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // 隐藏没有卡片的整个分区
+                if (matchCategory || currentCategory === 'all') {
+                    section.style.display = visibleInSection > 0 ? '' : 'none';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+
+            // 空状态
+            document.getElementById('emptyState').classList.toggle('hidden', totalVisible > 0);
+        }
+
+        // ===== 键盘快捷键 ⌘K / Ctrl+K =====
+        document.addEventListener('keydown', function(e) {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+        });
+
+        // ===== 卡片渐入动画延迟 =====
+        document.querySelectorAll('.nav-card').forEach((card, i) => {
+            card.style.animationDelay = (i % 4) * 60 + 'ms';
+        });
+    </script>
+</body>
+</html>
