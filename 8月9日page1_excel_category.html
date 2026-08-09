@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美区秋冬上新 · 枚举词+类目树</title>
+<style>
+
+:root{--bg:#f8f9fb;--bg-card:#fff;--bg-hover:#f0f4f8;--text:#2a2f3a;--text-light:#5c6473;--text-muted:#8e97a8;--border:#e3e8ef;--accent:#1bb077;--accent-light:#eefcf5;--accent-dark:#0f704c;--shadow:0 2px 8px rgba(0,0,0,.06);--shadow-hover:0 8px 24px rgba(0,0,0,.10);--radius:12px;--radius-lg:20px}
+[data-theme="dark"]{--bg:#121419;--bg-card:#1c1f27;--bg-hover:#2a2f3a;--text:#e3e8ef;--text-light:#c3cad6;--text-muted:#6c7585;--border:#2f3540;--accent:#3fc994;--accent-light:rgba(63,201,148,.1);--accent-dark:#0d593c;--shadow:0 2px 8px rgba(0,0,0,.3);--shadow-hover:0 8px 24px rgba(0,0,0,.4)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--text-muted);border-radius:3px;opacity:.4}
+
+/* Header with TOC */
+.header{position:sticky;top:0;z-index:100;background:var(--bg-card);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.header-top{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;height:60px}
+.logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:700;color:var(--text);white-space:nowrap}
+.logo-icon{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+.search-box{flex:1;max-width:420px;display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:7px 14px;transition:border-color .3s,box-shadow .3s}
+.search-box:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(27,176,119,.12)}
+.search-box input{flex:1;border:none;outline:none;background:transparent;color:var(--text);font-size:13px}
+.search-box input::placeholder{color:var(--text-muted)}
+.theme-toggle{width:34px;height:34px;border-radius:10px;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--text-light);transition:all .3s}
+.theme-toggle:hover{background:var(--bg-hover)}
+
+/* TOC bar */
+.toc-bar{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;white-space:nowrap;padding-bottom:8px}
+.toc-item{padding:5px 14px;border-radius:20px;background:var(--bg);border:1px solid var(--border);color:var(--text-light);font-size:12px;cursor:pointer;transition:all .25s;white-space:nowrap;text-decoration:none}
+.toc-item:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+.toc-item.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Main */
+.main{max-width:1280px;margin:0 auto;padding:28px 24px 80px}
+
+/* Section */
+.section{margin-bottom:48px;scroll-margin-top:120px}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.section-icon{width:36px;height:36px;border-radius:10px;background:var(--accent-light);color:var(--accent-dark);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+[data-theme="dark"] .section-icon{color:var(--accent)}
+.section-title{font-size:22px;font-weight:700;color:var(--text)}
+.section-desc{font-size:13px;color:var(--text-muted);margin-left:auto}
+
+/* Excel */
+.excel-toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.dim-chip{padding:5px 12px;border-radius:18px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-light);font-size:12px;cursor:pointer;transition:all .25s;white-space:nowrap}
+.dim-chip:hover{border-color:var(--accent);color:var(--accent)}
+.dim-chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.excel-search{margin-bottom:16px}
+.excel-search input{width:100%;padding:9px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-size:13px;outline:none;transition:border-color .3s}
+.excel-search input:focus{border-color:var(--accent)}
+.excel-table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg-card);box-shadow:var(--shadow)}
+.excel-table{width:100%;border-collapse:collapse;font-size:13px}
+.excel-table th{background:var(--bg-hover);padding:10px 14px;text-align:left;font-weight:600;color:var(--text);border-bottom:1px solid var(--border);white-space:nowrap;position:sticky;top:0}
+.excel-table td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text-light)}
+.excel-table tr:last-child td{border-bottom:none}
+.excel-table tr:hover td{background:var(--bg-hover)}
+.excel-table .dim-cell{font-weight:600;color:var(--accent-dark)}
+[data-theme="dark"] .excel-table .dim-cell{color:var(--accent)}
+.excel-table .en-cell{color:var(--text);font-weight:500}
+.excel-table .kw-cell{font-size:12px;color:var(--text-muted)}
+.result-count{margin-top:10px;font-size:12px;color:var(--text-muted)}
+
+/* Category tree */
+.cat-search{margin-bottom:16px}
+.cat-search input{width:100%;padding:9px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-size:13px;outline:none;transition:border-color .3s}
+.cat-search input:focus{border-color:var(--accent)}
+.cat-list{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;max-height:600px;overflow-y:auto}
+.cat-item{display:flex;align-items:flex-start;gap:6px;padding:8px 14px;border-bottom:1px solid var(--border);font-size:12px;line-height:1.7;transition:background .2s}
+.cat-item:last-child{border-bottom:none}
+.cat-item:hover{background:var(--bg-hover)}
+.cat-level{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:5px;background:var(--accent-light);color:var(--accent-dark);font-size:10px;font-weight:600;flex-shrink:0;margin-top:1px}
+[data-theme="dark"] .cat-level{color:var(--accent)}
+.cat-text{color:var(--text-light)}
+.cat-text .hl{background:rgba(255,213,79,.35);padding:0 2px;border-radius:2px}
+.cat-sep{color:var(--text-muted);margin:0 3px}
+.cat-empty{padding:32px;text-align:center;color:var(--text-muted);font-size:13px}
+
+/* PDF cards */
+.pdf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.pdf-card{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;transition:box-shadow .3s,transform .3s}
+.pdf-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.pdf-card-img{width:100%;aspect-ratio:16/10;object-fit:cover;border-bottom:1px solid var(--border);cursor:pointer;background:var(--bg-hover)}
+.pdf-card-body{padding:14px}
+.pdf-card-page{display:inline-block;font-size:10px;font-weight:600;color:var(--accent-dark);background:var(--accent-light);padding:2px 8px;border-radius:10px;margin-bottom:6px}
+[data-theme="dark"] .pdf-card-page{color:var(--accent)}
+.pdf-card-text{font-size:12px;color:var(--text-light);line-height:1.6;max-height:120px;overflow:hidden;position:relative}
+.pdf-card-text::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(transparent,var(--bg-card))}
+
+/* PPT sections */
+.ppt-block{background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px}
+.ppt-block-header{padding:14px 16px;border-bottom:1px solid var(--border);background:var(--bg-hover)}
+.ppt-block-title{font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px}
+.ppt-block-slide-num{font-size:11px;color:var(--accent-dark);background:var(--accent-light);padding:1px 7px;border-radius:10px}
+[data-theme="dark"] .ppt-block-slide-num{color:var(--accent)}
+.ppt-block-body{padding:14px 16px}
+.ppt-block-img{width:100%;border-radius:8px;border:1px solid var(--border);margin-bottom:12px;cursor:pointer}
+.ppt-text-list{font-size:13px;color:var(--text-light);line-height:1.8}
+.ppt-text-list li{list-style:none;margin-bottom:4px;padding-left:14px;position:relative}
+.ppt-text-list li::before{content:'•';color:var(--accent);position:absolute;left:0}
+.ppt-note{font-size:12px;color:var(--text-muted);font-style:italic;margin-top:6px;padding:6px 10px;background:var(--accent-light);border-radius:6px}
+
+/* Month cards */
+.month-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:20px}
+.month-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px;transition:border-color .3s}
+.month-card:hover{border-color:var(--accent)}
+.month-card-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.month-badge{font-size:14px;font-weight:700;color:var(--accent-dark);background:var(--accent-light);padding:3px 10px;border-radius:8px}
+[data-theme="dark"] .month-badge{color:var(--accent)}
+.month-card-title{font-size:12px;color:var(--text-light);font-weight:500}
+.month-card-cats{font-size:12px;color:var(--text-muted);line-height:1.6}
+
+/* Table from slide 15 */
+.ppt-table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg-card);box-shadow:var(--shadow);margin-bottom:16px}
+.ppt-table{width:100%;border-collapse:collapse;font-size:12px;min-width:800px}
+.ppt-table th{background:var(--bg-hover);padding:8px 10px;text-align:left;font-weight:600;color:var(--text);border-bottom:1px solid var(--border);white-space:nowrap}
+.ppt-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-light);vertical-align:top;line-height:1.6}
+.ppt-table tr:last-child td{border-bottom:none}
+.ppt-table tr:hover td{background:var(--bg-hover)}
+
+/* Image modal */
+.img-modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:200;align-items:center;justify-content:center;padding:40px}
+.img-modal.active{display:flex}
+.img-modal img{max-width:90%;max-height:90%;border-radius:8px}
+.img-modal-close{position:fixed;top:16px;right:24px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:24px;cursor:pointer}
+
+/* TOC sidebar (desktop) */
+@media(min-width:1024px){
+  .toc-sidebar{position:fixed;left:0;top:60px;bottom:0;width:220px;background:var(--bg-card);border-right:1px solid var(--border);overflow-y:auto;padding:20px 0;z-index:50}
+  .toc-sidebar-title{font-size:12px;font-weight:600;color:var(--text-muted);padding:0 20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+  .toc-sidebar-item{display:block;padding:8px 20px;font-size:13px;color:var(--text-light);text-decoration:none;transition:all .25s;border-left:3px solid transparent}
+  .toc-sidebar-item:hover{background:var(--bg-hover);color:var(--accent)}
+  .toc-sidebar-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-light)}
+  .main{margin-left:220px}
+  .header-top,.toc-bar{margin-left:220px}
+}
+
+@media(max-width:768px){
+  .header-top{padding:0 16px}
+  .main{padding:20px 16px 60px}
+  .pdf-grid{grid-template-columns:1fr}
+  .month-grid{grid-template-columns:1fr}
+  .logo span{display:none}
+  .section-title{font-size:18px}
+}
+
+
+/* Page navigation */
+.page-nav-bar{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:8px;padding-bottom:8px;flex-wrap:wrap}
+.page-nav-label{font-size:11px;color:var(--text-muted);white-space:nowrap}
+@media(min-width:1024px){
+  .page-nav-bar{margin-left:220px}
+}
+@media(max-width:768px){
+  .page-nav-bar{padding:0 16px}
+  .page-nav-label{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-top">
+    <div class="logo"><div class="logo-icon">📋</div><span>美区秋冬上新导航</span></div>
+    <div class="search-box">
+      <span style="color:var(--text-muted)">🔍</span>
+      <input type="text" id="globalSearch" placeholder="搜索类目、关键词、内容…" oninput="handleSearch()">
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+  </div>
+  <nav class="toc-bar" id="tocBar"></nav>
+  <!-- Page navigation -->
+  <div class="page-nav-bar">
+    <span class="page-nav-label">📄 页面导航：</span>
+<div class="page-nav" style="display:flex;gap:8px;margin-left:auto;align-items:center"><a href="page1_excel_category.html" style="padding:5px 12px;border-radius:18px;background:var(--bg);border:1px solid var(--border);color:var(--text-light);font-size:12px;text-decoration:none;white-space:nowrap;transition:all .25s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-light)'">📊 枚举词+类目树</a><a href="page2_pdf.html" style="padding:5px 12px;border-radius:18px;background:var(--bg);border:1px solid var(--border);color:var(--text-light);font-size:12px;text-decoration:none;white-space:nowrap;transition:all .25s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-light)'">📄 标题案例PDF</a><a href="page3_ppt.html" style="padding:5px 12px;border-radius:18px;background:var(--bg);border:1px solid var(--border);color:var(--text-light);font-size:12px;text-decoration:none;white-space:nowrap;transition:all .25s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-light)'">📈 秋冬上新PPT</a></div>
+  </div>
+</header>
+
+<!-- TOC Sidebar -->
+<div class="toc-sidebar" id="tocSidebar" style="display:none">
+  <div class="toc-sidebar-title">目录导航</div>
+  <div id="tocSidebarItems"></div>
+</div>
+
+<!-- Main -->
+<main class="main">
+
+
+  <!-- Section 1: Excel -->
+  <section class="section" id="sec-excel">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <div class="section-title">分维度枚举词中英对照</div>
+      <div class="section-desc">319条 · 16个维度</div>
+    </div>
+    <div class="excel-toolbar" id="dimToolbar"></div>
+    <div class="excel-search">
+      <input type="text" id="excelSearch" placeholder="输入中文、英文或关键词搜索…" oninput="renderExcel()">
+    </div>
+    <div class="excel-table-wrap" style="max-height:500px;overflow-y:auto">
+      <table class="excel-table">
+        <thead><tr><th>维度</th><th>子类</th><th>中文枚举词</th><th>英文翻译</th><th>英文搜索关键词</th></tr></thead>
+        <tbody id="excelBody"></tbody>
+      </table>
+    </div>
+    <div class="result-count" id="excelCount"></div>
+  </section>
+
+  <!-- Section 2: Category Tree -->
+  <section class="section" id="sec-category">
+    <div class="section-header">
+      <div class="section-icon">🌲</div>
+      <div class="section-title">类目树查询</div>
+      <div class="section-desc">80条类目路径</div>
+    </div>
+    <div class="cat-search">
+      <input type="text" id="catSearch" placeholder="输入类目名称搜索…" oninput="renderCategories()">
+    </div>
+    <div class="cat-list" id="catList"></div>
+  </section>
+
+
+</main>
+
+<!-- Image Modal -->
+<div class="img-modal" id="imgModal" onclick="closeImgModal(event)">
+  <button class="img-modal-close" onclick="closeImgModal()">✕</button>
+  <img id="imgModalImg" src="">
+</div>
+
+<script>
+const DATA = {"excel": {"品类(Category)": [{"dim": "品类(Category)", "sub": "上衣类", "cn": "T恤", "en": "T-Shirt", "kw": "t-shirt, tshirt, tee, tshirts, tees"}, {"dim": "品类(Category)", "sub": "上衣类", "cn": "衬衫", "en": "Shirt", "kw": "shirt, shirts"}, {"dim": "品类(Category)", "sub": "上衣类", "cn": "Polo衫", "en": "Polo Shirt", "kw": "polo, polo shirt"}, {"dim": "品类(Category)", "sub": "上衣类", "cn": "背心", "en": "Tank/Vest", "kw": "tank, tank top, vest, waistcoat, sleeveless top"}, {"dim": "品类(Category)", "sub": "上衣类", "cn": "针织衫", "en": "Knitwear", "kw": "knitwear, knit, knitted"}, {"dim": "品类(Category)", "sub": "上衣类", "cn": "毛衣", "en": "Sweater", "kw": "sweater, sweaters, pullover"}, {"dim": "品类(Category)", "sub": "上衣类", "cn": "卫衣", "en": "Hoodie/Sweatshirt", "kw": "hoodie, hoodies, sweatshirt, sweatshirts"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "夹克", "en": "Jacket", "kw": "jacket, jackets"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "风衣", "en": "Trench Coat", "kw": "trench coat, trench, windbreaker"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "冲锋衣", "en": "Hard Shell/Windbreaker", "kw": "windbreaker, hard shell, outdoor jacket"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "牛仔外套", "en": "Denim Jacket", "kw": "denim jacket, jean jacket"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "棒球服", "en": "Baseball Jacket/Varsity", "kw": "baseball jacket, varsity jacket, letterman"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "飞行夹克", "en": "Bomber Jacket", "kw": "bomber jacket, bomber, flight jacket"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "皮夹克", "en": "Leather Jacket", "kw": "leather jacket"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "棉服", "en": "Padded Jacket/Cotton Coat", "kw": "padded jacket, cotton coat, quilted jacket, puffer"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "羽绒服", "en": "Down Jacket/Puffer", "kw": "down jacket, puffer jacket, puffer, down coat"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "马甲", "en": "Vest/Gilet", "kw": "vest, gilet, waistcoat"}, {"dim": "品类(Category)", "sub": "外套类", "cn": "西装外套", "en": "Blazer/Suit Jacket", "kw": "blazer, suit jacket, sports coat, sport coat"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "休闲裤", "en": "Casual Pants", "kw": "casual pants"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "工装裤", "en": "Cargo Pants", "kw": "cargo pants, cargo, cargo trousers"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "牛仔裤", "en": "Jeans", "kw": "jeans, denim pants"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "运动裤", "en": "Sweatpants/Track Pants", "kw": "sweatpants, track pants, athletic pants, joggers"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "束脚裤", "en": "Joggers/Tapered Pants", "kw": "joggers, jogger, tapered pants, cuffed pants"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "短裤", "en": "Shorts", "kw": "shorts, short"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "沙滩裤", "en": "Boardshorts/Beach Shorts", "kw": "boardshorts, beach shorts, swim shorts, trunks"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "西裤", "en": "Dress Pants/Trousers", "kw": "dress pants, trousers, suit pants, formal pants"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "直筒裤", "en": "Straight-Leg Pants", "kw": "straight-leg pants, straight pants, straight leg"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "阔腿裤", "en": "Wide-Leg Pants", "kw": "wide-leg pants, wide leg, wide-leg trousers"}, {"dim": "品类(Category)", "sub": "裤装类", "cn": "五分裤", "en": "Knee-Length Shorts/Bermuda", "kw": "bermuda shorts, knee-length shorts, 3/4 shorts, half pants"}, {"dim": "品类(Category)", "sub": "套装类", "cn": "运动套装", "en": "Sports Set/Track Set", "kw": "sports set, track set, athletic set, activewear set"}, {"dim": "品类(Category)", "sub": "套装类", "cn": "休闲套装", "en": "Casual Set", "kw": "casual set, leisure set"}, {"dim": "品类(Category)", "sub": "套装类", "cn": "西装套装", "en": "Suit Set/Formal Suit", "kw": "suit set, suit, suits, formal suit, business suit"}, {"dim": "品类(Category)", "sub": "套装类", "cn": "卫衣套装", "en": "Hoodie Set", "kw": "hoodie set, sweatshirt set"}, {"dim": "品类(Category)", "sub": "套装类", "cn": "T恤短裤套装", "en": "T-Shirt & Shorts Set", "kw": "t-shirt and shorts set, tee shorts set, t-shirt shorts set"}, {"dim": "品类(Category)", "sub": "套装类", "cn": "两件套", "en": "Two-Piece Set", "kw": "two-piece, two piece, 2-piece, 2pc, 2pcs"}, {"dim": "品类(Category)", "sub": "套装类", "cn": "三件套", "en": "Three-Piece Set", "kw": "three-piece, three piece, 3-piece, 3pc, 3pcs"}, {"dim": "品类(Category)", "sub": "家居/睡衣类", "cn": "睡衣", "en": "Pajamas/Sleepwear", "kw": "pajamas, pyjamas, sleepwear, sleep wear, sleep shirt"}, {"dim": "品类(Category)", "sub": "家居/睡衣类", "cn": "家居服", "en": "Loungewear/Home Wear", "kw": "loungewear, home wear, home clothes, house wear"}, {"dim": "品类(Category)", "sub": "家居/睡衣类", "cn": "睡袍", "en": "Nightgown/Sleep Robe", "kw": "nightgown, night gown, sleep robe, sleeprobe"}, {"dim": "品类(Category)", "sub": "家居/睡衣类", "cn": "浴袍", "en": "Bathrobe", "kw": "bathrobe, bath robe, robe"}, {"dim": "品类(Category)", "sub": "家居/睡衣类", "cn": "睡裤", "en": "Sleep Pants/Pyjama Bottoms", "kw": "sleep pants, pajama pants, pyjama bottoms, lounge pants"}, {"dim": "品类(Category)", "sub": "家居/睡衣类", "cn": "家居裤", "en": "Home Pants/Lounge Pants", "kw": "home pants, lounge pants, house pants"}, {"dim": "品类(Category)", "sub": "运动/泳装类", "cn": "健身背心", "en": "Gym Tank/Workout Tank", "kw": "gym tank, workout tank, fitness tank, training tank"}, {"dim": "品类(Category)", "sub": "运动/泳装类", "cn": "运动短裤", "en": "Athletic Shorts/Sports Shorts", "kw": "athletic shorts, sports shorts, gym shorts, workout shorts"}, {"dim": "品类(Category)", "sub": "运动/泳装类", "cn": "训练裤", "en": "Training Pants", "kw": "training pants, training trousers, workout pants"}, {"dim": "品类(Category)", "sub": "运动/泳装类", "cn": "泳裤", "en": "Swim Trunks", "kw": "swim trunks, swimming trunks, swim shorts, trunks"}, {"dim": "品类(Category)", "sub": "运动/泳装类", "cn": "沙滩裤", "en": "Boardshorts/Beach Shorts", "kw": "boardshorts, beach shorts, swim shorts"}, {"dim": "品类(Category)", "sub": "运动/泳装类", "cn": "速干衣", "en": "Quick-Dry Shirt", "kw": "quick-dry shirt, quick dry shirt, fast-dry shirt, moisture-wicking shirt"}, {"dim": "品类(Category)", "sub": "运动/泳装类", "cn": "骑行服", "en": "Cycling Wear", "kw": "cycling wear, cycling jersey, biking wear, bike shirt"}], "版型(Fit)": [{"dim": "版型(Fit)", "sub": "运动/泳装类", "cn": "宽松版", "en": "Loose Fit", "kw": "loose fit, loose, loose-fit, relaxed fit, relaxed"}, {"dim": "版型(Fit)", "sub": "运动/泳装类", "cn": "修身版", "en": "Slim Fit", "kw": "slim fit, slim-fit, slim, muscle fit"}, {"dim": "版型(Fit)", "sub": "运动/泳装类", "cn": "常规版", "en": "Regular Fit", "kw": "regular fit, regular-fit, regular, standard fit"}, {"dim": "版型(Fit)", "sub": "运动/泳装类", "cn": "合身版", "en": "Tailored Fit", "kw": "tailored fit, fitted, fitted fit"}, {"dim": "版型(Fit)", "sub": "运动/泳装类", "cn": "廓形版", "en": "Oversized/Boxy", "kw": "oversized, oversize, boxy fit, boxy, baggy, relaxed fit"}, {"dim": "版型(Fit)", "sub": "运动/泳装类", "cn": "oversize风", "en": "Oversized Style", "kw": "oversized, oversize, oversized fit, oversized style"}], "领型(Neckline)": [{"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "圆领", "en": "Crew Neck/Round Neck", "kw": "crew neck, crewneck, round neck, round-neck"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "V领", "en": "V-Neck", "kw": "v-neck, v neck, vneck"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "翻领", "en": "Lapel/Collar", "kw": "lapel, collar, turned-down collar, fold-over collar"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "立领", "en": "Stand Collar", "kw": "stand collar, stand-collar, stand-up collar, mandarin collar"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "亨利领", "en": "Henley Neck", "kw": "henley, henley neck, henley collar, henley shirt"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "半高领", "en": "Mock Neck/Half High Collar", "kw": "mock neck, mockneck, half high collar, half-high collar, mock turtleneck"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "高领", "en": "Turtleneck/High Neck", "kw": "turtleneck, turtle neck, high neck, high-collar, roll neck"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "扣领", "en": "Button-Down Collar", "kw": "button-down collar, button-down, button down"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "古巴领", "en": "Cuban Collar", "kw": "cuban collar, cuban, camp collar, cabin collar, revere collar"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "开领", "en": "Open Collar/Notch Lapel", "kw": "open collar, open-collar, notch lapel, notched collar"}, {"dim": "领型(Neckline)", "sub": "运动/泳装类", "cn": "Polo领", "en": "Polo Collar", "kw": "polo collar, polo, polo shirt collar, knit collar"}], "闭合方式(Closure)": [{"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "套头", "en": "Pullover", "kw": "pullover, pull-on, pull on, slip-on, slip on, overhead"}, {"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "拉链", "en": "Zipper", "kw": "zipper, zip, zip-up, zip up, zip closure, zipper closure"}, {"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "半拉链", "en": "Half-Zip", "kw": "half-zip, half zip, quarter-zip, quarter zip, 1/4 zip, partial zip"}, {"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "纽扣", "en": "Button", "kw": "button, buttons, button closure"}, {"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "单排扣", "en": "Single-Breasted", "kw": "single-breasted, single breasted, single row button"}, {"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "双排扣", "en": "Double-Breasted", "kw": "double-breasted, double breasted, double row button"}, {"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "抽绳", "en": "Drawstring", "kw": "drawstring, draw string, draw-string"}, {"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "松紧腰", "en": "Elastic Waist", "kw": "elastic waist, elasticated waist, elastic band, elastane waist"}, {"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "拉链门襟", "en": "Zipper Fly/Front", "kw": "zipper fly, zip fly, zip-front, zipper front, zipper placket"}, {"dim": "闭合方式(Closure)", "sub": "运动/泳装类", "cn": "纽扣门襟", "en": "Button Fly/Front", "kw": "button fly, button-front, button front, button placket, button-up front"}], "目标人群(Target)": [{"dim": "目标人群(Target)", "sub": "运动/泳装类", "cn": "男士", "en": "Men's", "kw": "men's, mens, men, man's, man, male"}, {"dim": "目标人群(Target)", "sub": "运动/泳装类", "cn": "儿童", "en": "Kids/Children", "kw": "kids, kids', children, childrens, child"}, {"dim": "目标人群(Target)", "sub": "运动/泳装类", "cn": "大码男士", "en": "Plus Size Men's", "kw": "plus size men, big and tall, oversized men, plus-size men"}, {"dim": "目标人群(Target)", "sub": "运动/泳装类", "cn": "女童", "en": "Girls", "kw": "girls, girl's, girl"}, {"dim": "目标人群(Target)", "sub": "运动/泳装类", "cn": "男童", "en": "Boys", "kw": "boys, boy's, boy"}, {"dim": "目标人群(Target)", "sub": "运动/泳装类", "cn": "中性", "en": "Unisex", "kw": "unisex, gender neutral, neutral, couple, matching"}], "风格(Style)": [{"dim": "风格(Style)", "sub": "运动/泳装类", "cn": "民族风", "en": "Ethnic", "kw": "ethnic, ethnic style, folk style, tribal"}, {"dim": "风格(Style)", "sub": "运动/泳装类", "cn": "商务风", "en": "Business Style", "kw": "business, business style, business professional"}, {"dim": "风格(Style)", "sub": "运动/泳装类", "cn": "通勤风", "en": "Commuter Style", "kw": "commuter, commute, commuting style, work wear style"}, {"dim": "风格(Style)", "sub": "运动/泳装类", "cn": "休闲日常", "en": "Casual/Daily", "kw": "casual, everyday, daily, leisure, leisurely"}, {"dim": "风格(Style)", "sub": "运动/泳装类", "cn": "y2k", "en": "Y2K", "kw": "y2k, y2k style, y2k fashion, 2000s style, millennium style"}, {"dim": "风格(Style)", "sub": "运动/泳装类", "cn": "街头", "en": "Streetwear", "kw": "streetwear, street, street style, street fashion"}, {"dim": "风格(Style)", "sub": "运动/泳装类", "cn": "复古", "en": "Vintage/Retro", "kw": "vintage, retro, classic style, old school"}, {"dim": "风格(Style)", "sub": "运动/泳装类", "cn": "可爱", "en": "Cute", "kw": "cute, kawaii, sweet, adorable"}, {"dim": "风格(Style)", "sub": "运动/泳装类", "cn": "潮流", "en": "Trendy/Fashion", "kw": "trendy, fashion, fashionable, stylish, trend, trendy style"}], "图案/花色(Pattern)": [{"dim": "图案/花色(Pattern)", "sub": "基础花色", "cn": "纯色", "en": "Solid Color", "kw": "solid color, solid, plain"}, {"dim": "图案/花色(Pattern)", "sub": "基础花色", "cn": "条纹", "en": "Striped", "kw": "stripe, striped, stripe pattern, pinstripe"}, {"dim": "图案/花色(Pattern)", "sub": "基础花色", "cn": "格纹", "en": "Plaid/Checkered", "kw": "plaid, checkered, check, checked, tartan, gingham"}, {"dim": "图案/花色(Pattern)", "sub": "基础花色", "cn": "撞色", "en": "Color-Block/Contrast", "kw": "color-block, color block, colorblock, color-blocking, contrast color, contrast"}, {"dim": "图案/花色(Pattern)", "sub": "基础花色", "cn": "拼色", "en": "Patchwork/Color Patch", "kw": "patchwork, color patch, patch, pieced color"}, {"dim": "图案/花色(Pattern)", "sub": "基础花色", "cn": "渐变", "en": "Gradient/Ombre", "kw": "gradient, ombre, faded, fade, ombre effect, color gradient"}, {"dim": "图案/花色(Pattern)", "sub": "基础花色", "cn": "豹纹", "en": "Leopard Print", "kw": "leopard, leopard print, leopard pattern, animal print"}, {"dim": "图案/花色(Pattern)", "sub": "基础花色", "cn": "波点", "en": "Polka Dot", "kw": "polka dot, polka-dot, dotted, dots, dot pattern"}, {"dim": "图案/花色(Pattern)", "sub": "印花类", "cn": "字母印花", "en": "Letter Print", "kw": "letter, letter print, text print, typography, letter graphic"}, {"dim": "图案/花色(Pattern)", "sub": "印花类", "cn": "数字印花", "en": "Number Print", "kw": "number, number print, numeral print, numeric graphic"}, {"dim": "图案/花色(Pattern)", "sub": "印花类", "cn": "图形印花", "en": "Graphic Print", "kw": "graphic, graphic print, graphic pattern, graphic design"}, {"dim": "图案/花色(Pattern)", "sub": "印花类", "cn": "几何印花", "en": "Geometric Print", "kw": "geometric, geometric print, geometric pattern, abstract"}, {"dim": "图案/花色(Pattern)", "sub": "风格图案", "cn": "迷彩风", "en": "Camouflage", "kw": "camouflage, camo, camo print, camo pattern"}, {"dim": "图案/花色(Pattern)", "sub": "风格图案", "cn": "复古风图案", "en": "Vintage Pattern", "kw": "vintage pattern, vintage print, retro pattern, retro print"}, {"dim": "图案/花色(Pattern)", "sub": "风格图案", "cn": "街头风图案", "en": "Streetwear Pattern", "kw": "streetwear pattern, street print, urban print, graffiti"}, {"dim": "图案/花色(Pattern)", "sub": "风格图案", "cn": "国潮风图案", "en": "Chinese Trend Pattern", "kw": "chinese trend, china trend, national trend, c-pop, guochao"}, {"dim": "图案/花色(Pattern)", "sub": "风格图案", "cn": "波西米亚风", "en": "Bohemian", "kw": "bohemian, boho, boho-chic, boho print"}, {"dim": "图案/花色(Pattern)", "sub": "风格图案", "cn": "y2k风", "en": "Y2K Pattern", "kw": "y2k pattern, y2k print, 2000s graphic, millennium graphic"}, {"dim": "图案/花色(Pattern)", "sub": "风格图案", "cn": "热带风", "en": "Tropical", "kw": "tropical, tropical pattern, tropical print, tropical design"}, {"dim": "图案/花色(Pattern)", "sub": "节日图案", "cn": "圣诞图案", "en": "Christmas Pattern", "kw": "christmas, christmas pattern, christmas print, xmas, santa, reindeer, snowflake"}, {"dim": "图案/花色(Pattern)", "sub": "节日图案", "cn": "万圣节图案", "en": "Halloween Pattern", "kw": "halloween, halloween pattern, halloween print, pumpkin, ghost, skull halloween"}, {"dim": "图案/花色(Pattern)", "sub": "节日图案", "cn": "独立日", "en": "Independence Day", "kw": "independence day, 4th of july, july 4th, stars and stripes, patriotic"}, {"dim": "图案/花色(Pattern)", "sub": "节日图案", "cn": "亡灵节", "en": "Day of the Dead", "kw": "day of the dead, dia de los muertos, sugar skull, mexico"}, {"dim": "图案/花色(Pattern)", "sub": "节日图案", "cn": "父亲节", "en": "Father's Day", "kw": "father's day, fathers day, dad, daddy"}, {"dim": "图案/花色(Pattern)", "sub": "元素图案", "cn": "动物", "en": "Animal", "kw": "animal, animal print, animal pattern, creature"}, {"dim": "图案/花色(Pattern)", "sub": "元素图案", "cn": "骷髅", "en": "Skull", "kw": "skull, skull print, skull pattern, skeleton, death head"}, {"dim": "图案/花色(Pattern)", "sub": "元素图案", "cn": "火焰", "en": "Flame", "kw": "flame, flames, fire, fire print, flame pattern"}, {"dim": "图案/花色(Pattern)", "sub": "元素图案", "cn": "摩托车", "en": "Motorcycle", "kw": "motorcycle, motorcycle print, motorbike, harley, biker graphic"}, {"dim": "图案/花色(Pattern)", "sub": "元素图案", "cn": "花卉", "en": "Floral/Flower", "kw": "floral, flower, flowers, botanical, floral print, flower pattern"}, {"dim": "图案/花色(Pattern)", "sub": "元素图案", "cn": "棕榈叶", "en": "Palm Leaf", "kw": "palm, palm leaf, palm print, tropical leaf, monstera, palm tree"}, {"dim": "图案/花色(Pattern)", "sub": "印花位置", "cn": "胸前小标", "en": "Chest Small Logo", "kw": "chest logo, chest small logo, chest badge, chest emblem, front small logo"}, {"dim": "图案/花色(Pattern)", "sub": "印花位置", "cn": "背部大印花", "en": "Back Large Print", "kw": "back print, back large print, back graphic, large back print, full back print"}, {"dim": "图案/花色(Pattern)", "sub": "印花位置", "cn": "袖口图案", "en": "Sleeve Print", "kw": "sleeve print, sleeve graphic, sleeve pattern, cuff print"}, {"dim": "图案/花色(Pattern)", "sub": "印花位置", "cn": "满版图案", "en": "All-Over Print", "kw": "all-over print, all over print, full print, allover, all-over pattern"}, {"dim": "图案/花色(Pattern)", "sub": "印花位置", "cn": "局部印花", "en": "Partial Print", "kw": "partial print, local print, localized print, spot print"}, {"dim": "图案/花色(Pattern)", "sub": "印花位置", "cn": "前胸字母", "en": "Front Letter Print", "kw": "front letter, front text, chest letter, front lettering"}, {"dim": "图案/花色(Pattern)", "sub": "印花位置", "cn": "后背字母", "en": "Back Letter Print", "kw": "back letter, back text, back lettering, rear letter"}, {"dim": "图案/花色(Pattern)", "sub": "印花位置", "cn": "侧边印花", "en": "Side Print", "kw": "side print, side graphic, side pattern, lateral print"}], "场景(Occasion)": [{"dim": "场景(Occasion)", "sub": "日常", "cn": "日常", "en": "Everyday/Daily", "kw": "everyday, daily, day-to-day"}, {"dim": "场景(Occasion)", "sub": "日常", "cn": "通勤", "en": "Commuting", "kw": "commute, commuter, commuting"}, {"dim": "场景(Occasion)", "sub": "日常", "cn": "居家", "en": "Home/Lounge", "kw": "home, lounge, lounging, around the house"}, {"dim": "场景(Occasion)", "sub": "日常", "cn": "出街", "en": "Going Out/Outing", "kw": "outing, outings, going out, out and about, day out"}, {"dim": "场景(Occasion)", "sub": "日常", "cn": "休闲", "en": "Casual/Leisure", "kw": "casual, leisure, leisurely, relaxed"}, {"dim": "场景(Occasion)", "sub": "日常", "cn": "约会", "en": "Date", "kw": "date, dating, date night"}, {"dim": "场景(Occasion)", "sub": "商务", "cn": "商务", "en": "Business", "kw": "business, business occasion"}, {"dim": "场景(Occasion)", "sub": "商务", "cn": "办公室", "en": "Office", "kw": "office, workplace"}, {"dim": "场景(Occasion)", "sub": "商务", "cn": "职场", "en": "Workplace/Professional", "kw": "work, professional, workplace"}, {"dim": "场景(Occasion)", "sub": "商务", "cn": "会议", "en": "Meeting/Conference", "kw": "meeting, conference, convention"}, {"dim": "场景(Occasion)", "sub": "商务", "cn": "正装", "en": "Formal", "kw": "formal, formal occasion, formal wear, formal attire"}, {"dim": "场景(Occasion)", "sub": "商务", "cn": "商务休闲", "en": "Business Casual", "kw": "business casual, smart casual, business-casual"}, {"dim": "场景(Occasion)", "sub": "运动", "cn": "健身", "en": "Gym/Fitness", "kw": "gym, fitness, workout, exercise, training"}, {"dim": "场景(Occasion)", "sub": "运动", "cn": "跑步", "en": "Running", "kw": "running, run, jog, jogging"}, {"dim": "场景(Occasion)", "sub": "运动", "cn": "训练", "en": "Training", "kw": "training, workout, exercise, drill"}, {"dim": "场景(Occasion)", "sub": "运动", "cn": "篮球", "en": "Basketball", "kw": "basketball, bball, hoops"}, {"dim": "场景(Occasion)", "sub": "运动", "cn": "足球", "en": "Soccer/Football", "kw": "soccer, football, futbol"}, {"dim": "场景(Occasion)", "sub": "运动", "cn": "骑行", "en": "Cycling", "kw": "cycling, biking, bike riding"}, {"dim": "场景(Occasion)", "sub": "运动", "cn": "瑜伽", "en": "Yoga", "kw": "yoga, yogi, pilates"}, {"dim": "场景(Occasion)", "sub": "运动", "cn": "高尔夫", "en": "Golf", "kw": "golf, golfing"}, {"dim": "场景(Occasion)", "sub": "户外", "cn": "户外", "en": "Outdoor", "kw": "outdoor, outdoors, outside"}, {"dim": "场景(Occasion)", "sub": "户外", "cn": "露营", "en": "Camping", "kw": "camping, camp, camper"}, {"dim": "场景(Occasion)", "sub": "户外", "cn": "徒步", "en": "Hiking", "kw": "hiking, hike, trekking, trek"}, {"dim": "场景(Occasion)", "sub": "户外", "cn": "登山", "en": "Mountaineering/Climbing", "kw": "mountaineering, climbing, mountain climbing, alpine"}, {"dim": "场景(Occasion)", "sub": "户外", "cn": "旅行", "en": "Travel", "kw": "travel, traveling, trip, journey"}, {"dim": "场景(Occasion)", "sub": "户外", "cn": "钓鱼", "en": "Fishing", "kw": "fishing, fish, angling"}, {"dim": "场景(Occasion)", "sub": "海边", "cn": "海边", "en": "Seaside/Beach", "kw": "seaside, beach, shore, coast"}, {"dim": "场景(Occasion)", "sub": "海边", "cn": "沙滩", "en": "Beach", "kw": "beach, sandy beach, beachside"}, {"dim": "场景(Occasion)", "sub": "海边", "cn": "度假", "en": "Vacation", "kw": "vacation, holiday, getaway, resort"}, {"dim": "场景(Occasion)", "sub": "海边", "cn": "游泳", "en": "Swimming", "kw": "swimming, swim, swimming pool"}, {"dim": "场景(Occasion)", "sub": "海边", "cn": "游船", "en": "Cruise/Boating", "kw": "cruise, cruising, boating, yacht, sailing"}, {"dim": "场景(Occasion)", "sub": "派对节日", "cn": "派对", "en": "Party", "kw": "party, club, nightclub, night out"}, {"dim": "场景(Occasion)", "sub": "派对节日", "cn": "节日", "en": "Festival/Holiday", "kw": "festival, holiday, carnival, celebration"}, {"dim": "场景(Occasion)", "sub": "派对节日", "cn": "圣诞", "en": "Christmas", "kw": "christmas, xmas, christmas day"}, {"dim": "场景(Occasion)", "sub": "派对节日", "cn": "万圣节", "en": "Halloween", "kw": "halloween, halloween night"}, {"dim": "场景(Occasion)", "sub": "派对节日", "cn": "新年", "en": "New Year", "kw": "new year, new year's, new year's eve, nye"}, {"dim": "场景(Occasion)", "sub": "派对节日", "cn": "家庭聚会", "en": "Family Gathering", "kw": "family gathering, family party, family reunion, gathering"}, {"dim": "场景(Occasion)", "sub": "校园街头", "cn": "校园", "en": "School/Campus", "kw": "school, campus, college, university"}, {"dim": "场景(Occasion)", "sub": "校园街头", "cn": "街头", "en": "Street", "kw": "street, street style, urban"}, {"dim": "场景(Occasion)", "sub": "校园街头", "cn": "潮流", "en": "Trendy/Fashion", "kw": "trendy, fashion, stylish, trend"}, {"dim": "场景(Occasion)", "sub": "校园街头", "cn": "滑板", "en": "Skateboarding", "kw": "skate, skateboarding, skater, skateboard"}, {"dim": "场景(Occasion)", "sub": "校园街头", "cn": "嘻哈", "en": "Hip Hop", "kw": "hip hop, hiphop, rap, rap style"}, {"dim": "场景(Occasion)", "sub": "校园街头", "cn": "复古穿搭", "en": "Vintage Outfit", "kw": "vintage outfit, retro outfit, vintage style outfit"}], "季节(Season)": [{"dim": "季节(Season)", "sub": "基本季节", "cn": "春季", "en": "Spring", "kw": "spring, spring season"}, {"dim": "季节(Season)", "sub": "基本季节", "cn": "夏季", "en": "Summer", "kw": "summer, summer season"}, {"dim": "季节(Season)", "sub": "基本季节", "cn": "秋季", "en": "Autumn/Fall", "kw": "autumn, fall, autumn season, fall season"}, {"dim": "季节(Season)", "sub": "基本季节", "cn": "冬季", "en": "Winter", "kw": "winter, winter season"}, {"dim": "季节(Season)", "sub": "跨季节", "cn": "春秋", "en": "Spring/Autumn", "kw": "spring/autumn, spring and autumn, spring fall, transitional"}, {"dim": "季节(Season)", "sub": "跨季节", "cn": "秋冬", "en": "Autumn/Winter", "kw": "autumn/winter, autumn and winter, fall/winter, fall winter"}, {"dim": "季节(Season)", "sub": "跨季节", "cn": "四季", "en": "Four Seasons", "kw": "four seasons, all seasons, 4 seasons"}, {"dim": "季节(Season)", "sub": "跨季节", "cn": "夏日", "en": "Summer Day", "kw": "summer day, summer time, summertime"}, {"dim": "季节(Season)", "sub": "跨季节", "cn": "冬季保暖", "en": "Winter Warm", "kw": "winter warm, winter保暖, warm winter, thermal winter"}, {"dim": "季节(Season)", "sub": "跨季节", "cn": "四季皆宜", "en": "All-Season/Year-Round", "kw": "all-season, all season, year-round, all-year, all year round"}, {"dim": "季节(Season)", "sub": "体感", "cn": "轻薄", "en": "Lightweight", "kw": "lightweight, light-weight, light weight, light, thin"}, {"dim": "季节(Season)", "sub": "体感", "cn": "透气", "en": "Breathable", "kw": "breathable, ventilated, ventilation"}, {"dim": "季节(Season)", "sub": "体感", "cn": "清凉", "en": "Cooling/Refreshing", "kw": "cooling, cool, refreshing, cool fabric, ice silk"}, {"dim": "季节(Season)", "sub": "体感", "cn": "保暖", "en": "Warm", "kw": "warm, warming, warmth"}, {"dim": "季节(Season)", "sub": "体感", "cn": "加厚", "en": "Thickened/Heavy", "kw": "thickened, thick, heavy, heavy-weight, heavyweight"}, {"dim": "季节(Season)", "sub": "体感", "cn": "防风", "en": "Windproof", "kw": "windproof, wind-proof, wind resistant, wind-resistant"}], "细节(Detail)": [{"dim": "细节(Detail)", "sub": "口袋", "cn": "多口袋", "en": "Multi-Pocket", "kw": "multi-pocket, multi pocket, multiple pockets, multi-pocket design"}, {"dim": "细节(Detail)", "sub": "口袋", "cn": "大口袋", "en": "Large Pocket", "kw": "large pocket, big pocket, oversized pocket"}, {"dim": "细节(Detail)", "sub": "口袋", "cn": "拉链口袋", "en": "Zipper Pocket", "kw": "zipper pocket, zip pocket, zippered pocket"}, {"dim": "细节(Detail)", "sub": "口袋", "cn": "侧口袋", "en": "Side Pocket", "kw": "side pocket, side pockets, lateral pocket"}, {"dim": "细节(Detail)", "sub": "口袋", "cn": "胸前口袋", "en": "Chest Pocket", "kw": "chest pocket, chest pockets, breast pocket"}, {"dim": "细节(Detail)", "sub": "帽子", "cn": "连帽", "en": "Hooded", "kw": "hooded, hood, hooded design, with hood"}, {"dim": "细节(Detail)", "sub": "帽子", "cn": "可拆卸帽", "en": "Detachable Hood", "kw": "detachable hood, removable hood, detachable cap"}, {"dim": "细节(Detail)", "sub": "帽子", "cn": "抽绳帽", "en": "Drawstring Hood", "kw": "drawstring hood, drawstring hooded, adjustable hood"}, {"dim": "细节(Detail)", "sub": "下摆", "cn": "罗纹下摆", "en": "Ribbed Hem", "kw": "ribbed hem, ribbed bottom, ribbed cuff hem"}, {"dim": "细节(Detail)", "sub": "下摆", "cn": "弹力裤脚", "en": "Elastic Cuffs", "kw": "elastic cuffs, elastic ankle, elastic hem, cuffed ankle"}, {"dim": "细节(Detail)", "sub": "下摆", "cn": "束脚", "en": "Cuffed/Elastic Ankle", "kw": "cuffed, cuffed ankle, elastic ankle, banded bottom"}, {"dim": "细节(Detail)", "sub": "下摆", "cn": "开叉下摆", "en": "Slit Hem", "kw": "slit hem, side slit, vented hem, split hem, side vent"}, {"dim": "细节(Detail)", "sub": "工艺", "cn": "拼接", "en": "Splicing/Paneling", "kw": "splicing, panel, paneling, color panel, splice, pieced"}, {"dim": "细节(Detail)", "sub": "工艺", "cn": "撞色", "en": "Contrast Color", "kw": "contrast color, color contrast, contrasting color, contrast"}, {"dim": "细节(Detail)", "sub": "工艺", "cn": "破洞", "en": "Ripped/Torn", "kw": "ripped, torn, distressed, distress, ripped jeans, hole"}, {"dim": "细节(Detail)", "sub": "工艺", "cn": "做旧", "en": "Washed/Distressed", "kw": "washed, distressed, vintage wash, faded, stonewashed, acid wash"}, {"dim": "细节(Detail)", "sub": "工艺", "cn": "压褶", "en": "Pleated", "kw": "pleated, pleat, pressed pleat, creased"}, {"dim": "细节(Detail)", "sub": "工艺", "cn": "抽绳", "en": "Drawstring", "kw": "drawstring, draw string, draw-string, adjustable cord"}, {"dim": "细节(Detail)", "sub": "工艺", "cn": "刺绣", "en": "Embroidery", "kw": "embroidery, embroidered, embroidered detail, embroidery pattern"}, {"dim": "细节(Detail)", "sub": "工艺", "cn": "印花", "en": "Print", "kw": "print, printed, printing, printed detail"}, {"dim": "细节(Detail)", "sub": "工艺", "cn": "贴布", "en": "Applique/Patch", "kw": "applique, appliqu, patch, patches, patchwork, fabric patch"}], "长度(Length)": [{"dim": "长度(Length)", "sub": "工艺", "cn": "常规款", "en": "Regular Length", "kw": "regular length, regular, standard length, normal length"}, {"dim": "长度(Length)", "sub": "工艺", "cn": "短款", "en": "Short/Cropped", "kw": "short, short length, cropped, crop, cropped length"}, {"dim": "长度(Length)", "sub": "工艺", "cn": "中长款", "en": "Mid-Length", "kw": "mid-length, midi, mid length, knee-length, calf-length"}, {"dim": "长度(Length)", "sub": "工艺", "cn": "长款", "en": "Long", "kw": "long, long length, full length"}, {"dim": "长度(Length)", "sub": "工艺", "cn": "加长款", "en": "Extra Long/Extended", "kw": "extra long, extended length, extra-long, extra length, x-long"}], "袖长(Sleeve)": [{"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "短袖", "en": "Short Sleeve", "kw": "short sleeve, short-sleeve, short-sleeved"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "长袖", "en": "Long Sleeve", "kw": "long sleeve, long-sleeve, long-sleeved, full sleeve"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "无袖", "en": "Sleeveless", "kw": "sleeveless, no sleeve, sleeve-less"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "七分袖", "en": "3/4 Sleeve", "kw": "3/4 sleeve, three-quarter sleeve, 3/4, three-quarter"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "五分袖", "en": "Half Sleeve/Elbow Sleeve", "kw": "half sleeve, half-sleeve, elbow sleeve, 1/2 sleeve"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "落肩袖", "en": "Drop Shoulder", "kw": "drop shoulder, drop-shoulder, dropped shoulder, drop shoulder sleeve"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "插肩袖", "en": "Raglan Sleeve", "kw": "raglan, raglan sleeve, raglan-style, raglan cut"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "背心款", "en": "Tank Style", "kw": "tank, tank top, tank style, sleeveless top"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "无袖款", "en": "Sleeveless Style", "kw": "sleeveless, sleeveless style, no-sleeve style"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "宽袖", "en": "Wide/Loose Sleeve", "kw": "wide sleeve, loose sleeve, bell sleeve, flare sleeve, batwing sleeve"}, {"dim": "袖长(Sleeve)", "sub": "工艺", "cn": "收口袖", "en": "Cuffed Sleeve", "kw": "cuffed sleeve, ribbed cuff, elastic cuff, fitted cuff, ribbed sleeve cuff"}], "腰型(Waist)": [{"dim": "腰型(Waist)", "sub": "工艺", "cn": "收腰", "en": "Waist-Cinching/Fitted", "kw": "waist-cinching, waist-cinching, fitted waist, slim waist, cinched waist, waist-defining"}, {"dim": "腰型(Waist)", "sub": "工艺", "cn": "高腰", "en": "High-Waist", "kw": "high-waist, high waist, high-waisted, high-rise, high rise"}, {"dim": "腰型(Waist)", "sub": "工艺", "cn": "松紧腰", "en": "Elastic Waist", "kw": "elastic waist, elasticated waist, elastic band, elastane waist"}, {"dim": "腰型(Waist)", "sub": "工艺", "cn": "抽绳腰带", "en": "Drawstring Waist", "kw": "drawstring waist, drawstring belt, drawstring waistband, adjustable drawstring"}, {"dim": "腰型(Waist)", "sub": "工艺", "cn": "系腰带", "en": "Belted Waist", "kw": "belt, belted, belt waist, belted waist, with belt, belt loops"}], "功能特性(Feature)": [{"dim": "功能特性(Feature)", "sub": "工艺", "cn": "弹力", "en": "Stretch/Elastic", "kw": "stretch, stretchy, elastic, elastane, spandex"}, {"dim": "功能特性(Feature)", "sub": "工艺", "cn": "速干", "en": "Quick-Dry", "kw": "quick-dry, quick dry, fast-dry, fast dry, quick drying"}, {"dim": "功能特性(Feature)", "sub": "工艺", "cn": "透气", "en": "Breathable", "kw": "breathable, ventilated, ventilation, air-permeable"}, {"dim": "功能特性(Feature)", "sub": "工艺", "cn": "吸湿排汗", "en": "Moisture-Wicking", "kw": "moisture-wicking, moisture wicking, sweat-wicking, sweat absorption, wicking"}, {"dim": "功能特性(Feature)", "sub": "工艺", "cn": "遇水显色", "en": "Water-Reactive Color", "kw": "water-reactive, water activated, hydrochromic, color-changing when wet, water reactive print"}], "面料/材质(Material)": [{"dim": "面料/材质(Material)", "sub": "常规面料", "cn": "棉", "en": "Cotton", "kw": "cotton"}, {"dim": "面料/材质(Material)", "sub": "常规面料", "cn": "纯棉", "en": "Pure Cotton", "kw": "pure cotton, 100% cotton, all cotton"}, {"dim": "面料/材质(Material)", "sub": "常规面料", "cn": "棉混纺", "en": "Cotton Blend", "kw": "cotton blend, cotton blended, cotton-mixed"}, {"dim": "面料/材质(Material)", "sub": "常规面料", "cn": "涤纶", "en": "Polyester", "kw": "polyester"}, {"dim": "面料/材质(Material)", "sub": "常规面料", "cn": "聚酯纤维", "en": "Polyester Fiber", "kw": "polyester fiber, poly fiber, polyester filament"}, {"dim": "面料/材质(Material)", "sub": "常规面料", "cn": "锦纶", "en": "Nylon", "kw": "nylon, polyamide, pa"}, {"dim": "面料/材质(Material)", "sub": "常规面料", "cn": "氨纶", "en": "Spandex/Elastane", "kw": "spandex, elastane, lycra"}, {"dim": "面料/材质(Material)", "sub": "夏季面料", "cn": "亚麻", "en": "Linen", "kw": "linen, flax"}, {"dim": "面料/材质(Material)", "sub": "夏季面料", "cn": "棉麻", "en": "Cotton Linen", "kw": "cotton linen, cotton-linen, linen cotton, cotton and linen"}, {"dim": "面料/材质(Material)", "sub": "夏季面料", "cn": "冰丝", "en": "Ice Silk", "kw": "ice silk, cooling silk, ice fiber, cool silk"}, {"dim": "面料/材质(Material)", "sub": "夏季面料", "cn": "速干面料", "en": "Quick-Dry Fabric", "kw": "quick-dry fabric, quick dry fabric, fast-dry fabric, moisture-wicking fabric"}, {"dim": "面料/材质(Material)", "sub": "夏季面料", "cn": "轻薄面料", "en": "Lightweight Fabric", "kw": "lightweight fabric, light fabric, thin fabric, sheer fabric"}, {"dim": "面料/材质(Material)", "sub": "夏季面料", "cn": "透气面料", "en": "Breathable Fabric", "kw": "breathable fabric, ventilated fabric, air-permeable fabric"}, {"dim": "面料/材质(Material)", "sub": "秋冬面料", "cn": "抓绒", "en": "Fleece", "kw": "fleece, fleece fabric, fleeced"}, {"dim": "面料/材质(Material)", "sub": "秋冬面料", "cn": "羊羔绒", "en": "Sherpa/Lamb Fleece", "kw": "sherpa, lamb fleece, sherpa fleece, faux shearling, lamb wool"}, {"dim": "面料/材质(Material)", "sub": "秋冬面料", "cn": "摇粒绒", "en": "Polar Fleece", "kw": "polar fleece, microfleece, micro fleece, polarfleece"}, {"dim": "面料/材质(Material)", "sub": "秋冬面料", "cn": "针织", "en": "Knit", "kw": "knit, knitted, knitting, knitwear"}, {"dim": "面料/材质(Material)", "sub": "秋冬面料", "cn": "毛呢", "en": "Woolen/Wool Cloth", "kw": "woolen, woolen cloth, wool fabric, wool coating, melton"}, {"dim": "面料/材质(Material)", "sub": "秋冬面料", "cn": "灯芯绒", "en": "Corduroy", "kw": "corduroy, cord, wale corduroy"}, {"dim": "面料/材质(Material)", "sub": "秋冬面料", "cn": "加绒", "en": "Fleece-Lined", "kw": "fleece-lined, fleece lined, lined with fleece, thermal lined, brushed inside"}, {"dim": "面料/材质(Material)", "sub": "秋冬面料", "cn": "夹棉", "en": "Padded/Quilted", "kw": "padded, quilted, padded lining, cotton-padded, quilted lining"}, {"dim": "面料/材质(Material)", "sub": "牛仔/外套", "cn": "牛仔", "en": "Denim", "kw": "denim, denim fabric, jean fabric"}, {"dim": "面料/材质(Material)", "sub": "牛仔/外套", "cn": "帆布", "en": "Canvas", "kw": "canvas, canvas fabric, duck canvas"}, {"dim": "面料/材质(Material)", "sub": "牛仔/外套", "cn": "皮革", "en": "Leather", "kw": "leather, genuine leather, real leather"}, {"dim": "面料/材质(Material)", "sub": "牛仔/外套", "cn": "仿皮", "en": "Faux Leather", "kw": "faux leather, faux, pu leather, synthetic leather, vegan leather, imitation leather"}, {"dim": "面料/材质(Material)", "sub": "牛仔/外套", "cn": "麂皮绒", "en": "Suede", "kw": "suede, suede fabric, faux suede, nubuck"}, {"dim": "面料/材质(Material)", "sub": "牛仔/外套", "cn": "防风面料", "en": "Windproof Fabric", "kw": "windproof fabric, wind-resistant fabric, wind shell fabric, windbreaker fabric"}], "套装规格(Pack/Set)": [{"dim": "套装规格(Pack/Set)", "sub": "件套数", "cn": "单件", "en": "1pc/Single Piece", "kw": "1pc, 1 pc, single piece, 1 piece, one piece, single item"}, {"dim": "套装规格(Pack/Set)", "sub": "件套数", "cn": "两件套", "en": "2pc Set/Two-Piece", "kw": "2pc, 2pcs, 2 pcs, 2 piece, two piece, two-piece, 2-pc"}, {"dim": "套装规格(Pack/Set)", "sub": "件套数", "cn": "三件套", "en": "3pc Set/Three-Piece", "kw": "3pc, 3pcs, 3 pcs, 3 piece, three piece, three-piece, 3-pc"}, {"dim": "套装规格(Pack/Set)", "sub": "件套数", "cn": "四件套", "en": "4pc Set/Four-Piece", "kw": "4pc, 4pcs, 4 pcs, 4 piece, four piece, four-piece, 4-pc"}, {"dim": "套装规格(Pack/Set)", "sub": "件套数", "cn": "多件套", "en": "Multi-Pack", "kw": "multi-pack, multi pack, multipack, variety pack, bundle"}, {"dim": "套装规格(Pack/Set)", "sub": "搭配套装", "cn": "T恤短裤套装", "en": "T-Shirt & Shorts Set", "kw": "t-shirt and shorts set, tee shorts set, t-shirt shorts set, t-shirt shorts combo"}, {"dim": "套装规格(Pack/Set)", "sub": "搭配套装", "cn": "卫衣长裤套装", "en": "Hoodie & Pants Set", "kw": "hoodie and pants set, sweatshirt pants set, hoodie joggers set, hoodie trousers set"}, {"dim": "套装规格(Pack/Set)", "sub": "搭配套装", "cn": "夹克运动裤套装", "en": "Jacket & Joggers Set", "kw": "jacket and joggers set, jacket track pants set, jacket sweatpants set"}, {"dim": "套装规格(Pack/Set)", "sub": "搭配套装", "cn": "衬衫短裤套装", "en": "Shirt & Shorts Set", "kw": "shirt and shorts set, shirt shorts set, shirt shorts combo"}, {"dim": "套装规格(Pack/Set)", "sub": "运动套装", "cn": "运动两件套", "en": "Sports 2-Piece Set", "kw": "sports 2-piece set, athletic two-piece set, sports 2pc set, activewear 2-piece"}, {"dim": "套装规格(Pack/Set)", "sub": "运动套装", "cn": "健身套装", "en": "Fitness Set/Workout Set", "kw": "fitness set, workout set, gym set, training set, exercise set"}, {"dim": "套装规格(Pack/Set)", "sub": "运动套装", "cn": "跑步套装", "en": "Running Set", "kw": "running set, jogging set, track running set, runner set"}, {"dim": "套装规格(Pack/Set)", "sub": "运动套装", "cn": "训练套装", "en": "Training Set", "kw": "training set, training suit, practice set, training outfit"}, {"dim": "套装规格(Pack/Set)", "sub": "运动套装", "cn": "休闲运动套装", "en": "Casual Sports Set", "kw": "casual sports set, casual athletic set, leisure sport set, casual activewear set"}, {"dim": "套装规格(Pack/Set)", "sub": "正装套装", "cn": "西装两件套", "en": "Suit 2-Piece Set", "kw": "suit 2-piece set, two-piece suit, 2pc suit, suit and trousers set, suit and pants set"}, {"dim": "套装规格(Pack/Set)", "sub": "正装套装", "cn": "西装三件套", "en": "Suit 3-Piece Set", "kw": "suit 3-piece set, three-piece suit, 3pc suit, suit vest trousers set"}, {"dim": "套装规格(Pack/Set)", "sub": "正装套装", "cn": "外套长裤套装", "en": "Jacket & Pants Set", "kw": "jacket and pants set, jacket trousers set, coat pants set, blazer pants set"}, {"dim": "套装规格(Pack/Set)", "sub": "正装套装", "cn": "马甲西装套装", "en": "Vest & Suit Set", "kw": "vest suit set, waistcoat suit set, vest and blazer set, vest and suit set"}, {"dim": "套装规格(Pack/Set)", "sub": "家居套装", "cn": "睡衣套装", "en": "Pajama Set", "kw": "pajama set, pyjama set, sleepwear set, sleep set, nightwear set"}, {"dim": "套装规格(Pack/Set)", "sub": "家居套装", "cn": "家居服套装", "en": "Loungewear Set", "kw": "loungewear set, home wear set, home wear set, lounge set, house wear set"}, {"dim": "套装规格(Pack/Set)", "sub": "家居套装", "cn": "睡袍套装", "en": "Robe Set", "kw": "robe set, bathrobe set, gown set, sleep robe set"}, {"dim": "套装规格(Pack/Set)", "sub": "多件装", "cn": "2件装T恤", "en": "2-Pack T-Shirt", "kw": "2-pack t-shirt, 2 pack tee, pack of 2 t-shirt, 2 t-shirts pack, 2pc t-shirt pack"}, {"dim": "套装规格(Pack/Set)", "sub": "多件装", "cn": "3件装背心", "en": "3-Pack Tank/Vest", "kw": "3-pack tank, 3 pack vest, pack of 3 tank top, 3pc tank pack, 3 tank tops pack"}, {"dim": "套装规格(Pack/Set)", "sub": "多件装", "cn": "5双装袜子", "en": "5-Pair Socks", "kw": "5-pair socks, 5 pair socks, pack of 5 socks, 5 pairs sock pack, 5pack socks"}, {"dim": "套装规格(Pack/Set)", "sub": "多件装", "cn": "2条装短裤", "en": "2-Pack Shorts", "kw": "2-pack shorts, 2 pack shorts, pack of 2 shorts, 2pc shorts pack, 2 shorts pack"}], "颜色(Color)": [{"dim": "颜色(Color)", "sub": "中性色", "cn": "黑色", "en": "Black", "kw": "black"}, {"dim": "颜色(Color)", "sub": "中性色", "cn": "白色", "en": "White", "kw": "white"}, {"dim": "颜色(Color)", "sub": "中性色", "cn": "灰色", "en": "Gray/Grey", "kw": "gray, grey"}, {"dim": "颜色(Color)", "sub": "中性色", "cn": "深灰色", "en": "Dark Gray", "kw": "dark gray, dark grey, charcoal, charcoal gray, charcoal grey"}, {"dim": "颜色(Color)", "sub": "中性色", "cn": "浅灰色", "en": "Light Gray", "kw": "light gray, light grey, ash gray, ash grey, heather gray"}, {"dim": "颜色(Color)", "sub": "中性色", "cn": "米色", "en": "Beige", "kw": "beige, cream, off-white, sand"}, {"dim": "颜色(Color)", "sub": "中性色", "cn": "卡其色", "en": "Khaki", "kw": "khaki, khaki color, kakhi"}, {"dim": "颜色(Color)", "sub": "蓝色系", "cn": "蓝色", "en": "Blue", "kw": "blue"}, {"dim": "颜色(Color)", "sub": "蓝色系", "cn": "深蓝色", "en": "Dark Blue/Navy", "kw": "dark blue, navy, navy blue, deep blue"}, {"dim": "颜色(Color)", "sub": "蓝色系", "cn": "藏青色", "en": "Navy Blue", "kw": "navy, navy blue, nautical blue, marine blue, midnight blue"}, {"dim": "颜色(Color)", "sub": "蓝色系", "cn": "浅蓝色", "en": "Light Blue", "kw": "light blue, sky blue, baby blue, powder blue, pale blue"}, {"dim": "颜色(Color)", "sub": "绿色系", "cn": "绿色", "en": "Green", "kw": "green"}, {"dim": "颜色(Color)", "sub": "绿色系", "cn": "军绿色", "en": "Army Green", "kw": "army green, olive green, military green, olive, khaki green"}, {"dim": "颜色(Color)", "sub": "绿色系", "cn": "墨绿色", "en": "Dark Green/Forest Green", "kw": "dark green, forest green, emerald green, deep green, hunter green"}, {"dim": "颜色(Color)", "sub": "棕色系", "cn": "棕色", "en": "Brown", "kw": "brown"}, {"dim": "颜色(Color)", "sub": "棕色系", "cn": "咖色", "en": "Coffee Brown", "kw": "coffee, coffee brown, mocha, mocha brown, espresso"}, {"dim": "颜色(Color)", "sub": "棕色系", "cn": "驼色", "en": "Camel", "kw": "camel, camel color, tan, camel beige"}, {"dim": "颜色(Color)", "sub": "黄色系", "cn": "黄色", "en": "Yellow", "kw": "yellow"}, {"dim": "颜色(Color)", "sub": "黄色系", "cn": "姜黄色", "en": "Ginger Yellow/Mustard", "kw": "ginger yellow, ginger, mustard, mustard yellow, turmeric, ochre"}, {"dim": "颜色(Color)", "sub": "红色系", "cn": "红色", "en": "Red", "kw": "red"}, {"dim": "颜色(Color)", "sub": "红色系", "cn": "酒红色", "en": "Wine Red/Burgundy", "kw": "wine, wine red, burgundy, maroon, bordeaux, wine"}, {"dim": "颜色(Color)", "sub": "红色系", "cn": "橙色", "en": "Orange", "kw": "orange"}, {"dim": "颜色(Color)", "sub": "红色系", "cn": "砖红色", "en": "Brick Red", "kw": "brick red, brick, terracotta, rust red, burnt orange"}, {"dim": "颜色(Color)", "sub": "紫色系", "cn": "紫色", "en": "Purple", "kw": "purple, violet, lavender, plum, amethyst"}, {"dim": "颜色(Color)", "sub": "粉色系", "cn": "粉色", "en": "Pink", "kw": "pink, rose, rosy, blush, coral pink"}, {"dim": "颜色(Color)", "sub": "浅色系", "cn": "杏色", "en": "Apricot", "kw": "apricot, apricot color, peach, peachy"}, {"dim": "颜色(Color)", "sub": "浅色系", "cn": "奶油色", "en": "Cream", "kw": "cream, cream color, creamy, ivory, vanilla"}, {"dim": "颜色(Color)", "sub": "亮色系", "cn": "荧光色", "en": "Fluorescent/Neon", "kw": "fluorescent, neon, neon color, fluorescent color, glow, neon bright"}, {"dim": "颜色(Color)", "sub": "组合色", "cn": "撞色", "en": "Contrast Color", "kw": "contrast color, color contrast, contrasting color, contrast"}, {"dim": "颜色(Color)", "sub": "组合色", "cn": "拼色", "en": "Color Patch/Spliced", "kw": "color patch, spliced color, pieced color, color block, patchwork color"}, {"dim": "颜色(Color)", "sub": "组合色", "cn": "多色", "en": "Multi-Color", "kw": "multi-color, multicolor, multi color, colorful, multi-colored"}, {"dim": "颜色(Color)", "sub": "组合色", "cn": "渐变色", "en": "Gradient Color", "kw": "gradient, gradient color, ombre, ombre color, color gradient, fade color"}]}, "categories": [["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男军服男军服短裤"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男军服男军服上衣"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男军服男军服套装"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男军服男军服外套、夹克"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男军服男军服下装"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男军服其他（男军服）"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士餐厅制服男士厨师服"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士餐厅制服男士厨师裤"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士餐厅制服男士厨师衫"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士餐厅制服男士侍者马甲"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士餐厅制服男士侍者衫"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士工作服和防护服男士工装裤、连体工作服"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士工作服和防护服男士工作和防护短裤"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士工作服和防护服男士工作实用夹克、外套"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士工作服和防护服男士工作实用裤子"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士工作服和防护服男士工作实用上衣男士工作和防护", "T", "恤"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士工作服和防护服男士工作实用上衣男士工作和防护扣角领衬衫"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士工作服和防护服男士工作实用上衣其他（男士工作实用上衣）"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士工作服和防护服男士工作实用套装"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士工作服和防护服其他（男士工作服和防护服）"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士行政服装男士行政短裤"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士行政服装男士行政上衣"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士行政服装男士行政套装"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士行政服装男士行政外套"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士行政服装男士行政长裤"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士医护服装和医用刷手服男士医护", "T", "恤"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士医护服装和医用刷手服男士医生刷手服"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士医护服装和医用刷手服男士医生刷手裤"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士医护服装和医用刷手服男士医生刷手套装"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士医护服装和医用刷手服男士医生刷手衣"], ["服装、鞋靴和珠宝饰品男士时尚男士商店男士制服、工作服和防护服男士工作和安全服饰男士医护服装和医用刷手服男士医学化验室外套"], ["服装、鞋靴和珠宝饰品男士时尚男装男士外套男士轻型夹克男士牛仔夹克"], ["服装、鞋靴和珠宝饰品男士时尚男装男士外套男士风衣、雨衣男士雨衣"], ["服装、鞋靴和珠宝饰品男士时尚男装男装短裤男士牛仔短裤"], ["服装、鞋靴和珠宝饰品男士时尚男装男装牛仔裤"], ["服装、鞋靴和珠宝饰品体育专用服装骑行服男士骑行服男士骑行雨衣"], ["服装、鞋靴和珠宝饰品体育专用服装骑行服男士骑行服男士骑行裤装男士骑行雨裤"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装毕业服装及配件毕业礼服"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装餐饮业服装男士男士厨师服"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装餐饮业服装男士男士厨师裤"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装餐饮业服装男士男士厨师衫"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装餐饮业服装男士男士侍者马甲"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装餐饮业服装男士男士侍者衫"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装工作服和防护服男士男士工装裤、连体工作服"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装工作服和防护服男士男士工作和防护短裤"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装工作服和防护服男士男士工作实用夹克、外套"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装工作服和防护服男士男士工作实用裤子"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装工作服和防护服男士男士工作实用上衣男士工作和防护", "T", "恤"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装工作服和防护服男士男士工作实用上衣男士工作和防护扣角领衬衫"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装工作服和防护服男士男士工作实用上衣其他（男士工作实用上衣）"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装工作服和防护服男士男士工作实用套装"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装工作服和防护服男士其他（男士）"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装军服男士男军服短裤"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装军服男士男军服上衣"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装军服男士男军服套装"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装军服男士男军服外套、夹克"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装军服男士男军服下装"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装军服男士其他（男士）"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装行政服装男士男士行政短裤"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装行政服装男士男士行政上衣"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装行政服装男士男士行政套装"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装行政服装男士男士行政外套"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装行政服装男士男士行政长裤"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装医护服装和医用刷手服男士男士医护", "T", "恤"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装医护服装和医用刷手服男士男士医生刷手服"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装医护服装和医用刷手服男士男士医生刷手裤"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装医护服装和医用刷手服男士男士医生刷手套装"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装医护服装和医用刷手服男士男士医生刷手衣"], ["服装、鞋靴和珠宝饰品制服、工作服和防护服制服、工作服和防护服装医护服装和医用刷手服男士男士医学化验室外套"], ["服装、鞋靴和珠宝饰品装扮服饰和配饰男士装扮服饰和配饰男士装扮服饰和角色扮演服饰男士装扮紧身连体衣"], ["服装、鞋靴和珠宝饰品装扮服饰和配饰男士装扮服饰和配饰男士装扮服饰和角色扮演服饰男士装扮裤子"], ["服装、鞋靴和珠宝饰品装扮服饰和配饰男士装扮服饰和配饰男士装扮服饰和角色扮演服饰男士装扮服饰"], ["服装、鞋靴和珠宝饰品装扮服饰和配饰男士装扮服饰和配饰男士装扮服饰和角色扮演服饰男士装扮长袍、斗篷和夹克"], ["服装、鞋靴和珠宝饰品装扮服饰和配饰男士装扮服饰和配饰男士装扮服饰和角色扮演服饰男士装扮上衣"], ["运动与户外用品户外休闲骑行用品服装男士骑行服男士骑行裤装男士骑行雨裤"], ["运动与户外用品户外休闲骑行用品服装男士骑行服男士骑行雨衣"], ["运动与户外用品运动服装和器材骑行用品服装男士骑行服男士骑行裤装男士骑行雨裤"], ["运动与户外用品运动服装和器材骑行用品服装男士骑行服男士骑行雨衣"], ["运动与户外用品运动户外服饰男士运动户外服饰男士雨衣"], ["服装、鞋靴和珠宝饰品男士时尚男装男装上衣、T恤、衬衫男士牛仔衬衣"]]};
+
+// ===== Page navigation info =====
+var CURRENT_PAGE = 1;
+
+// ===== Theme =====
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme");var n=c==="dark"?"":"dark";document.documentElement.setAttribute("data-theme",n);document.getElementById("themeBtn").textContent=n==="dark"?"☀️":"🌙";localStorage.setItem("theme",n)}
+(function(){var s=localStorage.getItem("theme");if(s==="dark"){document.documentElement.setAttribute("data-theme","dark");document.getElementById("themeBtn").textContent="☀️"}})();
+
+// ===== TOC =====
+var TOC_ITEMS = [{"id": "sec-excel", "label": "📊 分维度枚举词"}, {"id": "sec-category", "label": "🌲 类目树查询"}];
+
+function buildTOC(){
+  var bar=document.getElementById("tocBar");
+  var sidebar=document.getElementById("tocSidebar");
+  var sidebarItems=document.getElementById("tocSidebarItems");
+  var isWide=window.innerWidth>=1024;
+  
+  if(isWide){
+    sidebar.style.display="block";
+    bar.style.display="none";
+    sidebarItems.innerHTML=TOC_ITEMS.map(function(t){
+      return '<a class="toc-sidebar-item" href="#'+t.id+'" onclick="scrollToSec(\''+t.id+'\')">'+t.label+'</a>';
+    }).join('');
+  } else {
+    sidebar.style.display="none";
+    bar.style.display="flex";
+    bar.innerHTML=TOC_ITEMS.map(function(t){
+      return '<a class="toc-item" href="#'+t.id+'" onclick="scrollToSec(\''+t.id+'\')">'+t.label+'</a>';
+    }).join('');
+  }
+}
+
+function scrollToSec(id){
+  var el=document.getElementById(id);
+  if(el){
+    el.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+}
+
+// Update active TOC on scroll
+window.addEventListener("scroll",function(){
+  var scrollY=window.scrollY+140;
+  var active="";
+  TOC_ITEMS.forEach(function(t){
+    var el=document.getElementById(t.id);
+    if(el && el.offsetTop<=scrollY) active=t.id;
+  });
+  document.querySelectorAll(".toc-item,.toc-sidebar-item").forEach(function(el){
+    el.classList.remove("active");
+  });
+  if(active){
+    var els=document.querySelectorAll('[href="#'+active+'"]');
+    els.forEach(function(el){el.classList.add("active")});
+  }
+});
+
+// ===== Image Modal =====
+function openImgModal(src){
+  var modal=document.getElementById("imgModal");
+  var img=document.getElementById("imgModalImg");
+  img.src=src;
+  modal.classList.add("active");
+}
+function closeImgModal(e){
+  if(e && e.target.tagName==="IMG") return;
+  var modal=document.getElementById("imgModal");
+  modal.classList.remove("active");
+  document.getElementById("imgModalImg").src="";
+}
+
+// ===== Global Search =====
+function handleSearch(){
+  var q=document.getElementById("globalSearch").value.toLowerCase().trim();
+  if(q.length>0){
+    // Try excel search
+    var excelInput=document.getElementById("excelSearch");
+    if(excelInput){excelInput.value=q;renderExcel();}
+    // Try category search
+    var catInput=document.getElementById("catSearch");
+    if(catInput){catInput.value=q;renderCategories();}
+    // Try PDF search
+    var pdfSearch=document.getElementById("pdfSearch");
+    if(pdfSearch){pdfSearch.value=q;renderPDF();}
+  } else {
+    var excelInput=document.getElementById("excelSearch");
+    if(excelInput){excelInput.value="";renderExcel();}
+    var catInput=document.getElementById("catSearch");
+    if(catInput){catInput.value="";renderCategories();}
+    var pdfSearch=document.getElementById("pdfSearch");
+    if(pdfSearch){pdfSearch.value="";renderPDF();}
+  }
+}
+
+// ===== Render functions (from original) =====
+
+// ===== Theme =====
+function toggleTheme(){var c=document.documentElement.getAttribute("data-theme");var n=c==="dark"?"":"dark";document.documentElement.setAttribute("data-theme",n);document.getElementById("themeBtn").textContent=n==="dark"?"☀️":"🌙";localStorage.setItem("theme",n)}
+(function(){var s=localStorage.getItem("theme");if(s==="dark"){document.documentElement.setAttribute("data-theme","dark");document.getElementById("themeBtn").textContent="☀️"}})();
+
+// ===== TOC =====
+var TOC_ITEMS=[
+  {id:"sec-excel",label:"📊 分维度枚举词"},
+  {id:"sec-category",label:"🌲 类目树查询"},
+  {id:"sec-pdf",label:"📄 标题案例PDF"},
+  {id:"sec-ppt",label:"📈 秋冬上新PPT"}
+];
+
+function buildTOC(){
+  var bar=document.getElementById("tocBar");
+  var sidebar=document.getElementById("tocSidebar");
+  var sidebarItems=document.getElementById("tocSidebarItems");
+  var isWide=window.innerWidth>=1024;
+  
+  if(isWide){
+    sidebar.style.display="block";
+    bar.style.display="none";
+    sidebarItems.innerHTML=TOC_ITEMS.map(function(t){
+      return '<a class="toc-sidebar-item" href="#'+t.id+'" onclick="scrollToSec(\''+t.id+'\')">'+t.label+'</a>';
+    }).join('');
+  } else {
+    sidebar.style.display="none";
+    bar.style.display="flex";
+    bar.innerHTML=TOC_ITEMS.map(function(t){
+      return '<a class="toc-item" href="#'+t.id+'" onclick="scrollToSec(\''+t.id+'\')">'+t.label+'</a>';
+    }).join('');
+  }
+}
+
+function scrollToSec(id){
+  var el=document.getElementById(id);
+  if(el){
+    el.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+}
+
+// Update active TOC on scroll
+window.addEventListener("scroll",function(){
+  var scrollY=window.scrollY+140;
+  var active="";
+  TOC_ITEMS.forEach(function(t){
+    var el=document.getElementById(t.id);
+    if(el && el.offsetTop<=scrollY) active=t.id;
+  });
+  document.querySelectorAll(".toc-sidebar-item,.toc-item").forEach(function(el){
+    var href=el.getAttribute("href");
+    if(href==="#"+active) el.classList.add("active");
+    else el.classList.remove("active");
+  });
+});
+
+// ===== Excel =====
+var currentDim="all";
+function buildDimToolbar(){
+  var toolbar=document.getElementById("dimToolbar");
+  var dims=Object.keys(DATA.excel);
+  var html='<button class="dim-chip active" onclick="selectDim(this,\x27all\x27)">全部</button>';
+  dims.forEach(function(dim){
+    var count=DATA.excel[dim].length;
+    var safeDim=dim.replace(/'/g,"\x27");
+    html+='<button class="dim-chip" onclick="selectDim(this,\x27'+safeDim+'\x27)">'+dim+' ('+count+')</button>';
+  });
+  toolbar.innerHTML=html;
+}
+
+function selectDim(btn,dim){
+  document.querySelectorAll(".dim-chip").forEach(function(c){c.classList.remove("active")});
+  btn.classList.add("active");
+  currentDim=dim;
+  renderExcel();
+}
+
+function renderExcel(){
+  var query=document.getElementById("excelSearch").value.trim().toLowerCase();
+  var tbody=document.getElementById("excelBody");
+  var rows=[];
+  var dims=currentDim==="all"?Object.keys(DATA.excel):[currentDim];
+  dims.forEach(function(dim){
+    DATA.excel[dim].forEach(function(item){
+      var text=(item.dim+" "+item.sub+" "+item.cn+" "+item.en+" "+item.kw).toLowerCase();
+      if(query===""||text.indexOf(query)>=0) rows.push(item);
+    });
+  });
+  tbody.innerHTML=rows.map(function(item){
+    return '<tr><td class="dim-cell">'+(item.dim||"—")+'</td><td>'+(item.sub||"—")+'</td><td>'+item.cn+'</td><td class="en-cell">'+item.en+'</td><td class="kw-cell">'+item.kw+'</td></tr>';
+  }).join("");
+  document.getElementById("excelCount").textContent="共 "+rows.length+" 条结果";
+}
+
+// ===== Category Tree =====
+function renderCatTree(){
+  var query=document.getElementById("catSearch").value.trim().toLowerCase();
+  var container=document.getElementById("catList");
+  var count=0;
+  var html=DATA.categories.map(function(parts){
+    var fullText=parts.join(" ");
+    if(query===""||fullText.toLowerCase().indexOf(query)>=0){
+      count++;
+      var crumbs=parts.map(function(p,i){
+        var dp=p;
+        if(query&&p.toLowerCase().indexOf(query)>=0){
+          dp=p.replace(new RegExp(escRegex(query),"gi"),function(m){return '<span class="hl">'+m+'</span>'});
+        }
+        return '<span class="cat-level">'+(i+1)+'</span><span class="cat-text">'+dp+'</span>';
+      }).join('<span class="cat-sep">›</span>');
+      return '<div class="cat-item">'+crumbs+'</div>';
+    }
+    return "";
+  }).join("");
+  if(count===0) html='<div class="cat-empty">没有找到匹配的类目，试试其他关键词？</div>';
+  container.innerHTML=html;
+  document.getElementById("catCount").textContent="共 "+count+" 条类目路径";
+}
+
+function escRegex(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
+
+// ===== PDF =====
+function renderPDF(){
+  var grid=document.getElementById("pdfGrid");
+  var html=DATA.pdf.map(function(page){
+    var img=DATA.pdfImages[String(page.page)];
+    var imgHtml=img?'<img class="pdf-card-img" src="data:image/png;base64,'+img+'" onclick="openImg(\'data:image/png;base64,'+img+'\')" alt="Page '+page.page+'">':"";
+    var text=page.text.substring(0,280).replace(/\n/g," ").trim();
+    return '<div class="pdf-card">'+imgHtml+'<div class="pdf-card-body"><span class="pdf-card-page">第 '+page.page+' 页</span><div class="pdf-card-text">'+text+'…</div></div></div>';
+  }).join("");
+  grid.innerHTML=html;
+}
+
+// ===== PPT =====
+function renderPPT(){
+  var container=document.getElementById("pptContainer");
+  var html="";
+  DATA.ppt.forEach(function(sec){
+    html+='<div style="margin-bottom:32px">';
+    html+='<h3 style="font-size:17px;font-weight:700;margin-bottom:14px;color:var(--text);display:flex;align-items:center;gap:8px"><span>'+sec.icon+'</span>'+sec.title+'</h3>';
+    
+    // Section 1: Month grid + table
+    if(sec.id==="ppt-section1"){
+      // Month cards
+      html+='<div class="month-grid">';
+      sec.months.forEach(function(m){
+        html+='<div class="month-card"><div class="month-card-header"><span class="month-badge">'+m.month+'</span><span class="month-card-title">'+m.title+'</span></div><div class="month-card-cats">'+m.categories+'</div></div>';
+      });
+      html+='</div>';
+      
+      // Image
+      if(sec.image_slide&&DATA.pptImages[sec.image_slide]){
+        html+='<img class="ppt-block-img" src="data:image/png;base64,'+DATA.pptImages[sec.image_slide]+'" onclick="openImg(\'data:image/png;base64,'+DATA.pptImages[sec.image_slide]+'\')" alt="上新节奏图">';
+      }
+      
+      // Table from slide 15
+      html+='<h4 style="font-size:14px;font-weight:600;margin:16px 0 10px;color:var(--text)">核心月份备货节奏详表</h4>';
+      html+='<div class="ppt-table-wrap"><table class="ppt-table"><thead><tr><th>月份</th><th>目标上架品类及厚度节点</th><th>核心面料与设计元素</th><th>区域市场与叠穿策略</th><th>开发与备货窗口期</th></tr></thead><tbody>';
+      
+      // Parse slide 15 table data
+      var tableData=sec.table;
+      for(var i=1;i<tableData.length;i++){
+        var parts=tableData[i].split(" | ");
+        if(parts.length>=5){
+          html+='<tr>';
+          html+='<td><strong>'+parts[0]+'</strong></td>';
+          html+='<td>'+parts[1]+'</td>';
+          html+='<td>'+parts[2]+'</td>';
+          html+='<td>'+parts[3]+'</td>';
+          html+='<td>'+(parts[4]||"")+'</td>';
+          html+='</tr>';
+        }
+      }
+      html+='</tbody></table></div>';
+    }
+    
+    // Other sections: slide blocks
+    if(sec.slides){
+      sec.slides.forEach(function(slide){
+        var img=DATA.pptImages[String(slide.num)];
+        html+='<div class="ppt-block">';
+        html+='<div class="ppt-block-header"><div class="ppt-block-title"><span class="ppt-block-slide-num">Slide '+slide.num+'</span></div></div>';
+        html+='<div class="ppt-block-body">';
+        if(img){
+          html+='<img class="ppt-block-img" src="data:image/png;base64,'+img+'" onclick="openImg(\'data:image/png;base64,'+img+'\')" alt="Slide '+slide.num+'">';
+        }
+        html+='<ul class="ppt-text-list">';
+        slide.texts.forEach(function(t){
+          if(t.trim()) html+='<li>'+t.substring(0,300)+'</li>';
+        });
+        html+='</ul>';
+        if(slide.note){
+          html+='<div class="ppt-note">💡 '+slide.note+'</div>';
+        }
+        html+='</div></div>';
+      });
+    }
+    
+    // Section 2 & 3: also show images
+    if(sec.image_slides){
+      sec.image_slides.forEach(function(slideNum){
+        var img=DATA.pptImages[slideNum];
+        // Images are already shown inline in slide blocks, skip extra
+      });
+    }
+    
+    html+='</div>';
+  });
+  container.innerHTML=html;
+}
+
+// ===== Image Modal =====
+function openImg(src){document.getElementById("imgModalImg").src=src;document.getElementById("imgModal").classList.add("active")}
+function closeImgModal(){document.getElementById("imgModal").classList.remove("active")}
+
+// ===== Global Search =====
+function handleSearch(){
+  var q=document.getElementById("globalSearch").value.trim();
+  if(q==="") return;
+  // Search across all sections
+  document.getElementById("excelSearch").value=q;
+  renderExcel();
+  document.getElementById("catSearch").value=q;
+  renderCatTree();
+}
+
+// ===== Init =====
+buildTOC();
+buildDimToolbar();
+renderExcel();
+renderCatTree();
+renderPDF();
+renderPPT();
+window.addEventListener("resize",buildTOC);
+
+
+// ===== Init =====
+buildTOC();
+window.addEventListener("resize",buildTOC);
+
+// Auto-render on load
+document.addEventListener("DOMContentLoaded",function(){
+  buildTOC();
+  if(typeof renderExcel==="function") renderExcel();
+  if(typeof renderCategories==="function") renderCategories();
+  if(typeof renderPDF==="function") renderPDF();
+  if(typeof renderPPT==="function") renderPPT();
+});
+</script>
+</body>
+</html>
