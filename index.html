@@ -151,12 +151,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
       <h2>万仞山对接类目上新指引</h2>
       <p>男装长裤企划 · OBM2</p>
     </div>
-    <a class="nav-item" onclick="navTo('sec-hot')"><span class="nav-num">🔥</span>近期热搜词</a>
-    <a class="nav-item" onclick="navTo('sec-1')"><span class="nav-num">1</span>类目指引</a>
-    <a class="nav-item" onclick="navTo('sec-2')"><span class="nav-num">2</span>开款方向</a>
-    <a class="nav-item" onclick="navTo('sec-3')"><span class="nav-num">3</span>视觉优化</a>
-    <a class="nav-item" onclick="navTo('sec-4')"><span class="nav-num">4</span>标题优化</a>
-    <a class="nav-item" onclick="navTo('sec-5')"><span class="nav-num">5</span>长裤招品回品</a>
+    <a class="nav-item" onclick="navTo('sec-2')"><span class="nav-num">1</span>开款方向</a>
+    <a class="nav-item" onclick="navTo('sec-3')"><span class="nav-num">2</span>视觉优化</a>
+    <a class="nav-item" onclick="navTo('sec-4')"><span class="nav-num">3</span>标题优化</a>
+    <a class="nav-item" onclick="navTo('sec-5')"><span class="nav-num">4</span>长裤招品回品</a>
+    <a class="nav-item" onclick="navTo('sec-hot')"><span class="nav-num">5</span>近期热搜词</a>
+    <a class="nav-item" onclick="navTo('sec-1')"><span class="nav-num">6</span>类目指引</a>
   </nav>
   <div class="main-content">
     <div class="container">
@@ -165,300 +165,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
     <p>男装长裤企划 · OBM2</p>
   </div>
 
-            <!-- 近期热搜词（美国） -->
-      <div id="sec-hot"></div>
-      <div class="section" style="padding:20px 24px;">
-        <div style="display:flex; gap:0; margin-bottom:0; border-bottom:2px solid #e0e0e0;">
-          <button onclick="switchHotCountry(0)" id="hotCountry0" style="padding:10px 24px; font-size:15px; font-weight:700; border:none; border-bottom:3px solid #ff9800; background:#fff3e0; color:#e65100; cursor:pointer; transition:all 0.2s;">🇺🇸 美国</button>
-          <button onclick="switchHotCountry(1)" id="hotCountry1" style="padding:10px 24px; font-size:15px; font-weight:700; border:none; border-bottom:3px solid transparent; background:#fff; color:#666; cursor:pointer; transition:all 0.2s;">🇨🇦 加拿大</button>
-          <button onclick="switchHotCountry(2)" id="hotCountry2" style="padding:10px 24px; font-size:15px; font-weight:700; border:none; border-bottom:3px solid transparent; background:#fff; color:#666; cursor:pointer; transition:all 0.2s;">🇫🇷 法国</button>
-        </div>
-        <div id="hotCountryPanel0">
-        <h3 style="font-size:18px; font-weight:700; color:#16213e; margin-bottom:16px;">🔥 近期热搜词</h3>
-
-        <!-- 热搜词分类Tab导航 -->
-        <div style="display:flex; flex-wrap:wrap; gap:0; margin-bottom:0; border-bottom:none; overflow-x:auto;" id="hotTabBar">
-          <button onclick="switchHotTab(0)" id="hotTab0" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #00838f; border-bottom:none; border-radius:10px 10px 0 0; background:#00838f; color:#fff; white-space:nowrap; transition:all 0.2s;">👖 品类核心词</button>
-          <button onclick="switchHotTab(1)" id="hotTab1" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #6a1b9a; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#6a1b9a; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">🎨 风格版型词</button>
-          <button onclick="switchHotTab(2)" id="hotTab2" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #2e7d32; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#2e7d32; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">🏃 功能场景词</button>
-          <button onclick="switchHotTab(3)" id="hotTab3" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #ef6c00; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#ef6c00; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">🧵 材质面料词</button>
-          <button onclick="switchHotTab(4)" id="hotTab4" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #c62828; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#c62828; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">✂️ 设计细节词</button>
-          <button onclick="switchHotTab(5)" id="hotTab5" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #1565c0; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#1565c0; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">📊 营销属性词</button>
-        </div>
-
-        <!-- 热搜词 品类核心词 -->
-        <div id="hotCat0" style="margin-bottom:16px; ">
-          <div style="display:flex; align-items:center; margin-bottom:10px;">
-            <span style="font-size:16px; margin-right:8px;">👖</span>
-            <span style="font-size:15px; font-weight:700; color:#006064; border-left:4px solid #00838f; padding-left:8px;">品类核心词</span>
-            <span style="font-size:12px; color:#999; margin-left:8px;">(21个)</span>
-          </div>
-          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Pants <span style="color:#999; font-size:11px; margin-left:4px;">裤子</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Pants for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士裤子</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Pants <span style="color:#999; font-size:11px; margin-left:4px;">男士裤子</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Pants <span style="color:#999; font-size:11px; margin-left:4px;">男士裤子</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Sweatpants <span style="color:#999; font-size:11px; margin-left:4px;">运动裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Sweatpants Men <span style="color:#999; font-size:11px; margin-left:4px;">男士运动裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jeans <span style="color:#999; font-size:11px; margin-left:4px;">牛仔裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jeans for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士牛仔裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Jeans <span style="color:#999; font-size:11px; margin-left:4px;">男士牛仔裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Cargo Pants Men <span style="color:#999; font-size:11px; margin-left:4px;">男士工装裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Work Pants for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士工作裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Baggy Jeans <span style="color:#999; font-size:11px; margin-left:4px;">宽松牛仔裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jorts <span style="color:#999; font-size:11px; margin-left:4px;">牛仔短裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Pantalones para Hombres <span style="color:#999; font-size:11px; margin-left:4px;">男士裤子</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Pantalones de Trabajo para Hombre <span style="color:#999; font-size:11px; margin-left:4px;">男士工作裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Shorts <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shorts <span style="color:#999; font-size:11px; margin-left:4px;">短裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shorts for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Shorts <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men's Shorts <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Short de Hombre <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
-          </div>
-        </div>
-
-        <!-- 热搜词 风格版型词 -->
-        <div id="hotCat1" style="margin-bottom:16px; display:none;">
-          <div style="display:flex; align-items:center; margin-bottom:10px;">
-            <span style="font-size:16px; margin-right:8px;">🎨</span>
-            <span style="font-size:15px; font-weight:700; color:#4a148c; border-left:4px solid #6a1b9a; padding-left:8px;">风格版型词</span>
-            <span style="font-size:12px; color:#999; margin-left:8px;">(5个)</span>
-          </div>
-          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens 2 Piece Outfits <span style="color:#999; font-size:11px; margin-left:4px;">男士两件套穿搭</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Outfits for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士穿搭</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Baddie Clothes <span style="color:#999; font-size:11px; margin-left:4px;">潮流服装</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Big and Tall Men Clothing <span style="color:#999; font-size:11px; margin-left:4px;">大码男装</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Gay Men Clothes <span style="color:#999; font-size:11px; margin-left:4px;">男士同性恋服装</span></span>
-          </div>
-        </div>
-
-        <!-- 热搜词 功能场景词 -->
-        <div id="hotCat2" style="margin-bottom:16px; display:none;">
-          <div style="display:flex; align-items:center; margin-bottom:10px;">
-            <span style="font-size:16px; margin-right:8px;">🏃</span>
-            <span style="font-size:15px; font-weight:700; color:#1b5e20; border-left:4px solid #2e7d32; padding-left:8px;">功能场景词</span>
-            <span style="font-size:12px; color:#999; margin-left:8px;">(13个)</span>
-          </div>
-          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Golf <span style="color:#999; font-size:11px; margin-left:4px;">高尔夫</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Fishing <span style="color:#999; font-size:11px; margin-left:4px;">钓鱼</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Hunting <span style="color:#999; font-size:11px; margin-left:4px;">狩猎</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Hunting Gear and Equipment <span style="color:#999; font-size:11px; margin-left:4px;">狩猎装备</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Camping <span style="color:#999; font-size:11px; margin-left:4px;">露营</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Football <span style="color:#999; font-size:11px; margin-left:4px;">足球</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Football Accessories <span style="color:#999; font-size:11px; margin-left:4px;">足球配件</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Football Gear <span style="color:#999; font-size:11px; margin-left:4px;">足球装备</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Gym <span style="color:#999; font-size:11px; margin-left:4px;">健身</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Anime <span style="color:#999; font-size:11px; margin-left:4px;">动漫</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Halloween <span style="color:#999; font-size:11px; margin-left:4px;">万圣节</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Halloween Costumes <span style="color:#999; font-size:11px; margin-left:4px;">万圣节服装</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Christmas <span style="color:#999; font-size:11px; margin-left:4px;">圣诞节</span></span>
-          </div>
-        </div>
-
-        <!-- 热搜词 材质面料词 -->
-        <div id="hotCat3" style="margin-bottom:16px; display:none;">
-          <div style="display:flex; align-items:center; margin-bottom:10px;">
-            <span style="font-size:16px; margin-right:8px;">🧵</span>
-            <span style="font-size:15px; font-weight:700; color:#e65100; border-left:4px solid #ef6c00; padding-left:8px;">材质面料词</span>
-            <span style="font-size:12px; color:#999; margin-left:8px;">(2个)</span>
-          </div>
-          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #ef6c00; color:#e65100; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Compression Shirt Men <span style="color:#999; font-size:11px; margin-left:4px;">男士压缩衣</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #ef6c00; color:#e65100; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Compression Socks for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士压缩袜</span></span>
-          </div>
-        </div>
-
-        <!-- 热搜词 设计细节词 -->
-        <div id="hotCat4" style="margin-bottom:16px; display:none;">
-          <div style="display:flex; align-items:center; margin-bottom:10px;">
-            <span style="font-size:16px; margin-right:8px;">✂️</span>
-            <span style="font-size:15px; font-weight:700; color:#b71c1c; border-left:4px solid #c62828; padding-left:8px;">设计细节词</span>
-            <span style="font-size:12px; color:#999; margin-left:8px;">(26个)</span>
-          </div>
-          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shirts <span style="color:#999; font-size:11px; margin-left:4px;">衬衫</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shirts for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Shirts <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Shirts <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Shirt <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shirt <span style="color:#999; font-size:11px; margin-left:4px;">衬衫</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">男士T恤 <span style="color:#999; font-size:11px; margin-left:4px;">男士T恤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens T Shirts <span style="color:#999; font-size:11px; margin-left:4px;">男士T恤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">T Shirts for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士T恤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">T Shirts <span style="color:#999; font-size:11px; margin-left:4px;">T恤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Funny Tshirts <span style="color:#999; font-size:11px; margin-left:4px;">搞笑T恤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Custom T Shirt <span style="color:#999; font-size:11px; margin-left:4px;">定制T恤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">T恤 <span style="color:#999; font-size:11px; margin-left:4px;">T恤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">男士短袖 <span style="color:#999; font-size:11px; margin-left:4px;">男士短袖</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Teacher Shirts <span style="color:#999; font-size:11px; margin-left:4px;">教师T恤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Camisas de Hombre <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Socks <span style="color:#999; font-size:11px; margin-left:4px;">袜子</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Socks for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士袜子</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Socks <span style="color:#999; font-size:11px; margin-left:4px;">男士袜子</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Underwear <span style="color:#999; font-size:11px; margin-left:4px;">男士内裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Underwear for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士内裤</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jacket <span style="color:#999; font-size:11px; margin-left:4px;">夹克</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jackets for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士夹克</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jackets <span style="color:#999; font-size:11px; margin-left:4px;">夹克</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Dirty Gifts <span style="color:#999; font-size:11px; margin-left:4px;">脏礼物</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Weird Stuff <span style="color:#999; font-size:11px; margin-left:4px;">奇怪的东西</span></span>
-          </div>
-        </div>
-
-        <!-- 热搜词 营销属性词 -->
-        <div id="hotCat5" style="margin-bottom:16px; display:none;">
-          <div style="display:flex; align-items:center; margin-bottom:10px;">
-            <span style="font-size:16px; margin-right:8px;">📊</span>
-            <span style="font-size:15px; font-weight:700; color:#0d47a1; border-left:4px solid #1565c0; padding-left:8px;">营销属性词</span>
-            <span style="font-size:12px; color:#999; margin-left:8px;">(19个)</span>
-          </div>
-          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Clothes <span style="color:#999; font-size:11px; margin-left:4px;">男士服装</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Clothes <span style="color:#999; font-size:11px; margin-left:4px;">衣服</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Clothes for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士服装</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Clothes <span style="color:#999; font-size:11px; margin-left:4px;">男装</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens <span style="color:#999; font-size:11px; margin-left:4px;">男士</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men <span style="color:#999; font-size:11px; margin-left:4px;">男士</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Clothes for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士服装</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Ropa de Hombre <span style="color:#999; font-size:11px; margin-left:4px;">男装</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Clothing Clearance Sale <span style="color:#999; font-size:11px; margin-left:4px;">男士服装清仓促销</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men's Clothes Clearance Sale 90 Percent <span style="color:#999; font-size:11px; margin-left:4px;">男士服装90%折扣清仓</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens T Shirts Clearance Sale <span style="color:#999; font-size:11px; margin-left:4px;">男士T恤清仓促销</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Shorts Clearance Sale <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤清仓促销</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Golf Stuff Clearance <span style="color:#999; font-size:11px; margin-left:4px;">高尔夫用品清仓</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Halloween Stuff Clearance <span style="color:#999; font-size:11px; margin-left:4px;">万圣节用品清仓</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Clearance <span style="color:#999; font-size:11px; margin-left:4px;">清仓</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Clearance Items <span style="color:#999; font-size:11px; margin-left:4px;">清仓商品</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Local Warehouse <span style="color:#999; font-size:11px; margin-left:4px;">本地仓库</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Local Warehouse Items for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士本地仓商品</span></span>
-            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Free Shipping <span style="color:#999; font-size:11px; margin-left:4px;">免邮</span></span>
-          </div>
-        </div>
-
-        <script>
-        // 热搜词分类Tab切换
-        function switchHotTab(idx) {
-          for (var i = 0; i < 6; i++) {
-            var cat = document.getElementById('hotCat' + i);
-            if (cat) cat.style.display = 'none';
-            var tab = document.getElementById('hotTab' + i);
-            if (tab) {
-              tab.style.background = '#fff';
-              tab.style.color = tab.style.borderColor;
-            }
-          }
-          var showCat = document.getElementById('hotCat' + idx);
-          if (showCat) showCat.style.display = 'block';
-          var showTab = document.getElementById('hotTab' + idx);
-          if (showTab) {
-            showTab.style.background = showTab.style.borderColor;
-            showTab.style.color = '#fff';
-          }
-        }
-        </script></div>
-
-        <!-- 加拿大热搜词 -->
-        <div id="hotCountryPanel1" style="display:none; padding:20px 0;">
-          <div style="background:#f8f9fa; border-radius:10px; padding:20px; border-left:4px solid #d32f2f;">
-            <p style="font-size:14px; color:#333; line-height:2.0; margin:0;">
-              <strong style="color:#d32f2f;">📌 加拿大市场热搜趋势</strong><br>
-              搜索流量主要集中在裤子、T恤/POLO、特征词、衬衫、品牌IP<br>
-              • 衬衫、卫衣连帽衫、牛仔裤、内裤、节日词搜索次数环比正向且高于大盘；属于<strong style="color:#2e7d32;">高热度</strong><br>
-              • <strong>泛搜索词：</strong>男装、充气船、上衣相关关注度更高<br>
-              • <strong>节日词：</strong>万圣节相关、圣诞节、送男士礼物相关关注度更高<br>
-              • <strong>品牌IP：</strong>哈利波特、玩具总动员周边相关关注度更高<br>
-              • <strong>特征词：</strong>高尔夫、健身房衣服相关关注度更高
-            </p>
-          </div>
-        </div>
-
-        <!-- 法国热搜词 -->
-        <div id="hotCountryPanel2" style="display:none; padding:20px 0;">
-          <div style="background:#f8f9fa; border-radius:10px; padding:20px; border-left:4px solid #1565c0;">
-            <p style="font-size:14px; color:#333; line-height:2.0; margin:0;">
-              <strong style="color:#1565c0;">📌 法国市场热搜趋势</strong><br>
-              搜索流量主要集中在特征词、裤子、T恤/POLO、泳衣泳裤、背心/马甲<br>
-              • T恤/POLO、外套夹克、袜子、毛衣针织开衫、牛仔裤搜索次数环比正向且高于大盘；属于<strong style="color:#2e7d32;">高热度</strong><br>
-              • <strong>泛搜索词：</strong>男装、运动、摩托相关关注度更高<br>
-              • <strong>节日词：</strong>男生礼物、万圣节相关相关关注度更高<br>
-              • <strong>品牌IP：</strong>Jules品牌、哈利波特相关关注度更高<br>
-              • <strong>特征词：</strong>男士纯棉T恤、男士慢跑、定制T恤相关关注度更高
-            </p>
-          </div>
-        </div>
-
-        <script>
-        function switchHotCountry(idx) {
-          for (var i = 0; i < 3; i++) {
-            var panel = document.getElementById('hotCountryPanel' + i);
-            var btn = document.getElementById('hotCountry' + i);
-            if (panel) panel.style.display = (i === idx) ? 'block' : 'none';
-            if (btn) {
-              if (i === idx) {
-                btn.style.borderBottom = '3px solid #ff9800';
-                btn.style.background = '#fff3e0';
-                btn.style.color = '#e65100';
-              } else {
-                btn.style.borderBottom = '3px solid transparent';
-                btn.style.background = '#fff';
-                btn.style.color = '#666';
-              }
-            }
-          }
-        }
-        </script>
-      </div>
-
-      <!-- 类目倾向 -->
-      <div id="sec-trend"></div>
-      <div class="section" style="padding:20px 24px; border-left:4px solid #ff9800;">
-        <p style="font-size:14px; color:#333; line-height:1.8; margin:0;">
-          <strong style="color:#e65100;">📌 类目倾向：</strong>裤装多个相关搜索词本周热度上升明显，裤装下男士运动裤（sweatpants men）、男士工作裤（work pants for men）、男士牛仔裤（jeans for men）、男士工装裤（cargo pants men）
-        </p>
-      </div>
-
-
-
-
-  <div class="section" id="sec-1">
-    <div class="section-header" onclick="toggleSection(this)">
-      <div class="section-title"><span class="section-num">1</span>类目指引</div>
-      <span class="section-arrow">&#9660;</span>
-    </div>
-    <div class="section-body">
-      <div class="cat-box">
-        <div class="cat-group">
-          <div class="cat-group-title">长裤</div>
-          <div class="cat-item"><span class="cat-name">【休闲裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男装长裤 &gt; 男士休闲裤</span><span class="cat-tag tag-blue">所有裤型均可上</span></div>
-          <div class="cat-item"><span class="cat-name">【工装裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士工装裤</span><span class="cat-tag tag-green">转化好</span></div>
-          <div class="cat-item"><span class="cat-name">【户外/战术裤】</span><span class="cat-path">运动与户外用品 &gt; 户外休闲 &gt; 徒步和户外休闲服装 &gt; 男士户外服饰 &gt; 男士户外长裤</span><span class="cat-tag tag-cyan">搭配视觉动销好</span></div>
-          <div class="cat-item"><span class="cat-name">【运动裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士休闲运动长裤 &gt; 男士运动长裤</span></div>
-          <div class="cat-item"><span class="cat-path">运动与户外用品 &gt; 健身、训练用品 &gt; 健身服 &gt; 男士 &gt; 男士休闲运动长裤 &gt; 男士运动长裤</span><span class="cat-tag tag-orange">注意场景与类目适配度</span></div>
-          <div class="cat-item"><span class="cat-name">【廓形休闲裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士休闲运动长裤 &gt; 男士宽松运动长裤</span></div>
-          <div class="cat-item"><span class="cat-name">【跑步长裤】</span><span class="cat-path">运动与户外用品 &gt; 健身、训练用品 &gt; 跑步 &gt; 服装 &gt; 男士跑步服 &gt; 男士跑步长裤 &gt; 运动裤</span></div>
-          <div class="cat-item"><span class="cat-name">【高尔夫裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 体育专用服装 &gt; 高尔夫服 &gt; 男士高尔夫服 &gt; 男士高尔夫长裤</span><span class="cat-tag tag-green">消费者需求高</span></div>
-          <div class="cat-item"><span class="cat-name">【马术裤】</span><span class="cat-path">运动与户外用品 &gt; 运动服装和器材 &gt; 团队运动 &gt; 马术体育用品 &gt; 服装 &gt; 男士马术服 &gt; 男士马术裤</span><span class="cat-tag tag-purple">不卡克重和尺码</span></div>
-          <div class="cat-item"><span class="cat-name">【新奇版型】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 新奇物品 &gt; 新奇服装和产品 &gt; 新奇服装 &gt; 男士新奇服装 &gt; 男士新奇长裤</span><span class="cat-tag tag-pink">新奇特额外加权</span></div>
-          <div class="cat-item"><span class="cat-name">【骑行裤】</span><span class="cat-path">运动与户外用品 &gt; 户外休闲 &gt; 骑行用品 &gt; 服装 &gt; 男士骑行服 &gt; 男士骑行裤装 &gt; 男士骑行长裤</span></div>
-          <div class="cat-item"><span class="cat-name">【长裤/短裤】</span><span class="cat-path">运动与户外用品 &gt; 运动户外服饰 &gt; 男士运动户外服饰 &gt; 男士运动休闲短裤和长裤 &gt; 男士运动休闲裤 &gt; 徒步和户外休闲</span><span class="cat-tag tag-blue">长短都可上</span></div>
-        </div>
-        <div class="cat-group">
-          <div class="cat-group-title">紧身/打底-<span class="bold-tag">打底压缩</span></div>
-          <div class="cat-item"><span class="cat-name">【T恤背心】</span><span class="cat-path">运动与户外用品 &gt; 运动户外服饰 &gt; 男士运动户外服饰 &gt; 贴身衣和压缩衣 &gt; 男士运动上衣</span></div>
-          <div class="cat-item"><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士打底和压缩单品 &gt; 男士运动上衣</span></div>
-          <div class="cat-item"><span class="cat-name">【短裤】</span><span class="cat-path">运动与户外用品 &gt; 健身、训练用品 &gt; 健身服 &gt; 男士 &gt; 男士打底和压缩单品 &gt; 男士运动短裤</span></div>
-          <div class="cat-item"><span class="cat-name">【套装】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士贴身运动衣 &gt; 男士贴身套装</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="section" id="sec-2">
     <div class="section-header" onclick="toggleSection(this)">
-      <div class="section-title"><span class="section-num">2</span>开款方向</div>
+      <div class="section-title"><span class="section-num">1</span>开款方向</div>
       <span class="section-arrow">&#9660;</span>
     </div>
     <div class="section-body">
@@ -539,7 +248,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 
   <div class="section" id="sec-3">
     <div class="section-header" onclick="toggleSection(this)">
-      <div class="section-title"><span class="section-num">3</span>视觉优化</div>
+      <div class="section-title"><span class="section-num">2</span>视觉优化</div>
       <span class="section-arrow">&#9660;</span>
     </div>
     <div class="section-body">
@@ -597,7 +306,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 
   <div class="section" id="sec-4">
     <div class="section-header" onclick="toggleSection(this)">
-      <div class="section-title"><span class="section-num">4</span>标题优化</div>
+      <div class="section-title"><span class="section-num">3</span>标题优化</div>
       <span class="section-arrow">&#9660;</span>
     </div>
     <div class="section-body">
@@ -1541,6 +1250,295 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
         <a href="https://zhaopinwrs.netlify.app/" target="_blank" style="display:inline-block; padding:12px 28px; background:linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color:#fff; text-decoration:none; border-radius:8px; font-size:15px; font-weight:600; transition:all 0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.15);">🔗 点击进入长裤招品回品</a>
       </div>
 
+            <!-- 近期热搜词（美国） -->
+      <div id="sec-hot"></div>
+      <div class="section" style="padding:20px 24px;">
+        <div style="display:flex; gap:0; margin-bottom:0; border-bottom:2px solid #e0e0e0;">
+          <button onclick="switchHotCountry(0)" id="hotCountry0" style="padding:10px 24px; font-size:15px; font-weight:700; border:none; border-bottom:3px solid #ff9800; background:#fff3e0; color:#e65100; cursor:pointer; transition:all 0.2s;">🇺🇸 美国</button>
+          <button onclick="switchHotCountry(1)" id="hotCountry1" style="padding:10px 24px; font-size:15px; font-weight:700; border:none; border-bottom:3px solid transparent; background:#fff; color:#666; cursor:pointer; transition:all 0.2s;">🇨🇦 加拿大</button>
+          <button onclick="switchHotCountry(2)" id="hotCountry2" style="padding:10px 24px; font-size:15px; font-weight:700; border:none; border-bottom:3px solid transparent; background:#fff; color:#666; cursor:pointer; transition:all 0.2s;">🇫🇷 法国</button>
+        </div>
+        <div id="hotCountryPanel0">
+        <h3 style="font-size:18px; font-weight:700; color:#16213e; margin-bottom:16px;">🔥 近期热搜词</h3>
+
+        <!-- 热搜词分类Tab导航 -->
+        <div style="display:flex; flex-wrap:wrap; gap:0; margin-bottom:0; border-bottom:none; overflow-x:auto;" id="hotTabBar">
+          <button onclick="switchHotTab(0)" id="hotTab0" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #00838f; border-bottom:none; border-radius:10px 10px 0 0; background:#00838f; color:#fff; white-space:nowrap; transition:all 0.2s;">👖 品类核心词</button>
+          <button onclick="switchHotTab(1)" id="hotTab1" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #6a1b9a; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#6a1b9a; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">🎨 风格版型词</button>
+          <button onclick="switchHotTab(2)" id="hotTab2" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #2e7d32; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#2e7d32; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">🏃 功能场景词</button>
+          <button onclick="switchHotTab(3)" id="hotTab3" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #ef6c00; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#ef6c00; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">🧵 材质面料词</button>
+          <button onclick="switchHotTab(4)" id="hotTab4" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #c62828; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#c62828; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">✂️ 设计细节词</button>
+          <button onclick="switchHotTab(5)" id="hotTab5" style="padding:10px 20px; font-size:14px; font-weight:700; cursor:pointer; border:2px solid #1565c0; border-bottom:none; border-radius:10px 10px 0 0; background:#fff; color:#1565c0; white-space:nowrap; transition:all 0.2s; margin-left:-2px;">📊 营销属性词</button>
+        </div>
+
+        <!-- 热搜词 品类核心词 -->
+        <div id="hotCat0" style="margin-bottom:16px; ">
+          <div style="display:flex; align-items:center; margin-bottom:10px;">
+            <span style="font-size:16px; margin-right:8px;">👖</span>
+            <span style="font-size:15px; font-weight:700; color:#006064; border-left:4px solid #00838f; padding-left:8px;">品类核心词</span>
+            <span style="font-size:12px; color:#999; margin-left:8px;">(21个)</span>
+          </div>
+          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Pants <span style="color:#999; font-size:11px; margin-left:4px;">裤子</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Pants for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士裤子</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Pants <span style="color:#999; font-size:11px; margin-left:4px;">男士裤子</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Pants <span style="color:#999; font-size:11px; margin-left:4px;">男士裤子</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Sweatpants <span style="color:#999; font-size:11px; margin-left:4px;">运动裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Sweatpants Men <span style="color:#999; font-size:11px; margin-left:4px;">男士运动裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jeans <span style="color:#999; font-size:11px; margin-left:4px;">牛仔裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jeans for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士牛仔裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Jeans <span style="color:#999; font-size:11px; margin-left:4px;">男士牛仔裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Cargo Pants Men <span style="color:#999; font-size:11px; margin-left:4px;">男士工装裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Work Pants for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士工作裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Baggy Jeans <span style="color:#999; font-size:11px; margin-left:4px;">宽松牛仔裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jorts <span style="color:#999; font-size:11px; margin-left:4px;">牛仔短裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Pantalones para Hombres <span style="color:#999; font-size:11px; margin-left:4px;">男士裤子</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Pantalones de Trabajo para Hombre <span style="color:#999; font-size:11px; margin-left:4px;">男士工作裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Shorts <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shorts <span style="color:#999; font-size:11px; margin-left:4px;">短裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shorts for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Shorts <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men's Shorts <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #00838f; color:#006064; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Short de Hombre <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤</span></span>
+          </div>
+        </div>
+
+        <!-- 热搜词 风格版型词 -->
+        <div id="hotCat1" style="margin-bottom:16px; display:none;">
+          <div style="display:flex; align-items:center; margin-bottom:10px;">
+            <span style="font-size:16px; margin-right:8px;">🎨</span>
+            <span style="font-size:15px; font-weight:700; color:#4a148c; border-left:4px solid #6a1b9a; padding-left:8px;">风格版型词</span>
+            <span style="font-size:12px; color:#999; margin-left:8px;">(5个)</span>
+          </div>
+          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens 2 Piece Outfits <span style="color:#999; font-size:11px; margin-left:4px;">男士两件套穿搭</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Outfits for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士穿搭</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Baddie Clothes <span style="color:#999; font-size:11px; margin-left:4px;">潮流服装</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Big and Tall Men Clothing <span style="color:#999; font-size:11px; margin-left:4px;">大码男装</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #6a1b9a; color:#4a148c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Gay Men Clothes <span style="color:#999; font-size:11px; margin-left:4px;">男士同性恋服装</span></span>
+          </div>
+        </div>
+
+        <!-- 热搜词 功能场景词 -->
+        <div id="hotCat2" style="margin-bottom:16px; display:none;">
+          <div style="display:flex; align-items:center; margin-bottom:10px;">
+            <span style="font-size:16px; margin-right:8px;">🏃</span>
+            <span style="font-size:15px; font-weight:700; color:#1b5e20; border-left:4px solid #2e7d32; padding-left:8px;">功能场景词</span>
+            <span style="font-size:12px; color:#999; margin-left:8px;">(13个)</span>
+          </div>
+          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Golf <span style="color:#999; font-size:11px; margin-left:4px;">高尔夫</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Fishing <span style="color:#999; font-size:11px; margin-left:4px;">钓鱼</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Hunting <span style="color:#999; font-size:11px; margin-left:4px;">狩猎</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Hunting Gear and Equipment <span style="color:#999; font-size:11px; margin-left:4px;">狩猎装备</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Camping <span style="color:#999; font-size:11px; margin-left:4px;">露营</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Football <span style="color:#999; font-size:11px; margin-left:4px;">足球</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Football Accessories <span style="color:#999; font-size:11px; margin-left:4px;">足球配件</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Football Gear <span style="color:#999; font-size:11px; margin-left:4px;">足球装备</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Gym <span style="color:#999; font-size:11px; margin-left:4px;">健身</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Anime <span style="color:#999; font-size:11px; margin-left:4px;">动漫</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Halloween <span style="color:#999; font-size:11px; margin-left:4px;">万圣节</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Halloween Costumes <span style="color:#999; font-size:11px; margin-left:4px;">万圣节服装</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #2e7d32; color:#1b5e20; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Christmas <span style="color:#999; font-size:11px; margin-left:4px;">圣诞节</span></span>
+          </div>
+        </div>
+
+        <!-- 热搜词 材质面料词 -->
+        <div id="hotCat3" style="margin-bottom:16px; display:none;">
+          <div style="display:flex; align-items:center; margin-bottom:10px;">
+            <span style="font-size:16px; margin-right:8px;">🧵</span>
+            <span style="font-size:15px; font-weight:700; color:#e65100; border-left:4px solid #ef6c00; padding-left:8px;">材质面料词</span>
+            <span style="font-size:12px; color:#999; margin-left:8px;">(2个)</span>
+          </div>
+          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #ef6c00; color:#e65100; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Compression Shirt Men <span style="color:#999; font-size:11px; margin-left:4px;">男士压缩衣</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #ef6c00; color:#e65100; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Compression Socks for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士压缩袜</span></span>
+          </div>
+        </div>
+
+        <!-- 热搜词 设计细节词 -->
+        <div id="hotCat4" style="margin-bottom:16px; display:none;">
+          <div style="display:flex; align-items:center; margin-bottom:10px;">
+            <span style="font-size:16px; margin-right:8px;">✂️</span>
+            <span style="font-size:15px; font-weight:700; color:#b71c1c; border-left:4px solid #c62828; padding-left:8px;">设计细节词</span>
+            <span style="font-size:12px; color:#999; margin-left:8px;">(26个)</span>
+          </div>
+          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shirts <span style="color:#999; font-size:11px; margin-left:4px;">衬衫</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shirts for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Shirts <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Shirts <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Shirt <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Shirt <span style="color:#999; font-size:11px; margin-left:4px;">衬衫</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">男士T恤 <span style="color:#999; font-size:11px; margin-left:4px;">男士T恤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens T Shirts <span style="color:#999; font-size:11px; margin-left:4px;">男士T恤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">T Shirts for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士T恤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">T Shirts <span style="color:#999; font-size:11px; margin-left:4px;">T恤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Funny Tshirts <span style="color:#999; font-size:11px; margin-left:4px;">搞笑T恤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Custom T Shirt <span style="color:#999; font-size:11px; margin-left:4px;">定制T恤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">T恤 <span style="color:#999; font-size:11px; margin-left:4px;">T恤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">男士短袖 <span style="color:#999; font-size:11px; margin-left:4px;">男士短袖</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Teacher Shirts <span style="color:#999; font-size:11px; margin-left:4px;">教师T恤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Camisas de Hombre <span style="color:#999; font-size:11px; margin-left:4px;">男士衬衫</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Socks <span style="color:#999; font-size:11px; margin-left:4px;">袜子</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Socks for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士袜子</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Socks <span style="color:#999; font-size:11px; margin-left:4px;">男士袜子</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Underwear <span style="color:#999; font-size:11px; margin-left:4px;">男士内裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Underwear for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士内裤</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jacket <span style="color:#999; font-size:11px; margin-left:4px;">夹克</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jackets for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士夹克</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Jackets <span style="color:#999; font-size:11px; margin-left:4px;">夹克</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Dirty Gifts <span style="color:#999; font-size:11px; margin-left:4px;">脏礼物</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #c62828; color:#b71c1c; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Weird Stuff <span style="color:#999; font-size:11px; margin-left:4px;">奇怪的东西</span></span>
+          </div>
+        </div>
+
+        <!-- 热搜词 营销属性词 -->
+        <div id="hotCat5" style="margin-bottom:16px; display:none;">
+          <div style="display:flex; align-items:center; margin-bottom:10px;">
+            <span style="font-size:16px; margin-right:8px;">📊</span>
+            <span style="font-size:15px; font-weight:700; color:#0d47a1; border-left:4px solid #1565c0; padding-left:8px;">营销属性词</span>
+            <span style="font-size:12px; color:#999; margin-left:8px;">(19个)</span>
+          </div>
+          <div style="line-height:2.4; padding:12px 16px; background:linear-gradient(135deg, #fafafa, #f5f5f5); border-radius:10px; border:1px solid #eee;">
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Clothes <span style="color:#999; font-size:11px; margin-left:4px;">男士服装</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Clothes <span style="color:#999; font-size:11px; margin-left:4px;">衣服</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Clothes for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士服装</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Clothes <span style="color:#999; font-size:11px; margin-left:4px;">男装</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens <span style="color:#999; font-size:11px; margin-left:4px;">男士</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men <span style="color:#999; font-size:11px; margin-left:4px;">男士</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men Clothes for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士服装</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Ropa de Hombre <span style="color:#999; font-size:11px; margin-left:4px;">男装</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Clothing Clearance Sale <span style="color:#999; font-size:11px; margin-left:4px;">男士服装清仓促销</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Men's Clothes Clearance Sale 90 Percent <span style="color:#999; font-size:11px; margin-left:4px;">男士服装90%折扣清仓</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens T Shirts Clearance Sale <span style="color:#999; font-size:11px; margin-left:4px;">男士T恤清仓促销</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Mens Shorts Clearance Sale <span style="color:#999; font-size:11px; margin-left:4px;">男士短裤清仓促销</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Golf Stuff Clearance <span style="color:#999; font-size:11px; margin-left:4px;">高尔夫用品清仓</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Halloween Stuff Clearance <span style="color:#999; font-size:11px; margin-left:4px;">万圣节用品清仓</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Clearance <span style="color:#999; font-size:11px; margin-left:4px;">清仓</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Clearance Items <span style="color:#999; font-size:11px; margin-left:4px;">清仓商品</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Local Warehouse <span style="color:#999; font-size:11px; margin-left:4px;">本地仓库</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Local Warehouse Items for Men <span style="color:#999; font-size:11px; margin-left:4px;">男士本地仓商品</span></span>
+            <span style="display:inline-block; margin:4px 6px; padding:6px 16px; border-radius:20px; background:#fff; border:1.5px solid #1565c0; color:#0d47a1; font-size:13px; font-weight:500; white-space:nowrap; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.08);">Free Shipping <span style="color:#999; font-size:11px; margin-left:4px;">免邮</span></span>
+          </div>
+        </div>
+
+        <script>
+        // 热搜词分类Tab切换
+        function switchHotTab(idx) {
+          for (var i = 0; i < 6; i++) {
+            var cat = document.getElementById('hotCat' + i);
+            if (cat) cat.style.display = 'none';
+            var tab = document.getElementById('hotTab' + i);
+            if (tab) {
+              tab.style.background = '#fff';
+              tab.style.color = tab.style.borderColor;
+            }
+          }
+          var showCat = document.getElementById('hotCat' + idx);
+          if (showCat) showCat.style.display = 'block';
+          var showTab = document.getElementById('hotTab' + idx);
+          if (showTab) {
+            showTab.style.background = showTab.style.borderColor;
+            showTab.style.color = '#fff';
+          }
+        }
+        </script></div>
+
+        <!-- 加拿大热搜词 -->
+        <div id="hotCountryPanel1" style="display:none; padding:20px 0;">
+          <div style="background:#f8f9fa; border-radius:10px; padding:20px; border-left:4px solid #d32f2f;">
+            <p style="font-size:14px; color:#333; line-height:2.0; margin:0;">
+              <strong style="color:#d32f2f;">📌 加拿大市场热搜趋势</strong><br>
+              搜索流量主要集中在裤子、T恤/POLO、特征词、衬衫、品牌IP<br>
+              • 衬衫、卫衣连帽衫、牛仔裤、内裤、节日词搜索次数环比正向且高于大盘；属于<strong style="color:#2e7d32;">高热度</strong><br>
+              • <strong>泛搜索词：</strong>男装、充气船、上衣相关关注度更高<br>
+              • <strong>节日词：</strong>万圣节相关、圣诞节、送男士礼物相关关注度更高<br>
+              • <strong>品牌IP：</strong>哈利波特、玩具总动员周边相关关注度更高<br>
+              • <strong>特征词：</strong>高尔夫、健身房衣服相关关注度更高
+            </p>
+          </div>
+        </div>
+
+        <!-- 法国热搜词 -->
+        <div id="hotCountryPanel2" style="display:none; padding:20px 0;">
+          <div style="background:#f8f9fa; border-radius:10px; padding:20px; border-left:4px solid #1565c0;">
+            <p style="font-size:14px; color:#333; line-height:2.0; margin:0;">
+              <strong style="color:#1565c0;">📌 法国市场热搜趋势</strong><br>
+              搜索流量主要集中在特征词、裤子、T恤/POLO、泳衣泳裤、背心/马甲<br>
+              • T恤/POLO、外套夹克、袜子、毛衣针织开衫、牛仔裤搜索次数环比正向且高于大盘；属于<strong style="color:#2e7d32;">高热度</strong><br>
+              • <strong>泛搜索词：</strong>男装、运动、摩托相关关注度更高<br>
+              • <strong>节日词：</strong>男生礼物、万圣节相关相关关注度更高<br>
+              • <strong>品牌IP：</strong>Jules品牌、哈利波特相关关注度更高<br>
+              • <strong>特征词：</strong>男士纯棉T恤、男士慢跑、定制T恤相关关注度更高
+            </p>
+          </div>
+        </div>
+
+        <script>
+        function switchHotCountry(idx) {
+          for (var i = 0; i < 3; i++) {
+            var panel = document.getElementById('hotCountryPanel' + i);
+            var btn = document.getElementById('hotCountry' + i);
+            if (panel) panel.style.display = (i === idx) ? 'block' : 'none';
+            if (btn) {
+              if (i === idx) {
+                btn.style.borderBottom = '3px solid #ff9800';
+                btn.style.background = '#fff3e0';
+                btn.style.color = '#e65100';
+              } else {
+                btn.style.borderBottom = '3px solid transparent';
+                btn.style.background = '#fff';
+                btn.style.color = '#666';
+              }
+            }
+          }
+        }
+        </script>
+      </div>
+
+      <!-- 类目倾向 -->
+      <div id="sec-trend"></div>
+      <div class="section" style="padding:20px 24px; border-left:4px solid #ff9800;">
+        <p style="font-size:14px; color:#333; line-height:1.8; margin:0;">
+          <strong style="color:#e65100;">📌 类目倾向：</strong>裤装多个相关搜索词本周热度上升明显，裤装下男士运动裤（sweatpants men）、男士工作裤（work pants for men）、男士牛仔裤（jeans for men）、男士工装裤（cargo pants men）
+        </p>
+      </div>
+
+  <div class="section" id="sec-1">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-title"><span class="section-num">6</span>类目指引</div>
+      <span class="section-arrow">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="cat-box">
+        <div class="cat-group">
+          <div class="cat-group-title">长裤</div>
+          <div class="cat-item"><span class="cat-name">【休闲裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男装长裤 &gt; 男士休闲裤</span><span class="cat-tag tag-blue">所有裤型均可上</span></div>
+          <div class="cat-item"><span class="cat-name">【工装裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士工装裤</span><span class="cat-tag tag-green">转化好</span></div>
+          <div class="cat-item"><span class="cat-name">【户外/战术裤】</span><span class="cat-path">运动与户外用品 &gt; 户外休闲 &gt; 徒步和户外休闲服装 &gt; 男士户外服饰 &gt; 男士户外长裤</span><span class="cat-tag tag-cyan">搭配视觉动销好</span></div>
+          <div class="cat-item"><span class="cat-name">【运动裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士休闲运动长裤 &gt; 男士运动长裤</span></div>
+          <div class="cat-item"><span class="cat-path">运动与户外用品 &gt; 健身、训练用品 &gt; 健身服 &gt; 男士 &gt; 男士休闲运动长裤 &gt; 男士运动长裤</span><span class="cat-tag tag-orange">注意场景与类目适配度</span></div>
+          <div class="cat-item"><span class="cat-name">【廓形休闲裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士休闲运动长裤 &gt; 男士宽松运动长裤</span></div>
+          <div class="cat-item"><span class="cat-name">【跑步长裤】</span><span class="cat-path">运动与户外用品 &gt; 健身、训练用品 &gt; 跑步 &gt; 服装 &gt; 男士跑步服 &gt; 男士跑步长裤 &gt; 运动裤</span></div>
+          <div class="cat-item"><span class="cat-name">【高尔夫裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 体育专用服装 &gt; 高尔夫服 &gt; 男士高尔夫服 &gt; 男士高尔夫长裤</span><span class="cat-tag tag-green">消费者需求高</span></div>
+          <div class="cat-item"><span class="cat-name">【马术裤】</span><span class="cat-path">运动与户外用品 &gt; 运动服装和器材 &gt; 团队运动 &gt; 马术体育用品 &gt; 服装 &gt; 男士马术服 &gt; 男士马术裤</span><span class="cat-tag tag-purple">不卡克重和尺码</span></div>
+          <div class="cat-item"><span class="cat-name">【新奇版型】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 新奇物品 &gt; 新奇服装和产品 &gt; 新奇服装 &gt; 男士新奇服装 &gt; 男士新奇长裤</span><span class="cat-tag tag-pink">新奇特额外加权</span></div>
+          <div class="cat-item"><span class="cat-name">【骑行裤】</span><span class="cat-path">运动与户外用品 &gt; 户外休闲 &gt; 骑行用品 &gt; 服装 &gt; 男士骑行服 &gt; 男士骑行裤装 &gt; 男士骑行长裤</span></div>
+          <div class="cat-item"><span class="cat-name">【长裤/短裤】</span><span class="cat-path">运动与户外用品 &gt; 运动户外服饰 &gt; 男士运动户外服饰 &gt; 男士运动休闲短裤和长裤 &gt; 男士运动休闲裤 &gt; 徒步和户外休闲</span><span class="cat-tag tag-blue">长短都可上</span></div>
+        </div>
+        <div class="cat-group">
+          <div class="cat-group-title">紧身/打底-<span class="bold-tag">打底压缩</span></div>
+          <div class="cat-item"><span class="cat-name">【T恤背心】</span><span class="cat-path">运动与户外用品 &gt; 运动户外服饰 &gt; 男士运动户外服饰 &gt; 贴身衣和压缩衣 &gt; 男士运动上衣</span></div>
+          <div class="cat-item"><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士打底和压缩单品 &gt; 男士运动上衣</span></div>
+          <div class="cat-item"><span class="cat-name">【短裤】</span><span class="cat-path">运动与户外用品 &gt; 健身、训练用品 &gt; 健身服 &gt; 男士 &gt; 男士打底和压缩单品 &gt; 男士运动短裤</span></div>
+          <div class="cat-item"><span class="cat-name">【套装】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士贴身运动衣 &gt; 男士贴身套装</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
 
         <script>
@@ -1623,12 +1621,12 @@ function navTo(id) {
 // 滚动监听 - 自动高亮当前section
 window.addEventListener('scroll', function() {
   var sections = [
-    { id: 'sec-hot', nav: 0 },
-    { id: 'sec-1', nav: 1 },
-    { id: 'sec-2', nav: 2 },
-    { id: 'sec-3', nav: 3 },
-    { id: 'sec-4', nav: 4 },
-    { id: 'sec-5', nav: 5 }
+    { id: 'sec-2', nav: 0 },
+    { id: 'sec-3', nav: 1 },
+    { id: 'sec-4', nav: 2 },
+    { id: 'sec-5', nav: 3 },
+    { id: 'sec-hot', nav: 4 },
+    { id: 'sec-1', nav: 5 }
   ];
   var scrollY = window.scrollY + 100;
   var current = 0;
