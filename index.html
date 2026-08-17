@@ -64,6 +64,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .dir-tab.active { color: #0f3460; border-bottom-color: #0f3460; }
 .dir-panel { display: none; padding: 16px 0; }
 .dir-panel.active { display: block; }
+.title-tabs { display: flex; gap: 0; margin-bottom: 0; border-bottom: 2px solid #0f3460; }
+.title-tab { padding: 10px 24px; cursor: pointer; font-size: 15px; font-weight: 600; color: #666; border: none; background: none; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+.title-tab.active { color: #0f3460; border-bottom-color: #0f3460; }
+.title-panel { display: none; padding: 16px 0; }
+.title-panel.active { display: block; }
 .pdf-viewer { background: #fff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
 .pdf-page-nav { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 8px 12px; background: #f8f9fa; border-bottom: 1px solid #ddd; flex-wrap: wrap; }
 .pdf-page-nav button { padding: 4px 16px; border: 1px solid #0f3460; background: #fff; color: #0f3460; border-radius: 4px; cursor: pointer; font-size: 14px; }
@@ -253,42 +258,45 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
     </div>
     <div class="section-body">
       <div class="title-tabs" style="margin-top:16px;">
-        <button class="title-tab active" onclick="switchTitleTab(this,'visual-opt-panel')">视觉优化</button>
+        <button class="title-tab active" onclick="switchTitleTab(this,'main-img-panel')">主图优化</button>
+        <button class="title-tab" onclick="switchTitleTab(this,'detail-img-panel')">细节图优化</button>
         <button class="title-tab" onclick="switchTitleTab(this,'ad-visual-panel')">广告需求视觉</button>
+        <button class="title-tab" onclick="switchTitleTab(this,'ai-instruction-panel')">AI指令快速生成</button>
       </div>
 
-      <div class="title-panel active" id="visual-opt-panel">
+      <div class="title-panel active" id="main-img-panel">
+        <div class="opt-card">
+          <span class="opt-icon">&#128248;</span>
+          <div class="opt-content">
+            <h4>主图优化</h4>
+            <p>决定点击率（CTR）</p>
+          </div>
+          <a class="opt-link" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=26245935985" target="_blank">点击查看</a>
+        </div>
+        <div style="margin-left: 20px; margin-top: 12px; padding: 16px; background: #f8f9fa; border-radius: 10px; border: 1px solid #e0e0e0;">
+          <div style="font-size: 15px; font-weight: 700; color: #0f3460; margin-bottom: 12px;">&#128200; 高点击图片指令</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171145246135" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 休闲裤-亚麻材质</a>
+            <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171134391976" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 工装裤</a>
+            <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171135901517" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 卫裤</a>
+            <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171136356238" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 运动裤/肌理长裤</a>
+            <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171143657381" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 休闲裤-休闲西裤</a>
+            <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171151248913" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 休闲裤-其他</a>
+          </div>
+          <div style="font-size: 15px; font-weight: 700; color: #0f3460; margin: 16px 0 12px;">&#128270; 套关键词</div>
+          <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171151248913" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 拉美/北美</a>
+        </div>
+      </div>
 
-      <div class="opt-card">
-        <span class="opt-icon">&#128248;</span>
-        <div class="opt-content">
-          <h4>主图优化</h4>
-          <p>决定点击率（CTR）</p>
+      <div class="title-panel" id="detail-img-panel">
+        <div class="opt-card">
+          <span class="opt-icon">&#128269;</span>
+          <div class="opt-content">
+            <h4>细节图优化</h4>
+            <p>大幅提升转化率（CVR）</p>
+          </div>
+          <a class="opt-link" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=178472494036" target="_blank">点击查看</a>
         </div>
-        <a class="opt-link" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=26245935985" target="_blank">点击查看</a>
-      </div>
-      <div style="margin-left: 20px; margin-top: 12px; padding: 16px; background: #f8f9fa; border-radius: 10px; border: 1px solid #e0e0e0;">
-        <div style="font-size: 15px; font-weight: 700; color: #0f3460; margin-bottom: 12px;">&#128200; 高点击图片指令</div>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171145246135" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 休闲裤-亚麻材质</a>
-          <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171134391976" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 工装裤</a>
-          <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171135901517" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 卫裤</a>
-          <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171136356238" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 运动裤/肌理长裤</a>
-          <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171143657381" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 休闲裤-休闲西裤</a>
-          <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171151248913" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 休闲裤-其他</a>
-        </div>
-        <div style="font-size: 15px; font-weight: 700; color: #0f3460; margin: 16px 0 12px;">&#128270; 套关键词</div>
-        <a href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171151248913" target="_blank" style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #fff; border: 1px solid #ddd; border-radius: 8px; text-decoration: none; color: #333; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.background='#eef5ff'" onmouseout="this.style.background='#fff'"><span style="color: #0f3460; font-weight: 600;">&#9654;</span> 拉美/北美</a>
-      </div>
-      <div class="opt-card">
-        <span class="opt-icon">&#128269;</span>
-        <div class="opt-content">
-          <h4>细节图优化</h4>
-          <p>大幅提升转化率（CVR）</p>
-        </div>
-        <a class="opt-link" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=178472494036" target="_blank">点击查看</a>
-      </div>
-    
       </div>
 
       <div class="title-panel" id="ad-visual-panel">
@@ -299,6 +307,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
             <p>广告视觉需求提报</p>
           </div>
           <a class="opt-link" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=181712494513" target="_blank">点击查看</a>
+        </div>
+      </div>
+
+      <div class="title-panel" id="ai-instruction-panel">
+        <div class="opt-card">
+          <span class="opt-icon">&#129302;</span>
+          <div class="opt-content">
+            <h4>AI指令快速生成</h4>
+            <p>一键生成AI绘图指令</p>
+          </div>
+          <a class="opt-link" href="https://hazeshao-temu.github.io/shijue/" target="_blank">点击查看</a>
         </div>
       </div>
     </div>
@@ -1601,6 +1620,16 @@ function switchTab(btn, panelId) {
   var panels = btn.parentElement.parentElement.querySelectorAll('.dir-panel');
   panels.forEach(function(p) { p.classList.remove('active'); });
   document.getElementById(panelId).classList.add('active');
+}
+
+function switchTitleTab(btn, panelId) {
+  var tabs = btn.parentElement.querySelectorAll('.title-tab');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+  var panels = btn.parentElement.parentElement.querySelectorAll('.title-panel');
+  for (var i = 0; i < panels.length; i++) panels[i].classList.remove('active');
+  btn.classList.add('active');
+  var panel = document.getElementById(panelId);
+  if (panel) panel.classList.add('active');
 }
 </script>
     </div>
