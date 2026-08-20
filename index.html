@@ -160,8 +160,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
     <a class="nav-item" onclick="navTo('sec-3')"><span class="nav-num">2</span>视觉优化</a>
     <a class="nav-item" onclick="navTo('sec-4')"><span class="nav-num">3</span>标题优化</a>
     <a class="nav-item" onclick="navTo('sec-5')"><span class="nav-num">4</span>长裤招品回品</a>
-    <a class="nav-item" onclick="navTo('sec-hot')"><span class="nav-num">5</span>近期热搜词</a>
-    <a class="nav-item" onclick="navTo('sec-1')"><span class="nav-num">6</span>类目指引</a>
+    <a class="nav-item" onclick="navTo('sec-bsr')"><span class="nav-num">5</span>BSR稀缺款</a>
+    <a class="nav-item" onclick="navTo('sec-hot')"><span class="nav-num">6</span>近期热搜词</a>
+    <a class="nav-item" onclick="navTo('sec-1')"><span class="nav-num">7</span>类目指引</a>
   </nav>
   <div class="main-content">
     <div class="container">
@@ -1281,6 +1282,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
         <a href="https://hazeshao-temu.github.io/XQT/" target="_blank" style="display:inline-block; padding:12px 28px; background:linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color:#fff; text-decoration:none; border-radius:8px; font-size:15px; font-weight:600; transition:all 0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.15);">🔗 点击进入长裤招品回品</a>
       </div>
 
+      <!-- BSR板块 -->
+      <div class="section" id="sec-bsr" style="padding:20px 24px;">
+        <h3 style="font-size:18px; font-weight:700; color:#16213e; margin-bottom:12px;">📊 BSR稀缺款</h3>
+        <p style="font-size:14px; color:#555; line-height:1.8; margin-bottom:16px;">长裤BSR稀缺款榜单数据，助力选品与竞品分析</p>
+        <a href="https://hazeshao-temu.github.io/pantsBSR/" target="_blank" style="display:inline-block; padding:12px 28px; background:linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color:#fff; text-decoration:none; border-radius:8px; font-size:15px; font-weight:600; transition:all 0.2s; box-shadow:0 2px 6px rgba(0,0,0,0.15);">🔗 点击进入BSR稀缺款</a>
+      </div>
+
             <!-- 近期热搜词（美国） -->
       <div id="sec-hot"></div>
       <div class="section" style="padding:20px 24px;">
@@ -1538,7 +1546,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 
   <div class="section" id="sec-1">
     <div class="section-header" onclick="toggleSection(this)">
-      <div class="section-title"><span class="section-num">6</span>类目指引</div>
+      <div class="section-title"><span class="section-num">7</span>类目指引</div>
       <span class="section-arrow">&#9660;</span>
     </div>
     <div class="section-body">
@@ -1666,8 +1674,9 @@ window.addEventListener('scroll', function() {
     { id: 'sec-3', nav: 1 },
     { id: 'sec-4', nav: 2 },
     { id: 'sec-5', nav: 3 },
-    { id: 'sec-hot', nav: 4 },
-    { id: 'sec-1', nav: 5 }
+    { id: 'sec-bsr', nav: 4 },
+    { id: 'sec-hot', nav: 5 },
+    { id: 'sec-1', nav: 6 }
   ];
   var scrollY = window.scrollY + 100;
   var current = 0;
