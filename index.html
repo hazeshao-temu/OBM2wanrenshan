@@ -3,318 +3,352 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>组织架构调整 · 公告</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<title>万仞山对接类目上新指引</title>
 <style>
-  :root{
-    --paper:#e7eff9;
-    --paper-hi:#f8fbff;
-    --paper-lo:#cfdff2;
-    --ink:#0b1f38;
-    --ink-soft:#4e6d92;
-    --blue:#1a5da8;
-    --blue-deep:#0d2e52;
-    --blue-lite:#5b9bd6;
-    --stitch:#4b93cf;
-  }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f0f2f5;color:#333;line-height:1.6}
 
-  *{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+/* Top Nav — fixed */
+.topnav{position:sticky;top:0;z-index:100;background:linear-gradient(135deg,#0D47A1 0%,#1565C0 30%,#1976D2 60%,#1E88E5 100%);box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:0 20px}
+.topnav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:10px 0}
+.topnav-brand{color:#fff;font-size:1.1rem;font-weight:800;letter-spacing:1px;white-space:nowrap;flex-shrink:0;text-shadow:0 1px 4px rgba(0,0,0,0.12)}
+.topnav-pills{display:flex;flex-wrap:wrap;gap:6px;flex:1;justify-content:flex-end}
+.topnav-pill{background:rgba(255,255,255,0.15);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.3);padding:6px 16px;border-radius:20px;font-size:0.82rem;color:#fff;text-decoration:none;cursor:pointer;transition:all .25s;white-space:nowrap}
+.topnav-pill:hover{background:rgba(255,255,255,0.28);transform:translateY(-1px)}
+.topnav-pill.active{background:#fff;color:#1565C0;font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
 
-  html,body{ height:100%; }
 
-  body{
-    margin:0;
-    background-color:var(--paper);
-    color:var(--ink);
-    font-family:"Noto Serif SC","Songti SC","Source Han Serif SC","PingFang SC","Microsoft YaHei",serif;
-    overflow-x:hidden;
-    position:relative;
-  }
+/* Nav pill active colors per section */
+.topnav-pill[data-s="s1"].active{color:#1565C0}
+.topnav-pill[data-s="s2"].active{color:#7B1FA2}
+.topnav-pill[data-s="s3"].active{color:#00695C}
+.topnav-pill[data-s="s4"].active{color:#E65100}
+.topnav-pill[data-s="s5"].active{color:#C62828}
+.topnav-pill[data-s="s6"].active{color:#5D4037}
 
-  /* 牛仔斜纹底纹 */
-  .weave{
-    position:fixed; inset:0; pointer-events:none; z-index:1;
-    background-image:
-      repeating-linear-gradient(45deg,
-        rgba(26,93,168,.075) 0 1.5px,
-        transparent 1.5px 4.5px),
-      repeating-linear-gradient(-45deg,
-        rgba(13,46,82,.045) 0 1.5px,
-        transparent 1.5px 4.5px);
-  }
+/* Container */
+.container{max-width:1400px;margin:0 auto;padding:24px 20px}
 
-  /* 光晕与纸张层次 */
-  .halo{
-    position:fixed; inset:0; pointer-events:none; z-index:0;
-    background:
-      radial-gradient(120% 80% at 14% 6%, rgba(255,255,255,.92) 0%, rgba(255,255,255,0) 56%),
-      radial-gradient(95% 75% at 90% 102%, rgba(13,46,82,.30) 0%, rgba(26,93,168,0) 63%),
-      radial-gradient(70% 55% at 62% 34%, rgba(91,155,214,.22) 0%, rgba(91,155,214,0) 70%),
-      linear-gradient(168deg, var(--paper-hi) 0%, var(--paper) 46%, var(--paper-lo) 100%);
-  }
+/* Section */
+.section{background:#fff;border-radius:12px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,0.06);overflow:hidden;position:relative;scroll-margin-top:80px}
+.section::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,#1565C0,#1976D2,#1E88E5);opacity:0.8}
+.section-header{padding:24px 28px 14px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:12px}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:linear-gradient(135deg,#1565C0,#1E88E5);color:#fff;border-radius:10px;font-size:1.1rem;font-weight:800;flex-shrink:0;box-shadow:0 3px 10px rgba(21,101,192,0.3)}
+.section-header h2{font-size:1.35rem;font-weight:700;color:#333}
+.section-body{padding:20px 28px}
 
-  /* 颗粒叠加 */
-  .grain{
-    position:fixed; inset:0; pointer-events:none; z-index:9; opacity:.26;
-    mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
-  }
+/* Sub-header */
+.sub-header{font-size:1.05rem;font-weight:700;color:#1565C0;margin:20px 0 12px;padding:8px 14px;border-left:4px solid #1565C0;background:linear-gradient(90deg,#E3F2FD,transparent);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sub-header:first-child{margin-top:0}
+.sub-header .sh-deco{font-size:0.9rem;opacity:0.6}
+.sub-header .sh-tip{font-size:.82rem;font-weight:400;color:#546E7A;margin-left:4px}
 
-  .stage{
-    position:relative; z-index:5;
-    min-height:100vh; min-height:100dvh;
-    display:flex; flex-direction:column;
-    padding:clamp(20px,3.4vw,52px) clamp(20px,5vw,84px) clamp(24px,4vw,56px);
-  }
+/* Link cards */
+.sec-tip{background:linear-gradient(135deg,#E8F0FE,#F5F9FF);border-left:3px solid #1565C0;padding:8px 14px;margin:0 0 12px;font-size:.85rem;color:#37474F;border-radius:0 6px 6px 0;line-height:1.6}
+.link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.link-card{display:block;text-decoration:none;color:#333;background:#f9f9fb;border:1px solid #eee;border-radius:10px;padding:14px 16px;transition:all .25s;position:relative;overflow:hidden}
+.link-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:#1565C0;transform:scaleY(0);transform-origin:top;transition:transform .3s}
+.link-card:hover{background:#E3F2FD;border-color:#90CAF9;transform:translateY(-3px);box-shadow:0 6px 18px rgba(21,101,192,0.12)}
+.link-card:hover::before{transform:scaleY(1)}
+.link-card .lc-title{font-size:0.92rem;font-weight:600;color:#333;margin-bottom:4px;padding-left:4px;transition:color .25s}
+.link-card:hover .lc-title{color:#1565C0}
+.link-card .lc-desc{font-size:0.78rem;color:#999;padding-left:4px}
+.link-card .lc-arrow{position:absolute;top:50%;right:14px;transform:translateY(-50%);color:#ccc;font-size:1.1rem;transition:all .25s}
+.link-card:hover .lc-arrow{color:#1565C0;transform:translateY(-50%) translateX(3px)}
+.link-card.full{grid-column:1/-1}
+.link-card .lc-icon{font-size:1.2rem;margin-right:4px}
 
-  /* ── 顶部信息条 ── */
-  .meta{
-    display:flex; align-items:baseline; justify-content:space-between; gap:16px;
-    font-family:"JetBrains Mono","SFMono-Regular",Menlo,monospace;
-    font-size:clamp(9px,.72vw,11.5px);
-    letter-spacing:.34em; text-transform:uppercase;
-    color:var(--ink-soft);
-    opacity:0; animation:fade .9s .15s cubic-bezier(.2,.7,.3,1) forwards;
-  }
-  .meta b{ display:inline-flex; align-items:center; gap:9px; font-weight:400; }
-  .pulse{
-    width:7px; height:7px; border-radius:50%;
-    background:var(--blue);
-    box-shadow:0 0 0 0 rgba(26,93,168,.55);
-    animation:pulse 2.4s infinite;
-  }
-  @keyframes pulse{
-    0%{ box-shadow:0 0 0 0 rgba(26,93,168,.5); }
-    70%{ box-shadow:0 0 0 11px rgba(26,93,168,0); }
-    100%{ box-shadow:0 0 0 0 rgba(26,93,168,0); }
-  }
+/* Category box */
+.cat-box{background:linear-gradient(135deg,#f8f9fa,#fff);border:1px solid #e8e8e8;border-radius:10px;padding:20px 24px;margin-top:8px;position:relative}
+.cat-box::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,#1565C0,transparent);border-radius:10px 10px 0 0}
+.cat-box h3{font-size:1.05rem;font-weight:700;color:#333;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #E3F2FD;display:inline-block;display:flex;align-items:center;gap:6px}
+.cat-item{padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:0.86rem;line-height:1.7}
+.cat-item:last-child{border-bottom:none}
+.cat-item .cat-name{font-weight:700;color:#1565C0;margin-right:6px}
+.cat-item .cat-path{color:#555}
+.cat-item .cat-note{display:inline-block;background:linear-gradient(135deg,#E3F2FD,#BBDEFB);color:#0D47A1;padding:2px 10px;border-radius:12px;font-size:0.78rem;margin-left:6px;font-weight:600;border:1px solid #90CAF9}
+.cat-item .bold{font-weight:700;color:#d32f2f}
 
-  /* ── 主体 ── */
-  .core{
-    flex:1 1 auto;
-    display:flex; flex-direction:column; justify-content:center;
-    padding:clamp(28px,6vh,80px) 0;
-  }
+/* Note box */
+.note-box{background:#fffbe6;border:1px solid #ffe58f;border-radius:8px;padding:12px 16px;margin:12px 0;font-size:0.84rem;color:#8c6d1f;display:flex;align-items:center;gap:8px}
 
-  .tag{
-    display:inline-flex; align-items:center; gap:10px;
-    font-family:"JetBrains Mono",monospace;
-    font-size:clamp(9.5px,.78vw,12px);
-    letter-spacing:.3em;
-    color:var(--blue);
-    text-transform:uppercase;
-    padding:7px 16px 7px 13px;
-    border:1px solid rgba(26,93,168,.34);
-    border-radius:100px;
-    background:rgba(255,255,255,.55);
-    backdrop-filter:blur(3px);
-    width:max-content;
-    opacity:0; animation:fadeUp .9s .25s cubic-bezier(.2,.7,.3,1) forwards;
-  }
-  .tag span{ color:var(--ink-soft); letter-spacing:.18em; }
+/* Footer */
+.footer{text-align:center;padding:28px 20px;color:#aaa;font-size:0.82rem;position:relative}
+.footer::before{content:'';display:block;width:60px;height:3px;background:linear-gradient(90deg,#1565C0,#1E88E5);border-radius:2px;margin:0 auto 16px}
+.footer .ft-name{font-weight:600;color:#1565C0;font-size:0.9rem;margin-bottom:4px}
 
-  .headline{
-    margin:clamp(20px,3.2vw,44px) 0 0;
-    font-weight:900;
-    font-size:clamp(3.15rem,12.4vw,11.2rem);
-    line-height:.98;
-    letter-spacing:-.025em;
-    color:var(--blue-deep);
-    display:flex; flex-wrap:wrap;
-    gap:0 .02em;
-  }
-  .ch{ display:inline-block; overflow:hidden; padding-bottom:.10em; margin-bottom:-.10em; }
-  .ch > i{
-    display:inline-block; font-style:normal;
-    transform:translateY(115%) rotate(3deg);
-    animation:rise 1.05s cubic-bezier(.16,1,.3,1) forwards;
-    transition:color .45s ease, text-shadow .45s ease;
-    will-change:transform;
-  }
-  .headline:hover .ch > i{
-    color:var(--blue);
-    text-shadow:0 16px 38px rgba(26,93,168,.36);
-  }
-  .ch:nth-child(1) > i{ animation-delay:.34s; }
-  .ch:nth-child(2) > i{ animation-delay:.43s; }
-  .ch:nth-child(3) > i{ animation-delay:.52s; }
-  .ch:nth-child(4) > i{ animation-delay:.61s; }
-  .ch:nth-child(5) > i{ animation-delay:.70s; }
-  .ch:nth-child(6) > i{ animation-delay:.79s; }
 
-  .rule{
-    margin:clamp(22px,3.4vw,44px) 0 clamp(18px,2.8vw,34px);
-    display:flex; align-items:center; gap:14px;
-  }
-  .rule-line{
-    height:1px; flex:1 1 auto; max-width:640px;
-    background:linear-gradient(90deg,var(--blue-deep) 0%,rgba(26,93,168,.55) 55%,rgba(26,93,168,0) 100%);
-    transform-origin:left center; transform:scaleX(0);
-    animation:draw 1.1s .95s cubic-bezier(.2,.8,.25,1) forwards;
-  }
-  .rule-thread{
-    width:clamp(46px,7vw,96px); height:9px; flex:0 0 auto;
-    background-image:repeating-linear-gradient(90deg,var(--stitch) 0 6px, transparent 6px 11px);
-    background-position:0 center; background-size:11px 1.6px; background-repeat:repeat-x;
-    opacity:0; animation:fade .8s 1.5s ease forwards;
-  }
+/* Per-section colors */
+.s1 .section-num{background:linear-gradient(135deg,#0D47A1,#1976D2);box-shadow:0 3px 10px rgba(21,101,192,0.3)}
+.s1 .section::before,.s1-section::before{background:linear-gradient(90deg,#1565C0,#1976D2,#42A5F5)!important}
+.s1 .sub-header{color:#1565C0;border-left-color:#1565C0;background:linear-gradient(90deg,#E3F2FD,transparent)}
+.s1 .link-card{background:#E3F2FD;border-color:#BBDEFB}
+.s1 .link-card::before{background:#1565C0}
+.s1 .link-card:hover{background:#C5E1FA;border-color:#90CAF9;box-shadow:0 6px 18px rgba(21,101,192,0.12)}
+.s1 .link-card:hover .lc-title{color:#1565C0}
+.s1 .link-card:hover .lc-arrow{color:#1565C0}
 
-  .sub{
-    margin:0;
-    font-size:clamp(1.15rem,3.1vw,2.6rem);
-    font-weight:700;
-    letter-spacing:.005em;
-    line-height:1.5;
-    color:var(--ink);
-    opacity:0; animation:fadeUp 1s 1.15s cubic-bezier(.2,.7,.3,1) forwards;
-  }
-  .sub .denim{
-    position:relative; color:var(--blue); white-space:nowrap;
-    font-size:1.46em; font-weight:900; line-height:.88;
-    display:inline-block; vertical-align:-.07em;
-    letter-spacing:-.015em;
-    text-shadow:0 10px 30px rgba(26,93,168,.26);
-  }
-  .sub .denim::after{
-    content:""; position:absolute; left:0; right:0; bottom:-.16em; height:6px;
-    background-image:repeating-linear-gradient(90deg,var(--stitch) 0 7px, transparent 7px 13px);
-    background-size:13px 2px; background-repeat:repeat-x; background-position:0 bottom;
-    opacity:.95;
-  }
+.s2 .section-num{background:linear-gradient(135deg,#4A148C,#8E24AA);box-shadow:0 3px 10px rgba(123,31,162,0.3)}
+.s2 .section::before,.s2-section::before{background:linear-gradient(90deg,#7B1FA2,#8E24AA,#AB47BC)!important}
+.s2 .sub-header{color:#7B1FA2;border-left-color:#7B1FA2;background:linear-gradient(90deg,#F3E5F5,transparent)}
+.s2 .link-card{background:#F3E5F5;border-color:#E1BEE7}
+.s2 .link-card::before{background:#7B1FA2}
+.s2 .link-card:hover{background:#E1BEE7;border-color:#CE93D8;box-shadow:0 6px 18px rgba(123,31,162,0.12)}
+.s2 .link-card:hover .lc-title{color:#7B1FA2}
+.s2 .link-card:hover .lc-arrow{color:#7B1FA2}
 
-  /* 署名 */
-  .sign{
-    margin:clamp(16px,2.5vw,30px) 0 0;
-    display:flex; align-items:center; gap:clamp(10px,1.4vw,16px);
-    font-family:"JetBrains Mono","Noto Serif SC",monospace;
-    font-size:clamp(.86rem,1.35vw,1.22rem);
-    font-weight:400; letter-spacing:.13em;
-    color:var(--ink-soft);
-    opacity:0; animation:fadeUp 1s 1.32s cubic-bezier(.2,.7,.3,1) forwards;
-  }
-  .sign::before{
-    content:""; flex:0 0 auto;
-    width:clamp(22px,3.2vw,44px); height:1px;
-    background:var(--blue-deep); opacity:.42;
-  }
-  .sign b{ font-weight:500; color:var(--blue-deep); }
+.s3 .section-num{background:linear-gradient(135deg,#004D40,#00897B);box-shadow:0 3px 10px rgba(0,105,92,0.3)}
+.s3 .section::before,.s3-section::before{background:linear-gradient(90deg,#00695C,#00897B,#26A69A)!important}
+.s3 .sub-header{color:#00695C;border-left-color:#00695C;background:linear-gradient(90deg,#E0F2F1,transparent)}
+.s3 .link-card{background:#E0F2F1;border-color:#B2DFDB}
+.s3 .link-card::before{background:#00695C}
+.s3 .link-card:hover{background:#B2DFDB;border-color:#80CBC4;box-shadow:0 6px 18px rgba(0,105,92,0.12)}
+.s3 .link-card:hover .lc-title{color:#00695C}
+.s3 .link-card:hover .lc-arrow{color:#00695C}
 
-  /* ── 底部 ── */
-  .foot{
-    display:flex; align-items:flex-end; justify-content:space-between; gap:clamp(16px,4vw,48px);
-    flex-wrap:wrap;
-    opacity:0; animation:fade 1s 1.5s cubic-bezier(.2,.7,.3,1) forwards;
-  }
-  .swatch{
-    display:flex; height:clamp(38px,5.2vw,64px); width:clamp(190px,26vw,320px);
-    border-radius:3px; overflow:hidden;
-    box-shadow:0 18px 40px -18px rgba(13,46,82,.72), inset 0 0 0 1px rgba(255,255,255,.35);
-  }
-  .swatch i{
-    flex:1; transition:flex .5s cubic-bezier(.2,.8,.25,1);
-  }
-  .swatch:hover i{ flex:.58; }
-  .swatch i:hover{ flex:1.9; }
-  .sw1{ background:linear-gradient(135deg,#3a7cc4,#1a5da8); }
-  .sw2{ background:linear-gradient(135deg,#1c4a80,#0d2e52); }
-  .sw3{ background:linear-gradient(135deg,#8fb8dd,#5b8fc4); }
-  .sw4{ background:linear-gradient(135deg,#e3eefa,#b3cde8); }
+.s4 .section-num{background:linear-gradient(135deg,#BF360C,#EF6C00);box-shadow:0 3px 10px rgba(230,81,0,0.3)}
+.s4 .section::before,.s4-section::before{background:linear-gradient(90deg,#E65100,#EF6C00,#FB8C00)!important}
+.s4 .sub-header{color:#E65100;border-left-color:#E65100;background:linear-gradient(90deg,#FFF3E0,transparent)}
+.s4 .link-card{background:#FFF3E0;border-color:#FFE0B2}
+.s4 .link-card::before{background:#E65100}
+.s4 .link-card:hover{background:#FFE0B2;border-color:#FFCC80;box-shadow:0 6px 18px rgba(230,81,0,0.12)}
+.s4 .link-card:hover .lc-title{color:#E65100}
+.s4 .link-card:hover .lc-arrow{color:#E65100}
 
-  .caption{
-    font-family:"JetBrains Mono",monospace;
-    font-size:clamp(9px,.72vw,11.5px);
-    letter-spacing:.3em; text-transform:uppercase; color:var(--ink-soft);
-    line-height:2;
-    text-align:right;
-  }
-  .caption em{ display:block; font-style:normal; color:var(--blue); }
-  .caption .wx{
-    display:block; margin-bottom:9px;
-    text-transform:none; letter-spacing:.06em;
-    color:var(--ink-soft);
-    padding-bottom:8px;
-    border-bottom:1px dashed rgba(26,93,168,.38);
-  }
-  .caption .wx b{
-    color:var(--blue); font-weight:500; letter-spacing:.1em;
-  }
+.s5 .section-num{background:linear-gradient(135deg,#B71C1C,#D32F2F);box-shadow:0 3px 10px rgba(198,40,40,0.3)}
+.s5 .section::before,.s5-section::before{background:linear-gradient(90deg,#C62828,#D32F2F,#E53935)!important}
+.s5 .sub-header{color:#C62828;border-left-color:#C62828;background:linear-gradient(90deg,#FFEBEE,transparent)}
+.s5 .link-card{background:#FFEBEE;border-color:#FFCDD2}
+.s5 .link-card::before{background:#C62828}
+.s5 .link-card:hover{background:#FFCDD2;border-color:#EF9A9A;box-shadow:0 6px 18px rgba(198,40,40,0.12)}
+.s5 .link-card:hover .lc-title{color:#C62828}
+.s5 .link-card:hover .lc-arrow{color:#C62828}
 
-  /* ── 侧边竖排 ── */
-  .rail{
-    position:fixed; right:clamp(10px,1.5vw,22px); top:50%; z-index:6;
-    transform:translateY(-50%) rotate(180deg);
-    writing-mode:vertical-rl;
-    font-family:"JetBrains Mono",monospace;
-    font-size:10px; letter-spacing:.42em; text-transform:uppercase;
-    color:rgba(13,46,82,.38);
-    opacity:0; animation:fade 1.2s 1.7s ease forwards;
-  }
+.s6 .section-num{background:linear-gradient(135deg,#3E2723,#6D4C41);box-shadow:0 3px 10px rgba(93,64,55,0.3)}
+.s6 .section::before,.s6-section::before{background:linear-gradient(90deg,#5D4037,#6D4C41,#8D6E63)!important}
+.s6 .sub-header{color:#5D4037;border-left-color:#5D4037;background:linear-gradient(90deg,#EFEBE9,transparent)}
+.s6 .link-card{background:#EFEBE9;border-color:#D7CCC8}
+.s6 .link-card::before{background:#5D4037}
+.s6 .link-card:hover{background:#D7CCC8;border-color:#BCAAA4;box-shadow:0 6px 18px rgba(93,64,55,0.12)}
+.s6 .link-card:hover .lc-title{color:#5D4037}
+.s6 .link-card:hover .lc-arrow{color:#5D4037}
+.s6 .cat-item .cat-name{color:#5D4037}
+.s6 .cat-item .cat-note{background:linear-gradient(135deg,#EFEBE9,#D7CCC8);color:#3E2723;border-color:#BCAAA4}
 
-  @keyframes fade{ from{opacity:0} to{opacity:1} }
-  @keyframes fadeUp{ from{opacity:0; transform:translateY(22px)} to{opacity:1; transform:none} }
-  @keyframes rise{ to{ transform:translateY(0) rotate(0deg); } }
-  @keyframes draw{ to{ transform:scaleX(1); } }
-
-  @media (max-width:760px){
-    .rail{ display:none; }
-    .caption{ text-align:left; }
-    .foot{ align-items:flex-start; }
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{ animation-duration:.01ms !important; animation-delay:0ms !important; }
-    .ch > i{ transform:none; }
-    .rule-line{ transform:scaleX(1); }
-    .meta,.tag,.sub,.foot,.rail,.sign{ opacity:1; }
-  }
+/* Responsive */
+@media(max-width:768px){
+  .topnav-inner{flex-direction:column;gap:8px;padding:8px 0}
+  .topnav-brand{font-size:0.95rem}
+  .topnav-pills{justify-content:center}
+  .topnav-pill{padding:4px 12px;font-size:0.74rem}
+  .link-grid{grid-template-columns:1fr}
+  .container{padding:16px 12px}
+}
 </style>
 </head>
 <body>
-  <div class="halo"></div>
-  <div class="weave"></div>
-  <div class="grain"></div>
 
-  <main class="stage">
-    <header class="meta">
-      <b><span class="pulse"></span>Announcement</b>
-      <span>No. 01 — 2026</span>
-    </header>
+<!-- Top Nav (fixed) -->
+<div class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-brand">🏔️ 万仞山对接类目上新指引</div>
+    <div class="topnav-pills">
+      <a class="topnav-pill" href="#s1" data-s="s1">🎯 开款方向</a>
+      <a class="topnav-pill" href="#s2" data-s="s2">🎨 视觉优化</a>
+      <a class="topnav-pill" href="#s3" data-s="s3">📝 标题优化</a>
+      <a class="topnav-pill" href="#s4" data-s="s4">💡 新品破零</a>
+      <a class="topnav-pill" href="#s5" data-s="s5">🔍 店铺排查</a>
+      <a class="topnav-pill" href="#s6" data-s="s6">📋 类目指引</a>
+    </div>
+  </div>
+</div>
 
-    <section class="core">
-      <div class="tag">组织公告 <span>/ 内部同步</span></div>
+<div class="container">
 
-      <h1 class="headline" aria-label="组织架构调整">
-        <span class="ch"><i>组</i></span>
-        <span class="ch"><i>织</i></span>
-        <span class="ch"><i>架</i></span>
-        <span class="ch"><i>构</i></span>
-        <span class="ch"><i>调</i></span>
-        <span class="ch"><i>整</i></span>
-      </h1>
+<!-- ========== 一、开款方向 ========== -->
+<div class="section s1-section s1" id="s1">
+  <div class="section-header"><span class="section-num">1</span><h2>开款方向</h2></div>
+  <div class="section-body">
 
-      <div class="rule">
-        <span class="rule-line"></span>
-        <span class="rule-thread"></span>
-      </div>
+    <div class="sub-header" style="color:#1565C0;border-left-color:#1565C0;background:linear-gradient(90deg,#E3F2FD,transparent)"><span class="sh-deco">📂</span> 企划开款方向 <span class="sh-tip">— 点击各品类查看对应企划方向集合页，含款式图与关键词</span></div>
+    <div class="link-grid">
+      <a class="link-card" href="https://hazeshao-temu.github.io/GZ/" target="_blank"><span class="lc-icon">👖</span><span class="lc-title" style="display:inline">工装裤</span><div class="lc-desc" style="padding-left:0">工装裤企划方向</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/XX/" target="_blank"><span class="lc-icon">👖</span><span class="lc-title" style="display:inline">其他休闲裤</span><div class="lc-desc" style="padding-left:0">其他休闲裤企划方向</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/YD/" target="_blank"><span class="lc-icon">🏃</span><span class="lc-title" style="display:inline">运动裤</span><div class="lc-desc" style="padding-left:0">运动功能裤企划方向</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/WK/" target="_blank"><span class="lc-icon">👖</span><span class="lc-title" style="display:inline">卫裤</span><div class="lc-desc" style="padding-left:0">卫裤企划方向</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://github.com/hazeshao-temu/ST" target="_blank"><span class="lc-icon">🏖️</span><span class="lc-title" style="display:inline">沙滩裤</span><div class="lc-desc" style="padding-left:0">度假沙滩裤企划方向</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/JR/" target="_blank"><span class="lc-icon">🧥</span><span class="lc-title" style="display:inline">加绒保暖裤</span><div class="lc-desc" style="padding-left:0">加绒保暖裤企划方向</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/TSKX/" target="_blank"><span class="lc-icon">⭐</span><span class="lc-title" style="display:inline">特殊裤型</span><div class="lc-desc" style="padding-left:0">特殊裤型企划方向</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/YH/" target="_blank"><span class="lc-icon">🎨</span><span class="lc-title" style="display:inline">印花方向</span><div class="lc-desc" style="padding-left:0">印花企划方向</div><span class="lc-arrow">→</span></a>
+      <a class="link-card full" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=177431387807" target="_blank"><span class="lc-icon">📋</span><span class="lc-title" style="display:inline">开款方向问卷</span><div class="lc-desc" style="padding-left:0">点击填写开款方向问卷</div><span class="lc-arrow">→</span></a>
+    </div>
 
-      <p class="sub">后续对接 <span class="denim">牛仔</span> 相关类目</p>
-      <p class="sign">万仞山 <b>hazel.shao</b></p>
-    </section>
+    <div class="sub-header" style="color:#00695C;border-left-color:#00695C;background:linear-gradient(90deg,#E0F2F1,transparent)"><span class="sh-deco">📊</span> 去年同期+10月销售TOP款 <span class="sh-tip">— 点击查看去年同期销售数据与TOP款分析，辅助开款决策</span></div>
+    <div class="link-grid">
+      <a class="link-card full" href="https://hazeshao-temu.github.io/changkulishi/" target="_blank"><span class="lc-icon">📈</span><span class="lc-title" style="display:inline">去年同期+10月销售TOP款</span><div class="lc-desc" style="padding-left:0">查看去年同期销售数据与TOP款分析</div><span class="lc-arrow">→</span></a>
+    </div>
 
-    <footer class="foot">
-      <div class="swatch" aria-hidden="true">
-        <i class="sw1"></i><i class="sw2"></i><i class="sw3"></i><i class="sw4"></i>
-      </div>
-      <div class="caption">
-        <span class="wx">WeChat · 添加微信：<b>temu_wanrenshan</b></span>
-        Denim Category Line
-        <em>Indigo / Washed / Raw</em>
-      </div>
-    </footer>
-  </main>
+    <div class="sub-header" style="color:#6A1B9A;border-left-color:#6A1B9A;background:linear-gradient(90deg,#F3E5F5,transparent)"><span class="sh-deco">🔥</span> 在售爆款 <span class="sh-tip">— 点击查看当前在售爆款商品，了解市场热销趋势</span></div>
+    <div class="link-grid">
+      <a class="link-card full" href="https://hazeshao-temu.github.io/zaishou/" target="_blank"><span class="lc-icon">🛒</span><span class="lc-title" style="display:inline">在售爆款</span><div class="lc-desc" style="padding-left:0">查看当前在售爆款商品</div><span class="lc-arrow">→</span></a>
+    </div>
 
-  <div class="rail">Organization · Structure · Adjustment</div>
+    <div class="sub-header" style="color:#E65100;border-left-color:#E65100;background:linear-gradient(90deg,#FFF3E0,transparent)"><span class="sh-deco">🚀</span> 近期高转化新品 <span class="sh-tip">— 点击查看近期高转化新品数据，发现潜力爆款方向</span></div>
+    <div class="link-grid">
+      <a class="link-card full" href="https://hazeshao-temu.github.io/xinbaokuan" target="_blank"><span class="lc-icon">✨</span><span class="lc-title" style="display:inline">近期高转化新品</span><div class="lc-desc" style="padding-left:0">查看近期高转化新品数据</div><span class="lc-arrow">→</span></a>
+    </div>
+
+    <div class="sub-header" style="color:#C62828;border-left-color:#C62828;background:linear-gradient(90deg,#FFEBEE,transparent)"><span class="sh-deco">🏆</span> BSR稀缺款 <span class="sh-tip">— 点击查看BSR稀缺款分析，抢占竞争空白市场</span></div>
+    <div class="link-grid">
+      <a class="link-card full" href="https://hazeshao-temu.github.io/pantsBSR/" target="_blank"><span class="lc-icon">🥇</span><span class="lc-title" style="display:inline">BSR稀缺款</span><div class="lc-desc" style="padding-left:0">查看BSR稀缺款分析</div><span class="lc-arrow">→</span></a>
+    </div>
+
+    <div class="sub-header" style="color:#283593;border-left-color:#283593;background:linear-gradient(90deg,#E8EAF6,transparent)"><span class="sh-deco">📦</span> 招品回品 <span class="sh-tip">— 点击查看长裤招品回品指引，获取选品与回品策略</span></div>
+    <div class="link-grid">
+      <a class="link-card full" href="https://hazeshao-temu.github.io/zhaopin/" target="_blank"><span class="lc-icon">📦</span><span class="lc-title" style="display:inline">招品回品</span><div class="lc-desc" style="padding-left:0">长裤招品回品指引</div><span class="lc-arrow">→</span></a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== 二、视觉优化 ========== -->
+<div class="section s2-section s2" id="s2">
+  <div class="section-header"><span class="section-num">2</span><h2>视觉优化</h2></div>
+  <div class="section-body">
+
+    <div class="sub-header" style="color:#7B1FA2;border-left-color:#7B1FA2;background:linear-gradient(90deg,#F3E5F5,transparent)"><span class="sh-deco">🎨</span> 视觉优化工具 <span class="sh-tip">— 点击进入各视觉优化工具入口，快速优化商品主图/细节图视觉表现</span></div>
+    <div style="height:4px;border-radius:4px;background:linear-gradient(90deg,#7B1FA2,#AB47BC,#CE93D8);margin:0 0 14px"></div>
+    <div class="link-grid">
+      <a class="link-card" href="https://hazeshao-temu.github.io/shijue/" target="_blank"><span class="lc-icon">⚡</span><span class="lc-title" style="display:inline;color:#00838F">一键生成图片指令</span><div class="lc-desc" style="padding-left:0">AI图片指令快速生成工具</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=26245935985" target="_blank"><span class="lc-icon">🖼️</span><span class="lc-title" style="display:inline;color:#558B2F">主图优化</span><div class="lc-desc" style="padding-left:0">主图优化问卷入口</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=178472494036" target="_blank"><span class="lc-icon">🔎</span><span class="lc-title" style="display:inline;color:#AD1457">细节图优化</span><div class="lc-desc" style="padding-left:0">细节图优化问卷</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=181712494513" target="_blank"><span class="lc-icon">📢</span><span class="lc-title" style="display:inline;color:#4E342E">广告需求视觉</span><div class="lc-desc" style="padding-left:0">广告投放视觉需求</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=167088646066" target="_blank"><span class="lc-icon">🔑</span><span class="lc-title" style="display:inline;color:#4527A0">套关键词</span><div class="lc-desc" style="padding-left:0">拉美/北美关键词策略</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/chuanda/" target="_blank"><span class="lc-icon">👗</span><span class="lc-title" style="display:inline;color:#0277BD">穿搭效果图生成</span><div class="lc-desc" style="padding-left:0">欧美男士穿搭灵感海报</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/ICON/" target="_blank"><span class="lc-icon">⭕</span><span class="lc-title" style="display:inline;color:#C2185B">主图ICON生成</span><div class="lc-desc" style="padding-left:0">卖点ICON主图生成</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/detail/" target="_blank"><span class="lc-icon">📐</span><span class="lc-title" style="display:inline;color:#00796B">多小图细节展示</span><div class="lc-desc" style="padding-left:0">多小图细节展示生成</div><span class="lc-arrow">→</span></a>
+    </div>
+
+    <div class="sub-header" style="color:#558B2F;border-left-color:#558B2F;background:linear-gradient(90deg,#F1F8E9,transparent)"><span class="sh-deco">🖼️</span> 主图优化 — 按品类细分 <span class="sh-tip">— 点击对应裤型品类进入主图优化问卷</span></div>
+    <div style="height:4px;border-radius:4px;background:linear-gradient(90deg,#558B2F,#7CB342,#AED581);margin:0 0 14px"></div>
+    <div class="link-grid">
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171145246135" target="_blank"><span class="lc-icon">👖</span><span class="lc-title" style="display:inline">休闲裤-亚麻</span><div class="lc-desc" style="padding-left:0">主图优化</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171134391976" target="_blank"><span class="lc-icon">👖</span><span class="lc-title" style="display:inline">工装裤</span><div class="lc-desc" style="padding-left:0">主图优化</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171135901517" target="_blank"><span class="lc-icon">👖</span><span class="lc-title" style="display:inline">卫裤</span><div class="lc-desc" style="padding-left:0">主图优化</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171136356238" target="_blank"><span class="lc-icon">🏃</span><span class="lc-title" style="display:inline">运动裤/肌理长裤</span><div class="lc-desc" style="padding-left:0">主图优化</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171136356238" target="_blank"><span class="lc-icon">👔</span><span class="lc-title" style="display:inline">休闲裤-休闲西裤</span><div class="lc-desc" style="padding-left:0">主图优化</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://seller.kuajingmaihuo.com/questionnaire?surveyId=171151248913" target="_blank"><span class="lc-icon">👖</span><span class="lc-title" style="display:inline">休闲裤-其他</span><div class="lc-desc" style="padding-left:0">主图优化</div><span class="lc-arrow">→</span></a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== 三、标题优化 ========== -->
+<div class="section s3-section s3" id="s3">
+  <div class="section-header"><span class="section-num">3</span><h2>标题优化</h2></div>
+  <div class="section-body">
+    <div class="sub-header" style="margin-top:0"><span class="sh-deco">📌</span> <span class="sh-tip" style="font-size:.85rem;font-weight:400">点击进入标题生成工具，输入关键词自动拼装合规商品标题；点击关键词合集页查看TEMU+SHEIN双语关键词</span></div>
+    <div class="link-grid">
+      <a class="link-card" href="https://hazeshao-temu.github.io/pantstitle/" target="_blank"><span class="lc-icon">✏️</span><span class="lc-title" style="display:inline">一键生成标题</span><div class="lc-desc" style="padding-left:0">标题拼装生成工具</div><span class="lc-arrow">→</span></a>
+      <a class="link-card" href="https://hazeshao-temu.github.io/biaoti/" target="_blank"><span class="lc-icon">📚</span><span class="lc-title" style="display:inline">标题关键词</span><div class="lc-desc" style="padding-left:0">标题关键词合集页</div><span class="lc-arrow">→</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 四、新品破零操作指引 ========== -->
+<div class="section s4-section s4" id="s4">
+  <div class="section-header"><span class="section-num">4</span><h2>新品破零操作指引</h2></div>
+  <div class="section-body">
+    <div class="sub-header" style="margin-top:0"><span class="sh-deco">📌</span> <span class="sh-tip" style="font-size:.85rem;font-weight:400">点击查看新品破零方法论与操作步骤，帮助新品快速实现首单转化</span></div>
+    <div class="link-grid">
+      <a class="link-card full" href="https://hazeshao-temu.github.io/xinpinpo0/" target="_blank"><span class="lc-icon">💡</span><span class="lc-title" style="display:inline">新品破零操作指引</span><div class="lc-desc" style="padding-left:0">新品破零方法论与操作步骤</div><span class="lc-arrow">→</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 五、店铺流量异常排查 ========== -->
+<div class="section s5-section s5" id="s5">
+  <div class="section-header"><span class="section-num">5</span><h2>店铺流量异常排查</h2></div>
+  <div class="section-body">
+    <div class="sub-header" style="margin-top:0"><span class="sh-deco">📌</span> <span class="sh-tip" style="font-size:.85rem;font-weight:400">点击查看店铺流量异常排查指引，定位流量下跌原因并获取解决方案</span></div>
+    <div class="link-grid">
+      <a class="link-card full" href="https://hazeshao-temu.github.io/dianpu/" target="_blank"><span class="lc-icon">📊</span><span class="lc-title" style="display:inline">店铺流量异常排查</span><div class="lc-desc" style="padding-left:0">流量下跌原因排查与解决方案</div><span class="lc-arrow">→</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 六、类目指引 ========== -->
+<div class="section s6-section s6" id="s6">
+  <div class="section-header"><span class="section-num">6</span><h2>类目指引</h2></div>
+  <div class="section-body">
+    <div class="sub-header" style="margin-top:0"><span class="sh-deco">📌</span> <span class="sh-tip" style="font-size:.85rem;font-weight:400">下方为各裤型类目路径指引，括号内为关键说明，上架时请注意类目适配度</span></div>
+
+    <div class="cat-box">
+      <h3>👖 长裤 — 秋冬强势类目，四季常青</h3>
+      <div class="cat-item"><span class="cat-name">【休闲裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男装长裤 &gt; 男士休闲裤</span><span class="cat-note">所有裤型均可上</span></div>
+      <div class="cat-item"><span class="cat-name">【工装裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士工装裤</span><span class="cat-note">转化好</span></div>
+      <div class="cat-item"><span class="cat-name">【户外/战术裤】</span><span class="cat-path">运动与户外用品 &gt; 户外休闲 &gt; 徒步和户外休闲服装 &gt; 男士户外服饰 &gt; 男士户外长裤</span><span class="cat-note">搭配视觉动销好</span></div>
+      <div class="cat-item"><span class="cat-name">【运动裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士休闲运动长裤 &gt; 男士运动长裤<br>运动与户外用品 &gt; 健身、训练用品 &gt; 健身服 &gt; 男士 &gt; 男士休闲运动长裤 &gt; 男士运动长裤</span><span class="cat-note">注意场景与类目适配度</span></div>
+      <div class="cat-item"><span class="cat-name">【廓形休闲裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士休闲运动长裤 &gt; 男士宽松运动长裤</span></div>
+      <div class="cat-item"><span class="cat-name">【跑步长裤】</span><span class="cat-path">运动与户外用品 &gt; 健身、训练用品 &gt; 跑步 &gt; 服装 &gt; 男士跑步服 &gt; 男士跑步长裤 &gt; 运动裤</span></div>
+      <div class="cat-item"><span class="cat-name">【高尔夫裤】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 体育专用服装 &gt; 高尔夫服 &gt; 男士高尔夫服 &gt; 男士高尔夫长裤</span><span class="cat-note">消费者需求高</span></div>
+      <div class="cat-item"><span class="cat-name">【马术裤】</span><span class="cat-path">运动与户外用品 &gt; 运动服装和器材 &gt; 团队运动 &gt; 马术体育用品 &gt; 服装 &gt; 男士马术服 &gt; 男士马术裤</span><span class="cat-note">不卡克重和尺码</span></div>
+      <div class="cat-item"><span class="cat-name">【新奇版型】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 新奇物品 &gt; 新奇服装和产品 &gt; 新奇服装 &gt; 男士新奇服装 &gt; 男士新奇长裤</span><span class="cat-note">新奇特额外加权</span></div>
+      <div class="cat-item"><span class="cat-name">【骑行裤】</span><span class="cat-path">运动与户外用品 &gt; 户外休闲 &gt; 骑行用品 &gt; 服装 &gt; 男士骑行服 &gt; 男士骑行裤装 &gt; 男士骑行长裤</span></div>
+      <div class="cat-item"><span class="cat-name">【长裤/短裤】</span><span class="cat-path">运动与户外用品 &gt; 运动户外服饰 &gt; 男士运动户外服饰 &gt; 男士运动休闲短裤和长裤 &gt; 男士运动休闲裤 &gt; 徒步和户外休闲</span><span class="cat-note">长短都可上</span></div>
+    </div>
+
+    <div class="cat-box" style="margin-top:16px">
+      <h3>🩳 紧身/打底 — 标题需加上"打底压缩"</h3>
+      <div class="note-box"><span>⚠️</span><span>紧身/打底类目商品标题必须包含 <span class="bold">"打底压缩"</span> 四个字</span></div>
+      <div class="cat-item"><span class="cat-name">【T恤背心】</span><span class="cat-path">运动与户外用品 &gt; 运动户外服饰 &gt; 男士运动户外服饰 &gt; 贴身衣和压缩衣 &gt; 男士运动上衣<br>服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士打底和压缩单品 &gt; 男士运动上衣</span></div>
+      <div class="cat-item"><span class="cat-name">【短裤】</span><span class="cat-path">运动与户外用品 &gt; 健身、训练用品 &gt; 健身服 &gt; 男士 &gt; 男士打底和压缩单品 &gt; 男士运动短裤</span></div>
+      <div class="cat-item"><span class="cat-name">【套装】</span><span class="cat-path">服装、鞋靴和珠宝饰品 &gt; 男士时尚 &gt; 男装 &gt; 男士休闲运动服 &gt; 男士贴身运动衣 &gt; 男士贴身套装</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="ft-name">万仞山对接类目上新指引</div>
+  <p>内容仅供参考，不构成任何法律意见或建议，若有使用疑问联系万仞山 hazel.shao</p>
+</div>
+
+</div>
+
+<script>
+// 点击导航跳转
+document.querySelectorAll('.topnav-pill').forEach(pill=>{
+  pill.addEventListener('click',function(e){
+    e.preventDefault();
+    const href=this.getAttribute('href');
+    if(href&&href.startsWith('#')){
+      const t=document.getElementById(href.slice(1));
+      if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  });
+});
+// 滚动联动高亮
+window.addEventListener('scroll',function(){
+  const pills=document.querySelectorAll('.topnav-pill');
+  const sections=document.querySelectorAll('.section');
+  const navH=document.querySelector('.topnav').offsetHeight;
+  let cur='';
+  sections.forEach(s=>{if(window.pageYOffset>=s.offsetTop-navH-20) cur=s.id;});
+  pills.forEach(p=>{
+    const href=p.getAttribute('href');
+    p.classList.toggle('active',href&&href==='#'+cur);
+  });
+  // Update active pill color based on current section
+  const activePill=document.querySelector('.topnav-pill.active');
+  if(activePill){
+    const s=activePill.getAttribute('data-s');
+    const colorMap={'s1':'#1565C0','s2':'#7B1FA2','s3':'#00695C','s4':'#E65100','s5':'#C62828','s6':'#5D4037'};
+  }
+});
+// 初始高亮第一个
+document.querySelector('.topnav-pill').classList.add('active');
+</script>
 </body>
 </html>
