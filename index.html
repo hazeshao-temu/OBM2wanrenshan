@@ -37,6 +37,29 @@
     font-size:12.5px;padding:5px 13px;border-radius:999px;
     background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
   }
+  .hero-tools{margin-top:20px;position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:10px;}
+  .hero-box{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:10px 16px;border-radius:11px;text-decoration:none;
+    background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.36);
+    color:#fff;font-size:13.5px;font-weight:800;letter-spacing:.2px;
+    backdrop-filter:blur(4px);transition:all .18s ease;
+  }
+  .hero-box:hover{
+    background:rgba(255,255,255,.26);border-color:rgba(255,255,255,.66);
+    transform:translateY(-1px);box-shadow:0 8px 20px rgba(8,18,32,.28);
+  }
+  .hero-box .hb-k{
+    font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px;
+    background:rgba(255,255,255,.22);letter-spacing:.06em;
+  }
+  .hero-box .hb-arrow{font-size:14px;opacity:.85;}
+  @media (min-width:1320px){
+    .hero-tools{
+      position:absolute;right:36px;bottom:30px;margin:0;
+      display:block;
+    }
+  }
 
   /* ===== 三框网格 ===== */
   .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;}
@@ -158,6 +181,8 @@
   }
   .c-chino   .tool-hint{color:#4E6C8A;}
   .c-chino   .tool-hint::before{background:#A9C6E2;}
+  .c-golf    .tool-hint{color:#4C6B4E;}
+  .c-golf    .tool-hint::before{background:#B7D6B9;}
   .c-chino   .tool.live{background:var(--chino-l);color:var(--chino-d);border-color:#C7DEF5;}
   .c-chino   .tool.live:hover{background:#D8E9F9;}
   .c-golf    .tool.live{background:var(--golf-l);color:var(--golf-d);border-color:#CDE6CE;}
@@ -180,6 +205,13 @@
       <span class="chip">👖 Chino 长裤 · 搜索高 / 需求高 / 转化好</span>
       <span class="chip">⛳ 高尔夫长裤 · 搜索高 / 点击高</span>
       <span class="chip">🧵 背带裤·连体裤 · 竞争小 / 需求高</span>
+    </div>
+    <div class="hero-tools">
+      <a class="hero-box" href="https://hazeshao-temu.github.io/chimayuncha/" target="_blank" rel="noopener">
+        <span class="hb-k">自查</span>
+        <span>📐 尺码允差自查表</span>
+        <span class="hb-arrow">→</span>
+      </a>
     </div>
   </div>
 
@@ -271,9 +303,10 @@
       </div>
       <div class="card-foot">
         <div class="tools">
-          <span class="tool pending">
-            <span class="t-left">📊 开款需求</span><span class="tag">待上线</span>
-          </span>
+          <a class="tool live" href="https://hazeshao-temu.github.io/golf-bsr/" target="_blank" rel="noopener">
+            <span class="t-left">📊 开款需求</span><span class="arrow">→</span>
+          </a>
+          <div class="tool-hint">高尔夫稀缺款</div>
           <a class="tool live" href="https://hazeshao-temu.github.io/golf-photo/" target="_blank" rel="noopener">
             <span class="t-left">🖼️ 图片优化工具</span><span class="arrow">→</span>
           </a>
@@ -312,22 +345,19 @@
       </div>
       <div class="card-foot">
         <div class="tools">
-          <span class="tool pending">
-            <span class="t-left">📊 开款需求</span><span class="tag">待上线</span>
-          </span>
-          <span class="tool pending">
-            <span class="t-left">🖼️ 图片优化工具</span><span class="tag">待上线</span>
-          </span>
-          <span class="tool pending">
-            <span class="t-left">🔥 在售爆款</span><span class="tag">待上线</span>
-          </span>
+          <a class="tool live" href="https://hazeshao-temu.github.io/overall-bsr/" target="_blank" rel="noopener">
+            <span class="t-left">📊 开款需求</span><span class="arrow">→</span>
+          </a>
+          <a class="tool live" href="https://hazeshao-temu.github.io/overall/" target="_blank" rel="noopener">
+            <span class="t-left">🧵 常规裤子直接加背带参考</span><span class="arrow">→</span>
+          </a>
         </div>
       </div>
     </section>
 
   </div>
 
-  <div class="note">标注「待上线」的入口将陆续补充，做好后替换为可点击链接；点击图片可放大查看。</div>
+  <div class="note">点击图片可放大查看；页面内所有入口均已可点击。</div>
 
 </div>
 
